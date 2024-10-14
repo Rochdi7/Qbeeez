@@ -1,0 +1,31 @@
+/* sidebar.scss */
+
+/* Define variables */
+$sidebar-bg-color: #2c3e50;
+$sidebar-text-color: #ecf0f1;
+$font-size-default: 16px;
+
+/* Nesting example */
+#sidebar-wrapper {
+  background-color: $sidebar-bg-color;
+  color: $sidebar-text-color;
+  padding: 20px;
+
+  #sidebar-btn {
+    background-color: lighten($sidebar-bg-color, 10%);
+    font-size: $font-size-default;
+
+    &:hover {
+      background-color: darken($sidebar-bg-color, 10%);
+    }
+  }
+
+  .sidebar-menu.active {
+    display: block;
+  }
+
+  body.dark-mode {
+    background-color: #121212;
+    color: #f1f1f1;
+  }
+}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Abonnements Actifs | {% trans 'Système de Gestion de l'Apprentissage' %}{% endblock title %}
+
+{% block content %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Abonnements Actifs' %}</li>
+    </ol>
+</nav>
+
+<div class="title-1"><i class="fas fa-check-circle"></i>{% trans 'Abonnements Actifs' %}</div>
+<br>
+
+<div class="row mt-4">
+    {% for abonnement in abonnements %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ abonnement.program.get_absolute_url }}" class="text-dark">{{ abonnement.program.title }}</a>
+                </h5>
+                <p class="card-text">{% trans 'Type d\'Abonnement' %}: {{ abonnement.abonnement_type }}</p>
+                <p class="card-text">{% trans 'Statut' %}: {{ abonnement.status }}</p>
+                <p class="card-text">{% trans 'Créé le' %}: {{ abonnement.created_at }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-warning">
+            <span class="text-danger">
+                {% trans 'Aucun abonnement actif.' %}
+            </span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

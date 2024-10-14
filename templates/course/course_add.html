@@ -1,0 +1,93 @@
+{% extends 'base.html' %}  
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}{{ title }} | {% trans 'Système de gestion de l’apprentissage' %}{% endblock title %}
+
+{% block content %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programmes' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Ajouter un cours' %}</li>
+    </ol>
+</nav>
+
+<div class="title-1">{% trans 'Ajouter un cours' %}</div>
+<br>
+<br>
+
+{% include 'snippets/messages.html' %}
+
+<form action="" method="POST" id="course-form">{% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <p class="form-title">{% trans 'Détails du cours' %}</p>
+                <div class="p-3">
+                    {{ course_form.title|as_crispy_field }}
+                    {{ course_form.code|as_crispy_field }}
+                    {{ course_form.summary|as_crispy_field }}
+                    {{ course_form.program|as_crispy_field }}
+                    {{ course_form.credit|as_crispy_field }}
+                    {{ course_form.year|as_crispy_field }}
+                    {{ course_form.course_type|as_crispy_field }}  <!-- Kept this line, removed level and semester -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <p class="form-title">{% trans 'Détails du sous-module' %}</p>
+                <div id="subcourse-forms" class="p-3">
+                    <div class="subcourse-form">
+                        <input type="text" name="subcourse_title" placeholder="{% trans 'Titre du sous-module' %}" class="form-control">
+                        <input type="text" name="subcourse_description" placeholder="{% trans 'Description du sous-module' %}" class="form-control">
+                        <button type="button" class="add-subcourse btn btn-primary">{% trans 'Ajouter sous-module' %}</button>
+                    </div>
+                </div>
+                <div id="subcourse-list" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+    
+    <input class="btn btn-primary mt-3" type="submit" value="{% trans 'Enregistrer' %}">
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addSubcourseBtn = document.querySelector('.add-subcourse');
+        const subcourseList = document.querySelector('#subcourse-list');
+
+        // Handle adding a new subcourse to the list
+        addSubcourseBtn.addEventListener('click', function() {
+            const titleInput = document.querySelector('input[name="subcourse_title"]');
+            const descriptionInput = document.querySelector('input[name="subcourse_description"]');
+
+            if (titleInput.value && descriptionInput.value) {
+                const newSubcourse = document.createElement('div');
+                newSubcourse.className = 'subcourse-item';
+                newSubcourse.innerHTML = `
+                    <p><strong>${titleInput.value}</strong>: ${descriptionInput.value}</p>
+                    <button type="button" class="remove-subcourse btn btn-danger">{% trans 'Retirer' %}</button>
+                    <input type="hidden" name="subcourses[]" value="${titleInput.value}|${descriptionInput.value}">
+                `;
+                subcourseList.appendChild(newSubcourse);
+
+                // Clear the input fields
+                titleInput.value = '';
+                descriptionInput.value = '';
+            }
+        });
+
+        // Handle removing a subcourse from the list
+        subcourseList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-subcourse')) {
+                e.target.closest('.subcourse-item').remove();
+            }
+        });
+    });
+</script>
+
+{% endblock content %}

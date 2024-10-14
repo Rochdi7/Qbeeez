@@ -1,0 +1,821 @@
+.intro-section {
+    padding: 3rem 1rem; /* Adjust padding for top/bottom and left/right */
+    background-color: rgba(0, 128, 128, 0.1); /* Light background based on main color */
+}
+
+.intro-title {
+    font-size: 2.5rem; /* Larger font size for the title */
+    color: #008080; /* Main color for the title */
+    text-align: center; /* Center align the title */
+    margin-bottom: 1rem; /* Space below the title */
+    font-weight: 700; /* Bold font weight */
+    text-transform: uppercase; /* Uppercase for emphasis */
+}
+
+.intro-text {
+    font-size: 1.15rem; /* Font size for the paragraph */
+    color: #333; /* Darker color for better readability */
+    text-align: center; /* Center align the text */
+    line-height: 1.6; /* Improve line spacing for readability */
+    margin-bottom: 2rem; /* Space below the paragraph */
+    max-width: 800px; /* Limit width for better readability */
+    margin-left: auto; /* Center the paragraph */
+    margin-right: auto; /* Center the paragraph */
+}
+
+.btn-primary {
+    display: inline-block; /* Make the button inline-block */
+    background-color: #008080; /* Main color for button */
+    color: #fff; /* White text for contrast */
+    padding: 0.75rem 1.5rem; /* Padding for the button */
+    border-radius: 25px; /* Rounded corners for a modern look */
+    font-size: 1rem; /* Font size for the button */
+    text-align: center; /* Center align the text in the button */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.btn-primary:hover {
+    background-color: #006060; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+.flex-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between items */
+    align-items: flex-start; /* Align items to the top */
+    margin-top: 2rem; /* Space between the intro text and the flex container */
+}
+
+.computer-image {
+    flex: 1; /* Take equal space */
+    text-align: center; /* Center align the content */
+    max-width: 70%; /* Limit width to make it smaller */
+    margin-right: 2rem; /* Add space between video and grid */
+}
+
+.features-grid {
+    flex: 1; /* Take equal space */
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 2rem; /* Space between grid items */
+    margin-top: 2rem; /* Add margin to the top of the grid for spacing */
+}
+
+.feature-item {
+    text-align: center; /* Center align text for all feature items */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.feature-item:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.feature-item img {
+    max-width: 4rem; /* Reduce size of SVG icons */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.feature-item img:hover {
+    transform: scale(1.1); /* Slightly enlarge icon on hover */
+}
+
+.feature-item h3 {
+    font-size: 1.5rem; /* Increase font size for h3 */
+    color: #008080; /* Main color for headers */
+    font-weight: 600; /* Make header bold */
+    margin-bottom: 0.5rem; /* Space below header */
+}
+
+.feature-item p {
+    font-size: 0.95rem; /* Adjust paragraph font size */
+    color: #555; /* Darker text for better contrast */
+    margin: 0; /* Reset margin */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column; /* Stack items on smaller screens */
+    }
+
+    .computer-image,
+    .features-grid {
+        flex: none; /* Reset flex on smaller screens */
+        margin-bottom: 2rem; /* Space between stacked items */
+    }
+
+    .intro-title {
+        font-size: 2rem; /* Reduce font size for smaller screens */
+    }
+
+    .intro-text {
+        font-size: 1rem; /* Reduce font size for smaller screens */
+    }
+
+    .btn-primary {
+        font-size: 0.9rem; /* Reduce button font size for smaller screens */
+    }
+}
+/* Modal Container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.8); /* Black with opacity */
+    backdrop-filter: blur(5px); /* Add blur effect for better focus */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #ffffff; /* White background for the content */
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    width: 90%; /* Full width with some padding */
+    max-width: 600px; /* Limit the width */
+}
+
+/* Close Button */
+.close {
+    color: #008080; /* Main color */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #005757; /* Darker shade on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style for iframe */
+#videoFrame {
+    width: 100%; /* Full width of modal */
+    height: 315px; /* Set height */
+    border: none; /* Remove default border */
+    border-radius: 10px; /* Rounded corners for iframe */
+}
+
+/* Modal Title */
+.modal-title {
+    font-size: 1.5rem; /* Title font size */
+    color: #008080; /* Title color */
+    margin-bottom: 15px; /* Space below title */
+    text-align: center; /* Center align the title */
+}
+
+/* Overlay Animation */
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Show modal */
+.modal.show {
+    display: block; /* Show modal */
+    animation: modalFadeIn 0.3s; /* Fade-in effect */
+}
+
+/* Hide modal */
+.modal.hide {
+    animation: modalFadeOut 0.3s; /* Fade-out effect */
+    display: block; /* Ensure display */
+}
+
+/*fonction*/
+/* Fonctionnalités Section Styles */
+/* Fonctionnalités Section */
+/* Fonctionnalités Section */
+.fonct-section {
+    padding: 60px 0;
+    background-color: #f8f9fa; /* Light background color */
+}
+
+.fonct-title {
+    font-size: 2.5rem;
+    color: #008080; /* Your main color */
+    margin-bottom: 20px;
+    text-align: center; /* Center align title */
+}
+
+.fonct-description {
+    font-size: 1.2rem;
+    color: #555; /* Darker gray for text */
+    margin-bottom: 40px;
+    text-align: center; /* Center align description */
+}
+
+#featureImageDisplay {
+    margin-bottom: 40px;
+}
+
+.feature-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.fonct-slider {
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center; /* Center items within the slider */
+}
+
+.nav-button {
+    background-color: #008080; /* Your main color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #006666; /* Darker shade on hover */
+}
+
+.fonct-grid {
+    display: flex;
+    transition: transform 0.3s ease;
+    justify-content: center; /* Center the grid of items */
+    flex-wrap: wrap; /* Allow wrapping of items */
+    width: 100%; /* Full width */
+}
+
+.fonct-item {
+    flex: 0 0 20%; /* Each item takes up 1/5 of the width on desktop */
+    padding: 20px; /* Increased padding for a more spacious look */
+    text-align: left; /* Align text to the left */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Added transition for box-shadow */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #fff; /* White background for items */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    margin: 10px; /* Space between items */
+}
+
+.fonct-item:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.fonct-item img {
+    max-width: 30px; /* Smaller size for the SVG icon */
+    height: auto;
+    margin-right: 10px; /* Space between image and text */
+}
+
+.fonct-item h3 {
+    margin: 0; /* Remove margin for better alignment */
+    font-size: 1.2rem;
+    color: #008080; /* Your main color */
+    display: flex; /* Flex for better alignment */
+    align-items: center; /* Center vertically */
+}
+
+.fonct-item p {
+    font-size: 0.9rem;
+    color: #666; /* Gray for description text */
+    margin-top: 5px; /* Add space above description */
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .fonct-item {
+        flex: 0 0 33.33%; /* 3 items per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .fonct-item {
+        flex: 0 0 50%; /* 2 items per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .fonct-item {
+        flex: 0 0 100%; /* 1 item per row on very small screens */
+    }
+}
+
+/* pricing section*/
+/* General section styling */
+.pricing-section {
+    padding: 3rem 0;
+    background-color: #f9f9f9; /* Light background to highlight the cards */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Flex layout for the cards */
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.md\:gap-7 {
+    gap: 1.75rem;
+}
+
+.gap-5 {
+    gap: 1.25rem;
+}
+
+.md\:flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+/* Individual pricing card styles */
+.pricing-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    padding: 2rem;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Base colors and text */
+.bg-white {
+    background-color: #ffffff;
+}
+
+.bg-green {
+    background-color: #008080; /* Your main color */
+}
+
+.text-gray-500 {
+    color: #6B7280;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+/* Headings and text */
+.text-lg {
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.text-base {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.font-light {
+    font-weight: 300;
+}
+
+.opacity-80 {
+    opacity: 0.8;
+}
+
+/* Spacing */
+.mb-7 {
+    margin-bottom: 1.75rem;
+}
+
+.mb-10 {
+    margin-bottom: 2.5rem;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.py-10 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+}
+
+/* Icons */
+.swiped-icon {
+    display: inline-flex;
+    margin-left: 0.5rem;
+}
+
+.fa-arrow-right {
+    font-size: 0.875rem;
+    color: inherit;
+}
+
+/* Responsive Design for Small Screens (390x844) */
+@media (max-width: 390px) {
+    .pricing-card {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        font-size: 0.9rem; /* Decrease text size for better readability on small screens */
+    }
+    
+    .text-lg {
+        font-size: 1rem; /* Decrease heading size */
+    }
+
+    .text-2xl {
+        font-size: 1.25rem; /* Decrease price font size */
+    }
+
+    .main-button {
+        padding: 0.5rem 1rem; /* Reduce button size */
+        font-size: 0.9rem;
+    }
+
+    .swiped-icon {
+        margin-left: 0.3rem;
+        font-size: 0.75rem; /* Reduce icon size */
+    }
+
+    /* Flex layout adjustments */
+    .flex {
+        flex-direction: column; /* Stack cards vertically on small screens */
+    }
+    
+    .pricing-card .fa-arrow-right {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 391px) and (max-width: 768px) {
+    .pricing-card {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    .text-lg {
+        font-size: 1.25rem;
+    }
+
+    .text-2xl {
+        font-size: 1.5rem;
+    }
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+    .md\:min-h-[33.3rem] {
+        min-height: 33.3rem;
+    }
+    
+    .md\:min-h-[40rem] {
+        min-height: 40rem;
+    }
+    
+    .md\:w-[30%] {
+        width: 30%;
+    }
+    
+    .md\:w-[34%] {
+        width: 34%;
+    }
+}
+/* Button styles */
+.main-button {
+    background-color: #008080; /* Your main color */
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.main-button:hover {
+    opacity: 0.9;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.button-light {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.button-primary {
+    background-color: #008080; /* Your main color */
+    color: white;
+}
+
+.button-fillable {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.button-md {
+    font-size: 1rem;
+}
+
+.button-bordered {
+    border: 2px solid #008080; /* Set the border color */
+    color: #008080; /* Ensure the text color is your main color */
+}
+
+.pricing-btn-focused {
+    border-color: white; /* Ensure the border is visible */
+    background-color: transparent;
+    color: white; /* Ensure text color is white */
+}
+
+/* Icons inside buttons */
+.swiped-icon {
+    display: inline-flex;
+    margin-left: 0.5rem;
+    color: inherit; /* Make sure it inherits the text color */
+}
+
+.fa-arrow-right {
+    font-size: 0.875rem;
+    color: inherit; /* Inherit color to make icon match text */
+}
+
+/* Hover effect */
+.hover\:opacity-90:hover {
+    opacity: 0.9;
+}
+
+.hover\:shadow-md:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design for Small Screens (390x844) */
+@media (max-width: 390px) {
+    .main-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .swiped-icon {
+        margin-left: 0.3rem;
+        font-size: 0.75rem; /* Reduce icon size */
+    }
+}
+
+.initials-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #008080; /* Your main color */
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-transform: uppercase;
+}
+
+/* FAQ Section Container */
+.faq-section {
+    padding: 4rem 0;
+}
+
+.faq-title-container {
+    max-width: 103.3rem;
+    margin: 0 auto;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.faq-title {
+    font-weight: bold;
+    font-size: 1.66rem;
+    color: #212B36;
+    margin-bottom: 1rem;
+}
+
+.faq-subtitle {
+    color: #637381;
+    font-size: 1rem;
+    max-width: 40.5rem;
+    margin: 0 auto;
+}
+
+.faq-content {
+    margin-top: 2.5rem;
+    max-width: 90rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2.5rem;
+}
+
+.faq-item {
+    width: 100%;
+    max-width: calc(50% - 81px);
+    background-color: transparent;
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    cursor: pointer;
+    position: relative;
+    font-weight: bold;
+}
+
+.faq-answer {
+    padding: 1rem 0;
+    display: none;
+    color: #637381;
+}
+
+.faq-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+}
+
+/* Active/Expanded FAQ Question */
+.faq-question.active + .faq-answer {
+    display: block;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .faq-content {
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .faq-title {
+        font-size: 2.53rem;
+    }
+
+    .faq-subtitle {
+        font-size: 1.25rem;
+    }
+}
+
+/* General underline effect for both links */
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: #fff; /* Text color */
+    padding-bottom: 5px; /* Space for the underline */
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #008080; /* Stylish color for the underline */
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease-in-out; /* Smooth animation */
+}
+
+.nav-link:hover::after {
+    width: 100%; /* Full width on hover */
+}
+
+/* Specific border for the "S'inscrire" link */
+#nav-link-signup {
+    border: 2px solid #008080; /* Teal border around the link */
+    padding: 5px 15px; /* Add some padding inside the border */
+    border-radius: 5px; /* Rounded corners for the border */
+    transition: border-color 0.3s ease-in-out;
+}
+
+/* Optional hover effect for the border */
+#nav-link-signup:hover {
+    border-color: #ffffff; /* Slightly lighter border color on hover */
+}
+#nav-link-login {
+    border: 2px solid transparent; /* No initial border */
+    padding: 5px 15px; /* Add some padding */
+    transition: var(--transition-default); /* Smooth transition */
+}
+
+#nav-link-login:hover {
+    border-color: var(--clr-light-teal); /* Light teal border on hover */
+    color: var(--clr-light-teal); /* Change text color to match */
+}
+
+#nav-link-login:active {
+    border-color: var(--clr-white); /* White border when active (clicked) */
+    color: var(--clr-white); /* Text turns white when active */
+}
+
+#nav-link-signup:active {
+    border-color: #005050; /* Darker color when clicked */
+}
+
+/* Styling for the h2 heading */
+.pricing-section h2 {
+    font-family: var(--font-family-mulish);
+    font-weight: 700; /* Bold */
+    font-size: 2rem; /* Adjust size for mobile */
+    line-height: 1.3;
+    color: var(--clr-dark-blue); /* Dark teal for contrast */
+    text-align: center;
+    margin-bottom: 1rem; /* Space below the heading */
+    transition: var(--transition-default); /* Smooth transition */
+}
+
+/* Adjust font size for larger screens */
+@media (min-width: 1024px) {
+    .pricing-section h2 {
+        font-size: 2.53rem; /* Larger font for desktop */
+    }
+}
+
+/* Styling for the paragraph */
+.pricing-section p {
+    font-family: var(--font-family-mulish);
+    color: var(--clr-gray); /* Light gray for subtle contrast */
+    font-size: 1rem; /* Base size */
+    line-height: 1.6;
+    max-width: 40.5rem;
+    margin: 0 auto 2rem auto; /* Center align with space below */
+    text-align: center;
+    transition: var(--transition-default); /* Smooth transition */
+}
+
+/* Adjust font size for larger screens */
+@media (min-width: 1024px) {
+    .pricing-section p {
+        font-size: 1.125rem; /* Slightly bigger on desktop */
+    }
+}
+.btn-tester {
+    color: white; /* White text color */
+    border: 2px solid white; /* Darker teal border */
+    padding: 10px 20px; /* Padding for button */
+    border-radius: 54px; /* Rounded corners */
+    font-weight: 700; /* Bold text */
+    font-size: 18px; /* Font size */
+    transition: var(--transition-default); /* Smooth transition */
+    display: inline-flex; /* Flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    margin-bottom: 10px;
+}
+
+.btn-tester:hover {
+    background-color: white; /* Darker shade on hover */
+    color: #008080; /* Keep text color white on hover */
+    border-color: white; /* Even darker border on hover */
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px; /* Shadow effect on hover */
+}
+
+.logo-image {
+    height: 120px; /* Adjust this height as needed */
+    width: auto; /* Maintain aspect ratio */
+    max-width: 240px; /* Optional: max width for responsiveness */
+}

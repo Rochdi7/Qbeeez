@@ -1,0 +1,243 @@
+/* Guide Modal */
+.guide-modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Dark overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  /* Ensure it's on top */
+}
+
+.guide-content {
+  background: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 90vw;
+  /* Adjust width for smaller screens */
+  height: auto;
+  max-height: 80vh;
+  /* Adjust height for smaller screens */
+  overflow-y: auto;
+  position: relative;
+  /* Important for absolute positioning of nav buttons */
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  /* Include padding and border in the element's total width and height */
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.guide-header {
+  font-size: 20px;
+  /* Adjusted for mobile */
+  margin-bottom: 15px;
+  /* Adjusted for mobile */
+  text-align: center;
+}
+
+.guide-slides {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 60px);
+  /* Adjust for header and navigation buttons */
+  position: relative;
+}
+
+.guide-slide {
+  display: none;
+  /* Hide all slides by default */
+  flex-direction: column;
+  margin-bottom: 15px;
+  /* Adjusted for mobile */
+}
+
+.guide-slide.active {
+  display: flex;
+}
+
+.guide-title {
+  font-size: 18px;
+  /* Adjusted for mobile */
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.guide-body {
+  display: flex;
+  flex-direction: row;
+  /* Image on left, text on right */
+  gap: 10px;
+  /* Gap between image and text */
+  align-items: flex-start;
+  /* Align items to the top */
+}
+
+.guide-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.guide-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.guide-text {
+  flex: 2;
+  font-size: 14px;
+  /* Adjusted for mobile */
+  text-align: justify;
+}
+
+.nav-btn {
+  background: #20A8A8;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  /* Adjusted for mobile */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  /* Ensure navigation buttons are on top */
+}
+
+.nav-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+.nav-btn.prev {
+  left: 10px;
+  /* Positioning from the left */
+}
+
+.nav-btn.next {
+  right: 25px;
+  /* Positioning from the right */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .guide-content {
+    width: 95%;
+    max-width: 95vw;
+    height: auto;
+    max-height: 90vh;
+    /* Increase max-height for better mobile view */
+    padding: 10px;
+  }
+
+  .guide-header {
+    font-size: 18px;
+  }
+
+  .guide-title {
+    font-size: 16px;
+  }
+
+  .guide-body {
+    flex-direction: column;
+    /* Stack image and text vertically on mobile */
+    gap: 5px;
+    /* Adjust gap for mobile */
+  }
+
+  .guide-image {
+    margin-bottom: 10px;
+    flex: none;
+  }
+
+  .guide-text {
+    font-size: 12px;
+    /* Smaller font-size for mobile */
+  }
+
+  .nav-btn {
+    font-size: 14px;
+    /* Adjust font-size for mobile */
+    padding: 6px;
+    /* Adjust padding for mobile */
+  }
+}
+
+/* Assuming this is in your main CSS file or a separate file loaded in base.html */
+#slide-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 20rem;
+  /* Adjust as needed */
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease-in-out;
+}
+
+#slide-panel.translate-x-full {
+  transform: translateX(100%);
+}
+
+#slide-panel .btn-trigger {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #20A8A8;
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+#slide-panel .btn-trigger:hover {
+  background-color: #009999;
+}
+
+#slide-panel .fa-close {
+  cursor: pointer;
+}
+
+
+/* Slider Styling */
+.slider {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  /* Initially hidden, off-screen to the right */
+  width: 300px;
+  height: 100%;
+  background-color: #008080;
+  /* Teal background */
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease;
+  padding: 20px;
+  color: white;
+  z-index: 1000;
+}
+
+.slider.open {
+  right: 0;
+  /* Slide in when class "open" is added */
+}

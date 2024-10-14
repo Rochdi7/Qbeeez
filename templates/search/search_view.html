@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Résultat de recherche pour' %} {{ query }} | {% trans 'Système de gestion de l’apprentissage' %}{% endblock title %}
+
+{% load class_name %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Recherche' %}</li>
+    </ol>
+</nav>  
+
+<style>
+    .session-wrapper{position: relative;}
+    .session{position: absolute; top: -15px; right: 25px; z-index: 2;}
+    .br-orange{border: 1px solid #fd7e14; border-radius: 7px;}
+    .class-item {
+        display: block;
+        border-left: 4px solid #6cbd45; 
+        padding: 1rem !important;
+        background: #f8f9fa;
+        border-radius: 3px;
+        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+        transition: .5s;
+    }
+    .class-item p{padding: 2px; margin: 0; color: #b4b4b4; transition: .5s;}
+    .class-item a{padding: 2px; color: #343a40; text-decoration: none; transition: .5s;}
+    .class-item:hover{
+        transform: translateX(15px);
+        background: #6cbd45;
+    }
+    .class-item:hover h4 a {
+      color: #fff; }
+    .class-item:hover p, .class-item:hover span {
+      color: rgb(158, 239, 119); 
+    }
+</style>
+
+<div class="card p-3" style="box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3); border-radius: 10px;">
+    <h5 class="text-muted m-0">{{ count }} {% trans 'résultat' %}{{ count|pluralize }} {% trans 'pour' %} <b><em class="text-orange"> {{ query }}</em></b></h5>
+    <hr>
+    {% for object in object_list %}
+        {% with object|class_name as klass %}
+        {% if klass == "Program" %}
+            <div class="session-wrapper">
+                <div class="session"><div class="info-text bg-orange">{% trans 'Semestre' %}</div></div>
+            </div>
+            <div class="col-12 class-item">
+                <h4><a href="{{ object.get_absolute_url }}"><b>{{ object.title}}</b></a></h4>
+                <p>{{ object.summary }}</p>
+            </div><hr>
+
+        {% elif klass == "Course" %}
+            <div class="session-wrapper">
+                <div class="session"><div class="info-text bg-orange">{% trans 'Modules' %}</div></div>
+            </div>
+            <div class="col-12 class-item">
+                <p><b>{% trans 'Programme de' %}</b> {{ object.program }}</p>
+                <h4><a href="{{ object.get_absolute_url }}"><b>{{ object }}</b></a></h4>
+                <p>{{ object.summary }}</p>
+            </div><hr>
+            
+        {% elif klass == "NewsAndEvents" %}
+            <div class="session-wrapper">
+                <div class="session"><div class="info-text bg-orange">{% trans 'Nouvelles et événements' %}</div></div>
+            </div>
+            <div class="col-12 class-item">
+                <p><b>{% trans 'Date:' %} </b> {{ object.updated_date|timesince }} {% trans 'il y a' %}</p>
+                <h4><a href="{{ object.get_absolute_url }}"><b>{{ object.title }}</b></a></h4>
+                <p>{{ object.summary }}</p>
+            </div><hr>
+
+        {% elif klass == "Quiz" %}
+            <div class="session-wrapper">
+                <div class="session"><div class="info-text bg-orange">{% trans 'QCM' %}</div></div>
+            </div>
+            <div class="col-12 class-item">
+                <p>{{ object.category }} {% trans 'quiz' %},  <b>{% trans 'Cours:' %}</b> {{ object.course }}</p>
+                <h4><a href="{{ object.get_absolute_url }}"><b>{{ object.title }}</b></a></h4>
+                <p>{{ object.description }}</p>
+            </div><hr>
+
+        {% else %}
+            <div class="session-wrapper">
+                <div class="session"><div class="info-text bg-orange">{% trans 'Semestre' %}</div></div>
+            </div>
+            <div class="col-12 col-lg-8 offset-lg-4">
+                <a href="{{ object.get_absolute_url }}" class="class-item d-flex">{{ object }} | {{ object|class_name }}</a>
+            </div><hr>
+            <div class="col-12 class-item">
+                <h4><a href="{{ object.get_absolute_url }}">{{ object }} | <b>{{ object|class_name }}</b></a></h4>
+                <p>{{ object.description }}</p>
+            </div><hr>
+        {% endif %}
+
+        {% endwith %}
+
+{% empty %}
+
+<div class="row">
+    <div class="col-12 col-md-6 mx-auto py-5">
+    <form method="GET" action=".">
+    
+        <div class="input-group form-group-no-border mx-auto" style="margin-bottom: 0px; font-size: 32px;">
+            <input type="text" name="q" data-toggle="popover" data-placement="bottom" 
+            data-content="{% trans 'Appuyez sur Entrée pour rechercher' %}" class="form-control cfe-nav" 
+            placeholder="{% trans 'Recherche...' %}" value="{{ request.GET.q }}" data-original-title="" title="" 
+            autofocus="autofocus" required>
+            <button type="submit" class="btn btn-dark">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+
+    </form>
+
+    </div>
+    <div class="col-12 pl-5">
+        <h5>{% trans 'Rechercher par :' %}</h5>
+        <ul class="pl-3">
+            <li>{% trans 'Programme' %} <span class="text-orange">&gt;</span> {% trans 'Titre ou Description' %}</li>
+            <li>{% trans 'Cours' %} <span class="text-orange">&gt;</span> {% trans 'Titre, Code ou Description' %}</li>
+            <li>{% trans 'Nouvelles et Événements' %} <span class="text-orange">&gt;</span> {% trans 'Titre, Description ou simplement en tapant "nouvelle" ou "événement"' %}</li>
+            <li>{% trans 'Quiz' %} <span class="text-orange">&gt;</span> {% trans 'Titre, Description ou Catégorie (pratique, devoir et examen)' %}</li>
+        </ul>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+
+{% endblock content %}

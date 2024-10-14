@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}{% endblock %}
+
+{% block maincontent %}
+  {% block content %}
+    <div class="container">
+      <h2>Register / Log In</h2>
+      
+      <!-- Google Login Button -->
+      <div>
+        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-danger">Log in with Google</a>
+      </div>
+      
+      <!-- Additional registration or login form can go here -->
+      {% block registration_form %}
+      {% endblock registration_form %}
+    </div>
+  {% endblock content %}
+{% endblock %}

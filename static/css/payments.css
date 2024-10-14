@@ -1,0 +1,335 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.program-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.program-item {
+  background: #ffffff;
+  /* White background for the card */
+  border: 1px solid #ddd;
+  /* Light gray border */
+  border-radius: 10px;
+  /* More rounded corners */
+  padding: 20px;
+  /* Increased padding for better spacing */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  /* Transition for hover effect */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow for depth */
+}
+
+.program-item:hover {
+  transform: translateY(-5px);
+  /* Lift effect on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  /* More pronounced shadow on hover */
+}
+
+.program-item strong {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #008080;
+  /* Teal color for emphasis */
+}
+
+.add-to-cart-button {
+  background-color: #20A8A8;
+  /* Button color */
+  color: #fff;
+  /* White text color */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
+  /* Transition for hover effect */
+  width: 100%;
+}
+
+.add-to-cart-button:hover {
+  background-color: #009999;
+  /* Darker blue on hover */
+  transform: translateY(-2px);
+  /* Lift effect on hover */
+}
+
+.cart-panel {
+  position: fixed;
+  top: 70px;
+  right: -300px;
+  width: 300px;
+  height: calc(100% - 70px);
+  background: #F4F7FC;
+  border-left: 1px solid #E5E7EB;
+  border-radius: 0 10px 10px 0;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease;
+  z-index: 20;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.cart-header {
+  background: white;
+  padding: 23px 16px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+}
+
+.cart-header i {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  text-align: center;
+  margin-right: 16px;
+  border: 2px solid #20A8A8;
+  border-radius: 50%;
+  color: #20A8A8;
+}
+
+.cart-items {
+  margin-top: 14px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.cart-total {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.checkout-btn {
+  background-color: #20A8A8;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.checkout-btn:hover {
+  background-color: #009999;
+  /* Darker blue on hover */
+}
+
+.cart-toggle {
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  background-color: #20A8A8;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 30;
+}
+
+/* Popup styles */
+.popup {
+  display: none;
+  /* Initially hidden */
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #008080;
+  /* Teal background */
+  color: white;
+  /* White text color for contrast */
+  border: 2px solid #005757;
+  /* Darker teal border */
+  border-radius: 8px;
+  /* Rounded corners */
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* Shadow for depth */
+  z-index: 1000;
+  /* Ensure it's above other content */
+  text-align: center;
+  /* Center the text */
+}
+
+.popup h2 {
+  margin: 0;
+  font-size: 1.5em;
+  /* Larger font size for the heading */
+}
+
+.popup p {
+  margin: 10px 0;
+  /* Spacing around the paragraph */
+  font-size: 1.1em;
+  /* Slightly larger font for better readability */
+}
+
+.popup button {
+  background: white;
+  /* Button background */
+  color: #008080;
+  /* Button text color */
+  border: none;
+  /* No border */
+  border-radius: 5px;
+  /* Rounded corners for the button */
+  padding: 10px 20px;
+  /* Padding for the button */
+  cursor: pointer;
+  /* Pointer cursor on hover */
+  font-size: 1em;
+  /* Standard font size for the button */
+  transition: background 0.3s ease;
+  /* Smooth transition for hover effect */
+}
+
+.popup button:hover {
+  background: #e0e0e0;
+  /* Light gray on hover */
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.payment-option {
+  padding: 20px;
+  margin: 0 10px;
+  border: 2px solid #20A8A8;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.payment-option:hover {
+  background-color: #e9f5ff;
+  border-color: #009999;
+}
+
+.payment-details {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #20A8A8;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  background-color: #20A8A8;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 16px;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #009999;
+  transform: scale(1.02);
+}
+
+.text-input,
+.file-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.copy-button.small {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+}
+
+.tabs {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  border-bottom: none;
+}
+
+.tab.active {
+  background: white;
+  border-top: 2px solid #20A8A8;
+  /* Highlight the active tab */
+}
+
+.tab-content {
+  border: 1px solid #ddd;
+  padding: 20px;
+  background: white;
+}
+
+.tabs .tab {
+  cursor: not-allowed;
+  /* Change the cursor to indicate non-clickable */
+  opacity: 0.6;
+  /* Slightly fade to indicate it's inactive */
+}

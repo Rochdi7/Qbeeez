@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }} | {% trans 'Qbeeez QCM' %}{% endblock title %}
+
+{% block content %}
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Programmes' %}</li>
+    </ol>
+</nav>
+
+{% if request.user.is_superuser %}
+<div class="manage-wrap mb-4">
+    <a class="btn btn-primary" href="{% url 'add_program' %}">
+        <i class="fas fa-plus"></i> {% trans 'Ajouter un Programme' %}
+    </a>
+</div>
+{% endif %}
+
+<!-- Section: Abonnements Actifs -->
+<div class="title-1 mb-3"><i class="fas fa-check-circle"></i> {% trans 'Abonnements Actifs' %}</div>
+
+{% if active_abonnements_count > 0 %}
+<div class="alert alert-info">
+    <strong>{% trans 'Vous avez' %} {{ active_abonnements_count }} {% trans 'abonnements actifs.' %}</strong>
+</div>
+
+<!-- Cartes de Programme -->
+<div class="row mt-3">
+    {% for program in active_programs %}
+    <div class="col-md-4 col-lg-3 mb-4">
+        <div class="card program-card shadow-sm">
+            {% if program.image %}
+            <img src="{{ program.image.url }}" alt="{{ program.title }} Image" class="card-img-top program-image">
+            {% else %}
+            <img src="{% static 'path/to/default/image.jpg' %}" alt="Image par défaut" class="card-img-top program-image">
+            {% endif %}
+            <div class="card-body">
+                <h6 class="card-title program-title">
+                    <a href="{{ program.get_absolute_url }}" class="text-dark">{{ program.title }}</a>
+                </h6>
+                <p class="card-text program-summary">{{ program.summary|truncatewords:15 }}</p>
+                <p class="program-price text-danger font-weight-bold">{{ program.price }} {% trans 'DH' %}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-warning">
+            <span class="text-danger">{% trans 'Aucun abonnement actif trouvé.' %}</span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-warning">
+    <span class="text-danger">{% trans 'Aucun abonnement actif.' %}</span>
+</div>
+{% endif %}
+
+<!-- Section: Programmes Gratuits -->
+<div class="title-1 mt-5 mb-3"><i class="fas fa-th-list"></i> {% trans 'Essais Gratuits' %}</div>
+
+<div class="row">
+    {% for program in filter.qs %}
+    {% if program.price == 0 %}
+    <div class="col-md-4 col-lg-3 mb-4">
+        <div class="card program-card shadow-sm">
+            {% if program.image %}
+            <img src="{{ program.image.url }}" alt="{{ program.title }} Image" class="card-img-top program-image">
+            {% else %}
+            <img src="{% static 'path/to/default/image.jpg' %}" alt="Image par défaut" class="card-img-top program-image">
+            {% endif %}
+            <div class="card-body">
+                <h6 class="card-title program-title">
+                    <a href="{{ program.get_absolute_url }}" class="text-dark">{{ program.title }}</a>
+                </h6>
+                <p class="card-text program-summary">{{ program.summary|truncatewords:15 }}</p>
+                <p class="program-price text-success font-weight-bold">{% trans 'Prix' %}: Gratuit</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-warning">
+            <span class="text-danger">{% trans 'Aucun programme disponible.' %}</span>
+            {% if request.user.is_superuser %}
+            <a href="{% url 'add_program' %}" class="primary" style="font-size: 22px;">
+                {% trans 'Ajouter un programme maintenant.' %}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Effet de survol de carte et styles -->
+<style>
+    .program-card {
+        border: 2px solid #008080; /* Bordure teal */
+        border-radius: 10px;
+        max-width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .program-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style pour le titre */
+    .program-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #008080; /* Couleur teal pour le titre */
+    }
+
+    /* Style pour le résumé */
+    .program-summary {
+        font-size: 0.9rem;
+        color: #6c757d; /* Couleur de texte atténuée */
+    }
+
+    /* Style pour le prix */
+    .program-price {
+        font-size: 0.85rem;
+        font-weight: bold;
+        margin-top: 0.5rem;
+        transition: color 0.3s ease, transform 0.3s ease; /* Transitions douces */
+        letter-spacing: 0.5px; /* Espacement des lettres pour la lisibilité */
+        text-transform: uppercase; /* Mettre le texte en majuscules */
+        background-clip: text; /* Appliquer le dégradé uniquement au texte */
+        -webkit-background-clip: text; /* Assurer la compatibilité avec les navigateurs WebKit */
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15); /* Ajouter une ombre subtile pour la profondeur */
+    }
+    .program-title:hover {
+        color: #008080; /* Changer la couleur au survol */
+        transform: translateY(-2px); /* Soulever légèrement le titre au survol */
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Augmenter l'intensité de l'ombre au survol */
+    }
+    /* Ajuster la taille de l'image pour le bureau */
+    .program-image {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    /* Media query pour les écrans plus petits */
+    @media (max-width: 768px) {
+        .program-image {
+            height: 140px; /* Réduire la hauteur sur mobile */
+            object-fit: contain; /* Éviter de zoomer sur l'image */
+        }
+
+        /* Ajuster la taille du titre sur mobile */
+        .program-title {
+            font-size: 1rem;
+        }
+
+        /* Ajuster la taille du résumé sur mobile */
+        .program-summary {
+            font-size: 0.85rem;
+        }
+    }
+</style>
+{% endblock content %}

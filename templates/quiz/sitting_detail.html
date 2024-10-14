@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}
+{% trans "Résultat de" %} {{ sitting.quiz.title }} {% trans "pour" %} {{ sitting.user }} | {% trans 'Qbeeez QCM' %}
+{% endblock %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'quiz_marking' %}">{% trans 'Examens terminés' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Correction' %}</li>
+    </ol>
+</nav>
+
+<div class="row col-12 justify-content-between">
+    <div class="header-title-md">{% trans "Titre du quiz" %}: {{ sitting.quiz.title }}</div>
+    <em class="info-text title-danger">{% trans "Catégorie" %}: {{ sitting.quiz.category }}</em>
+</div>
+
+<p>{{ sitting.quiz.description }}</p>
+<hr>
+<p><b>{% trans "Utilisateur" %}:</b> {{ sitting.user }}</p>
+<p><b>{% trans "Terminé" %}:</b> {{ sitting.end|date }}</p>
+<p><b>{% trans "Score" %}:</b> {{ sitting.get_percent_correct }}%</p>
+<!-- <p><b>{% trans "Début" %}:</b> {{ sitting.start }}</p>
+<p><b>{% trans "Fin" %}:</b> {{ sitting.end }}</p> -->
+
+<table class="table table-bordered table-striped">
+
+  <thead>
+    <tr>
+      <th>{% trans "Question" %}</th>
+      <th>{% trans "Réponse de l'utilisateur" %}</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+{% for question in questions %}
+
+    <tr>
+      <td>
+        {{ question.content }}
+        {% if question.figure %}
+        <div style="max-width: 100px;"><img src="{{ question.figure.url }}" alt="{{ question.figure }}" width="100px"/></div>
+        {% endif %}
+      </td>
+      <td>{{ question }}</td>
+      <td>
+        {% if question.id in sitting.get_incorrect_questions %}
+          <p>{% trans "incorrect" %}</p>
+        {% else %}
+          <p>{% trans "Correct" %}</p>
+        {% endif %}
+      </td>
+      <td>
+        <form action="" method="POST">{% csrf_token %}
+          <input type="hidden" name="qid" value="{{ question.id }}">
+          <button type="submit" class="btn btn-warning">{% trans "Changer le statut correct" %}</button>
+        </form>
+      </td>
+    </tr>
+
+{% endfor %}
+
+  </tbody>
+
+</table>
+{% endblock %}

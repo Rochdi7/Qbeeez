@@ -1,0 +1,180 @@
+
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <style>
+.sidenav {
+    height: 250px; /* Height of the menu */
+    width: 100%;
+    position: fixed;
+    bottom: -250px; /* Hide off-screen by default on the bottom */
+    background-color: transparent; /* Removed background color */
+    color: #fff;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(100%);
+    opacity: 0;
+    z-index: 1000; /* Ensure it appears above other content */
+    border-top: 2px solid #fff; /* Optional: Add a border for better visibility */
+}
+
+.sidenav.open {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.menu-btns {
+    display: none; /* Hide by default */
+    position: fixed; /* Ensure it stays in place when the menu is open */
+    bottom: 250px; /* Align next to the slide-out menu */
+    right: 10px;
+    padding: 10px;
+    z-index: 1000;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Space between buttons */
+}
+
+.menu-btns.show {
+    display: flex; /* Show when the menu is open */
+}
+
+/* General button styling */
+.menu-btns .btn {
+    font-size: 12px; /* Smaller font size */
+    padding: 8px; /* Reduced padding */
+    width: 40px; /* Fixed width */
+    height: 40px; /* Fixed height */
+    border-radius: 50%; /* Rounded shape */
+    display: flex; /* Center content */
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    background-color: #008080; /* Default button color */
+    color: white; /* Text color */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.menu-btns .btn:hover {
+    background-color: #66B2B2; /* Lighter shade on hover */
+    transform: scale(1.1); /* Slightly enlarge the button */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+}
+
+#close-btn {
+    background-color: #008080; /* Red background for close button */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+#close-btn:hover {
+    background-color: #c82333; /* Darken danger color on hover */
+    transform: scale(1.1); /* Slightly enlarge the button */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+}
+
+
+
+.dark-mode-btn {
+    background: #333;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.dark-mode-btn:hover {
+    background-color: #444; /* Lighter dark color on hover */
+    transform: scale(1.1); /* Slightly enlarge the button */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .sidenav {
+        height: 200px; /* Adjust height for mobile */
+    }
+    .menu-btns {
+        bottom: 200px; /* Adjust position for mobile */
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <!-- Add your menu items here -->
+    </div>
+
+    <div id="main">
+
+        
+        <div class="container">
+            <div class="menu-btns" id="menuBtns">
+                <button id="close-btn" class="btn close-icon-btn" onclick="closeNav()">
+                    <i class="fas fa-times"></i>
+                </button>                
+                <button class="btn btn-secondary" onclick="decreaseFontSize()">A-</button>
+                <button class="btn btn-secondary" onclick="increaseFontSize()">A+</button>
+                <button class="btn btn-secondary" id="fullscreen-btn" onclick="toggleFullscreen()">
+                    <i class="fas fa-expand"></i> <!-- Use an icon for fullscreen -->
+                </button>                
+                <button class="btn dark-mode-btn" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></button>
+                <button class="btn btn-danger" onclick="reportProblem()"><i class="fas fa-exclamation-triangle"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+}
+
+        function openNav() {
+            document.getElementById("mySidenav").classList.add("open");
+            document.getElementById("menuBtns").classList.add("show"); // Show menu buttons
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").classList.remove("open");
+            document.getElementById("menuBtns").classList.remove("show"); // Hide menu buttons
+        }
+
+        function increaseFontSize() {
+    var content = document.getElementById("questionContent");
+    var currentSize = window.getComputedStyle(content, null).getPropertyValue('font-size');
+    var newSize = parseFloat(currentSize) + 2;
+    content.style.fontSize = newSize + 'px';
+}
+
+function decreaseFontSize() {
+    var content = document.getElementById("questionContent");
+    var currentSize = window.getComputedStyle(content, null).getPropertyValue('font-size');
+    var newSize = parseFloat(currentSize) - 2;
+    content.style.fontSize = newSize + 'px';
+}
+
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('bg-dark');
+            document.body.classList.toggle('text-light');
+        }
+
+        function reportProblem() {
+            alert("Report a problem!");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ title }} | Système de Gestion de l'Apprentissage{% endblock title %}
+{% load static %}
+
+{% block content %}
+<style>
+    .bg-light-warning {
+        background-color: rgb(252, 217, 111) !important;
+    }
+    .filter-container {
+        margin-bottom: 20px;
+    }
+    .filter-label {
+        margin-right: 10px;
+        font-weight: bold;
+    }
+    .quiz-card {
+        transition: transform 0.2s;
+    }
+    .quiz-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    @media (max-width: 768px) {
+        .filter-container {
+            flex-direction: column; /* Stack the filter elements vertically */
+        }
+        .filter-label {
+            margin-bottom: 5px; /* Add space below the label */
+        }
+    }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        {% if request.user.is_student %}
+        <li class="breadcrumb-item"><a href="{% url 'user_course_list' %}">{% trans 'Mes cours' %}</a></li>
+        {% else %}
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programmes' %}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' pk=1 %}">{{ course.program }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Quiz' %}</li>
+    </ol>
+</nav>
+
+{% if request.user.is_superuser or request.user.is_lecturer %}
+<div class="manage-wrap mb-4">
+    <a class="btn btn-primary" href="{% url 'quiz_create' course.slug %}"><i class="fas fa-plus"></i> {% trans 'Ajouter un Quiz' %}</a>
+</div>
+{% endif %}
+
+<div class="title-1">{% trans 'Quiz' %} [{{ course|truncatechars:25 }}]</div>
+<br>
+
+{% include 'snippets/messages.html' %}
+
+<div class="container">
+    <div class="filter-container d-flex align-items-center">
+        <form method="GET" action="" class="d-flex flex-grow-1" id="filter-form">
+            <label for="subcourse" class="filter-label">{% trans 'Filtrer par Sous-cours' %}:</label>
+            <div class="input-group flex-grow-1">
+                <select name="subcourse" id="subcourse" class="form-select form-select-sm" onchange="this.form.submit()">
+                    <option value="">{% trans 'Sélectionner le Sous-cours' %}</option>
+                    {% for subcourse in subcourses %}
+                        <option value="{{ subcourse.id }}"{% if request.GET.subcourse == subcourse.id %} selected{% endif %}>
+                            {{ subcourse.title }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="button" class="btn btn-secondary ms-2 btn-sm" onclick="resetFilter()">Réinitialiser</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function resetFilter() {
+        // Clear the selected value in the dropdown
+        document.getElementById('subcourse').selectedIndex = 0;
+        
+        // Submit the form
+        document.getElementById('filter-form').submit();
+    }
+</script>
+<style>
+    <style>
+    .filter-container {
+        margin-bottom: 20px;
+        flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    }
+
+    .filter-label {
+        margin-right: 10px;
+        font-weight: bold;
+        font-size: 0.9rem; /* Slightly smaller font size */
+    }
+
+    .form-select {
+        height: 38px; /* Adjust height for a more compact look */
+    }
+
+    .btn {
+        padding: 0.25rem 0.5rem; /* Smaller padding for the button */
+        font-size: 0.85rem; /* Slightly smaller font size */
+    }
+
+    /* Responsive styles for smaller screens */
+    @media (max-width: 576px) {
+        .filter-label {
+            margin-bottom: 5px; /* Add spacing on smaller screens */
+            display: block; /* Stack label above the select */
+        }
+    }
+</style>
+
+    </script>
+
+    <div class="row">
+        {% for quiz in quizzes %}
+        <div class="col-12 col-sm-6 col-md-4 mb-2">
+            <div class="card p-2 quiz-card">
+                <div class="d-flex justify-content-between align-items-center text-success mb-4">
+                    <em class="text-left">{{ quiz.category|title }} {% trans 'Quiz' %}</em>
+                    <div class="text-right text-light bg-danger px-2 small rounded">
+                        {{ quiz.get_questions.count }} {% trans 'Questions' %}
+                    </div>
+                </div>
+
+                <h6>{{ quiz.title|title }}</h6>
+
+                {% if quiz.description %}
+                <p class="text-muted small">{{ quiz.description }}</p>
+                {% else %}
+                <p class="text-muted small">{% trans 'Aucune description définie.' %}</p>
+                {% endif %}
+
+                {% if quiz.single_attempt %}
+                <p class="p-2 bg-light-warning small">{% trans "Vous n'aurez qu'une seule tentative pour ce quiz." %}</p>
+                {% endif %}
+
+                <div class="d-flex align-items-center">
+                    <!-- Bouton de basculement du mode examen -->
+                    <form method="POST" action="{% url 'quiz_take' pk=course.pk slug=quiz.slug %}" class="me-2">
+                        {% csrf_token %}
+                        <button type="submit" name="toggle_exam_mode" class="btn btn-secondary btn-sm">
+                            {% if request.session.exam_mode and request.path == request.path %}{% trans "Désactiver le Mode Examen" %}{% else %}{% trans "Activer le Mode Examen" %}{% endif %}
+                        </button>
+                    </form>
+
+                    <a class="btn btn-block btn-secondary w-100" href="{% url 'quiz_take' pk=course.pk slug=quiz.slug %}">{% trans "Commencer le quiz" %} &raquo;</a>
+
+                    {% if request.user.is_superuser or request.user.is_lecturer %}
+                    <div class="dropup">
+                        <button class="btn btn-sm p-0 ms-2" type="button" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v m-0"></i></button>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <div class="dropdown-item">
+                                <a href="{% url 'quiz_update' slug=course.slug pk=quiz.id %}" class="update"><i class="fas fa-pencil-alt"></i>{% trans 'Modifier' %}</a>
+                            </div>
+                            <div class="dropdown-item">
+                                <a href="{% url 'quiz_delete' slug=course.slug pk=quiz.id %}" class="delete"><i class="fas fa-trash-alt"></i>{% trans 'Supprimer' %}</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h4 class="text-center mt-5 py-5 text-muted">
+            <i class="fa-regular fa-folder-open me-2"></i> Les quiz du cours apparaîtront ici.
+        </h4>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    // #####################################
+    // loader
+    // document.getElementById('progress-main').style.display = 'none';
+    var timer = setInterval(function(){
+        document.getElementById('progress-card').style.display = 'none';
+        document.getElementById('progress-main').style.display = 'block';
+        clearInterval(timer)
+    }, 8000);           
+</script>
+{% endblock js %}

@@ -1,0 +1,115 @@
+{% extends 'registration/registration_base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}{% trans 'Dj Learning Management System - Login' %}{% endblock title %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="text-center mb-4">
+                <img src="{% static 'img/Qbeeez/logo2-5-removebg-preview.png' %}" alt="QBeeez Logo" class="img-fluid mb-2" style="max-width: 200px;"> <!-- Replace 'logo.png' with your logo filename -->
+                <h1 class="font-weight-bold">{% trans 'Connectez-vous à votre compte' %}</h1>
+                <span>{% trans 'ou' %} <a href="{% url 'register' %}">{% trans 'Créez votre compte maintenant' %}</a></span>
+            </div>
+
+            <!-- Google Sign-In button -->
+            <div class="google-login text-center mt-3">
+                <div>{% trans 'Se connecter avec' %}</div>
+                <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-danger w-100">
+                    <i class="fab fa-google"></i> {% trans 'Se Connecter avec Google' %}
+                </a>
+            </div>
+
+            <div class="card mt-3">
+                <div class="form-title text-center">
+                    <i class="fas fa-lock me-2"></i>
+                    {% trans 'Se Connecter' %}
+                </div>
+                <div class="card-body">
+                    <form action="" method="POST" id="login-form">{% csrf_token %}
+                        <div class="form-group mb-3">
+                            <label class="mb-2" for="username_id"><i class="fas fa-address-card me-2"></i>{% trans 'ID Number' %}</label>
+                            <input type="text" name="username" id="username_id" class="form-control" required>
+                            <div id="message-wrapper"></div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="mb-2" for="password_id"><i class="fas fa-key me-2"></i>{% trans 'Password' %}</label>
+                            <input type="password" name="password" id="password_id" class="form-control" required>
+                        </div>
+                        {% if form.errors %}
+                            <span class="text-danger"><i class="fas fa-exclamation-circle"></i> {% trans 'Invalid ID & Password.' %}</span><br>
+                        {% endif %}
+                        <div class="text-center"> <!-- Centering the button -->
+                            <button type="submit" class="btn btn-primary" id="login-btn">
+                                <i class="fas fa-sign-in-alt"></i><small>{% trans 'Se Connecter' %}</small>
+                            </button>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="login-bottom text-center">
+                        <a href="{% url 'password_reset' %}" class="link">{% trans 'Mot de passe oublié?' %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 d-none d-md-block">
+            <img src="{% static 'img/hero-img.png' %}" class="img-fluid" alt="Doctor Banner">
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border-radius: 1rem;
+}
+
+.form-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #008080; /* Your main color */
+}
+
+.btn {
+    border-radius: 0.5rem;
+    font-weight: bold;
+}
+
+.btn-danger {
+    background-color: #DB4437; /* Google Red */
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c13529; /* Darker shade for hover */
+}
+
+.link {
+    color: #008080; /* Your main color */
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.google-login {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+}
+</style>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    $('#login-form').submit(function (e) {
+        $('#login-btn').addClass('disabled');
+        $('#login-btn').html(`<i class="fas fa-sign-in-alt"></i> Signing you in . . .`);
+    });
+
+  
+</script>
+{% endblock %}

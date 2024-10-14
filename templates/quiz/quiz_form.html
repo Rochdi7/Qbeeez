@@ -1,0 +1,73 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programmes' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'quiz_index' course.slug %}">{% trans 'Quiz' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Formulaire de Quiz' %}</li>
+    </ol>
+</nav>
+
+<div class="title-1">{% trans 'Formulaire de quiz pour' %} {{ course|truncatechars:15 }}</div>
+<br><br>
+
+<div class="container">
+
+    <form action="" method="POST">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div hidden>
+                            <label for="course">{{ form.course.label }}</label><br> {{ form.course }}
+                            <span class="danger">{{ form.course.errors }}</span>
+                            <span class="danger">{{ form.course.errors }}</span>
+                        </div>                    
+                        {{ form.category|as_crispy_field }}                    
+                        {{ form.title|as_crispy_field }}
+                        {{ form.pass_mark|as_crispy_field }}
+                        {{ form.description|as_crispy_field }}
+                        {{ form.subcourse.label }}<br>
+                        {{ form.subcourse|as_crispy_field }}
+                        <span class="danger">{{ form.subcourse.errors }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div hidden>
+                            <label for="questions">{{ form.questions.label }}</label><br> {{ form.questions }}
+                            <span class="danger">{{ form.questions.errors }}</span>
+                            <small class="d-block text-muted">{% trans 'Maintenez enfoncé' %} "Control", {% trans 'ou' %} "Command" {% trans 'sur un Mac, pour sélectionner plusieurs.' %}</small>
+                        </div>
+                        {{ form.random_order|as_crispy_field }}                    
+                        {{ form.answers_at_end|as_crispy_field }}                    
+                        {{ form.exam_paper|as_crispy_field }}                    
+                        {{ form.single_attempt|as_crispy_field }}                    
+                        {{ form.draft|as_crispy_field }}             
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary my-4" id="{% if form.is_valid %}btn-transition{% endif %}" type="submit">{% trans 'Sauvegarder' %} &amp; {% trans 'Continuer' %}</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    const transitionButton = document.getElementById('btn-transition');
+    transitionButton.addEventListener('click', () => {
+        document.getElementById('card-transition').style.animation = 'card-transition 5s ease-in-out forwards';
+    })
+</script>
+{% endblock js %}

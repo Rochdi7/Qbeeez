@@ -1,0 +1,313 @@
+/* Custom styles for buttons */
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem; /* Space between buttons */
+    margin-bottom: 1rem; /* Bottom margin for button container */
+    justify-content: center; /* Center buttons */
+}
+
+.btn {
+    font-size: 0.875rem; /* Base font size for buttons */
+    padding: 0.25rem 0.5rem; /* Padding for buttons */
+    border-radius: 0.25rem; /* Rounded corners */
+    transition: background-color 0.3s, transform 0.2s; /* Transition for hover effects */
+}
+
+/* Button colors */
+.custom-btn.primary { background-color: #008080; color: white; } /* Bootstrap primary color */
+.custom-btn.info { background-color: #3b3b3b; color: white; } /* Bootstrap info color */
+.custom-btn.warning { background-color: #008080; color: white; } /* Bootstrap warning color */
+.custom-btn.danger { background-color: #dc3545; color: white; } /* Bootstrap danger color */
+.custom-btn.success { background-color: #28a745; color: white; } /* Bootstrap success color */
+.custom-btn.secondary { background-color: #008080; color: white; } /* Bootstrap secondary color */
+
+/* Hover effects */
+.btn:hover { transform: translateY(-2px); } /* Lift effect on hover */
+
+/* Body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* Light background color */
+    color: #343a40; /* Dark text for better contrast */
+}
+
+/* Title */
+.title-1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #008080; /* Primary color */
+    text-align: center;
+}
+
+/* Timer Styles */
+#timer {
+    background-color: #ffffff; /* White background */
+    border: 2px solid #008080; /* Bootstrap primary color for border */
+    padding: 10px; /* Reduced padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    margin: 20px auto; /* Adjusted top margin */
+    max-width: 90%; /* Prevent overflow on mobile */
+    text-align: center; /* Center text inside the timer */
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Style for the timer display */
+#timer p {
+    font-size: 1.2rem; /* Default font size for better visibility */
+    font-weight: normal; /* Normal font weight for regular text */
+    color: #333; /* Dark text color for contrast */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flex to align items */
+    align-items: center; /* Center align vertically */
+    justify-content: center; /* Center align horizontally */
+    flex-wrap: wrap; /* Allow items to wrap if necessary */
+}
+
+/* Centered h4 style */
+#timer h4 {
+    font-size: 1.5rem; /* Font size for the timer title */
+    font-weight: lighter; /* Bold font weight */
+    color: #008080; /* Primary color */
+    margin: 0; /* Remove default margin */
+    text-align: center; /* Center align text */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    padding-bottom: 0.5rem; /* Space below the title */
+}
+
+/* Style for the timer display span */
+#timer #timer-display {
+    font-size: 1.5rem; /* Adjusted font size for visibility */
+    color: #3b3b3b; /* Change color for emphasis */
+    font-weight: normal; /* Normal weight for the timer display */
+}
+
+/* Button styles */
+#timer button {
+    margin: 5px; /* Space between timer buttons */
+    padding: 10px 15px; /* Padding for buttons */
+    border-radius: 5px; /* Rounded button corners */
+    font-size: 1rem; /* Font size for buttons */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+}
+
+/* Timer Button Colors */
+#pause-btn { background-color: #3b3b3b; color: white; } /* Bootstrap warning color */
+#resume-btn { background-color: #008080; color: white; } /* Bootstrap success color */
+#reset-timer { background-color: #dc3545; color: white; } /* Bootstrap danger color */
+
+/* Hover effects for timer buttons */
+#timer button:hover { transform: translateY(-2px); } /* Lift effect on hover */
+
+/* Card Styles */
+.card {
+    border-radius: 10px; /* Rounded card */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Quiz Category */
+.card-subtitle {
+    border-top: 1px solid #008080; /* Border for quiz category */
+    margin-top: 20px;
+    padding-top: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .title-1 { font-size: 1.5rem; } /* Smaller title on small screens */
+    #timer { padding: 10px; margin: 0 5%; } /* Less padding and margin adjustments */
+    #timer p { font-size: 1.2rem; } /* Allow text wrapping on smaller screens */
+    #timer button { font-size: 0.9rem; } /* Smaller font size for buttons */
+    #timer h4 { font-size: 1.2rem; } /* Smaller font size for h4 on small screens */
+}
+
+@media (max-width: 360px) {
+    #timer {
+        padding: 5px; /* Further reduce padding for very small screens */
+        margin: 10px auto; /* Adjust margin */
+    }
+
+    #timer p {
+        font-size: 1rem; /* Further decrease font size */
+    }
+
+    #timer #timer-display {
+        font-size: 0.9rem; /* Adjust timer display font size */
+    }
+
+    #timer button {
+        font-size: 0.8rem; /* Smaller button font size */
+        padding: 5px; /* Adjust button padding */
+    }
+
+    #timer h4 { 
+        font-size: 1rem; /* Further reduce h4 font size on very small screens */
+    }
+}
+
+/* Adjust button size on larger screens */
+@media (min-width: 768px) {
+    .btn { font-size: 0.875rem; padding: 0.25rem 0.5rem; } /* Consistent button styling */
+}
+
+/* question info section */
+.hidden {
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease, visibility 0.3s ease;
+}
+
+.collapsed {
+    visibility: visible;
+    height: auto;
+    transition: height 0.3s ease, visibility 0.3s ease;
+}
+
+.question-details {
+    display: flex; /* Enable flexbox */
+    flex-direction: row; /* Align spans in a single line */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    gap: 8px; /* Space between spans */
+    transition: height 0.3s ease;
+}
+
+.border-radius-class {
+    border-radius: 12px; /* More rounded corners */
+    padding: 8px 12px; /* Increased padding for better spacing */
+    background: linear-gradient(135deg, #008080 0%, #00b3b3 100%);
+    color: #333; /* Dark text color for better contrast */
+    font-weight: bold; /* Bold text for emphasis */
+    font-size: 16px; /* Larger font size for better readability */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: background 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+.border-radius-class:hover {
+    background: linear-gradient(135deg, #bbdefb 0%, #e3f2fd 100%); /* Change background on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Add this to your custom CSS file (e.g., custom.css) */
+
+
+/*quiz and explantation*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light background for contrast */
+    color: #333; /* Dark text for readability */
+}
+
+.container {
+    max-width: 800px; /* Limit width for better readability */
+    margin: auto; /* Center the container */
+    padding: 20px; /* Padding for spacing */
+    background-color: #ffffff; /* White background for container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Explanation Styles */
+.explanation-title p {
+    text-align: left;
+    font-size: 16px; /* Adjust title font size */
+    margin-top: 15px; /* Space above explanation title */
+}
+
+.explanation-content {
+    font-size: 14px; /* Explanation content size */
+    line-height: 1.4; /* Line height for better spacing */
+    text-align: left; /* Align text to the left */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .alert {
+        font-size: 14px; /* Smaller font size for alerts on small screens */
+    }
+
+    .answer-response {
+        display: flex; /* Enable flexbox */
+        align-items: center; /* Center items vertically */
+        justify-content: center; /* Center items horizontally */
+        text-align: center; /* Center text alignment */
+        font-size: 14px; /* Default font size for answer response */
+        line-height: 1.2; /* Line height for better spacing */
+        flex-wrap: wrap; /* Allow wrapping */
+    }
+
+    .answer-response p {
+        margin: 0; /* Remove default margin */
+    }
+
+    /* Responsive adjustments */
+    .answer-response {
+        font-size: 12px; /* Decrease font size for small screens */
+    }
+}
+
+@media (max-width: 486px) {
+    .answer-response {
+        font-size: 10px; /* Further decrease font size for very small screens */
+    }
+}
+
+@media (max-width: 340px) {
+    .answer-response {
+        font-size: 9px; /* Reduce font size for extra small screens */
+        flex-direction: column; /* Stack items vertically if necessary */
+        align-items: flex-start; /* Align items to the left */
+    }
+}
+
+/* Table Styles */
+.table {
+    width: 100%; /* Full width for tables */
+    border-collapse: collapse; /* Merge table borders */
+    margin-top: 15px; /* Space above table */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9; /* Light grey for odd rows */
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6; /* Border around table */
+}
+
+.table-bordered td {
+    border: 1px solid #dee2e6; /* Border around table cells */
+}
+
+/* Styles for Correct and Incorrect Answers */
+.table-success {
+    background-color: #c3e6cb; /* Light green for correct answers */
+}
+
+.table-danger {
+    background-color: #f8d7da; /* Light red for incorrect answers */
+}
+
+/* Miscellaneous */
+.muted {
+    color: #6c757d; /* Muted text color */
+    text-align: left; /* Align muted text to the left */
+}
+
+.p-2 {
+    padding: 0.5rem; /* Padding for explanation */
+}
+
+/* Centered Response Wrapper */
+.response-wrapper {
+    text-align: center; /* Center text inside the wrapper */
+    margin: 15px 0; /* Space above and below */
+}
+
+/* Table Responsive */
+.table-responsive {
+    overflow-x: auto; /* Allow horizontal scroll on small screens */
+}
+

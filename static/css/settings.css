@@ -1,0 +1,41 @@
+    /* CSS for the floating trigger button */
+    .btn-trigger {
+        position: fixed;
+        bottom: 1rem;
+        /* Adjust as needed */
+        right: 1rem;
+        /* Adjust as needed */
+        width: 3.5rem;
+        /* Equivalent to w-14 */
+        height: 3.5rem;
+        /* Equivalent to h-14 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #009999;
+        /* Equivalent to bg-blue-600 */
+        color: white;
+        /* Equivalent to text-white */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        /* Equivalent to shadow-lg */
+        border-radius: 50%;
+        /* Equivalent to rounded-full */
+        cursor: pointer;
+        transition: transform 0.3s;
+        /* Equivalent to transition-transform */
+    }
+
+    .btn-trigger:hover {
+        transform: scale(1.1);
+        /* Equivalent to hover:scale-110 */
+    }
+
+    /* Adjust positioning for larger screens */
+    @media (min-width: 768px) {
+        .btn-trigger {
+            bottom: 1.5rem;
+            /* Adjust for medium screens */
+            right: 1.5rem;
+            /* Adjust for medium screens */
+        }
+    }

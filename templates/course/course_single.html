@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Qbeeez QCM' %}{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Home' %}</a></li>
+        {% if request.user.is_student %}
+        <li class="breadcrumb-item"><a href="{% url 'user_course_list' %}">{% trans 'My courses' %}</a></li>
+        {% else %}
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programs' %}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ course }}</li>
+    </ol>
+</nav>
+
+<div class="manage-wrap">
+    <div class="d-flex">
+        <div class="">
+            {% if request.user.is_superuser %}
+            <a class="btn btn-sm btn-light" href="{% url 'edit_course' course.slug %}">
+                <i class="fas fa-pencil-alt"></i> {% trans 'Modifier le cours' %}
+            </a>
+            {% endif %}
+            {% if request.user.is_superuser or request.user.is_lecturer %}
+            <a class="btn btn-sm btn-primary" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
+                {% trans 'Télécharger un nouveau fichier' %}
+            </a>
+            <a class="btn btn-sm btn-primary" href="{% url 'upload_video' course.slug %}"><i class="fas fa-plus"></i>
+                {% trans 'Télécharger une nouvelle vidéo' %}
+            </a>
+            {% endif %}
+        </div>
+        <div class="ms-auto">
+            <a class="btn btn-sm btn-warning" href="{% url 'quiz_index' course.slug %}"><i class="fas fa-list"></i>
+                {% trans 'Répondez au quiz' %}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="title-1">{{ course }}</div>
+<p class="small text-muted">{{ course.summary }}</p>
+
+{% include 'snippets/messages.html' %}
+
+<div class="container">
+
+    <div class="row mb-5">
+    <div class="col-md-12 p-0">
+        <p class="form-title m-0">{% trans 'Tutoriels vidéo' %}</p>
+        <div class="table-responsive">
+            <table class="table table-shadow table-light table-striped m-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{% trans 'Titre de la vidéo' %}</th>
+                        <th>{% trans 'Date de téléchargement' %}</th>
+                        <th>{% trans 'Commencer' %}</th>
+                        <th>{% trans 'Intégrer la vidéo' %}</th>
+                        {% if request.user.is_superuser or request.user.is_lecturer %}
+                        <th>{% trans 'Actes' %}</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for video in videos %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            <a title="{{ video }}" class="d-flex align-items-center">
+                                <i class="fas fa-video me-1"></i> {{ video.title|title }}
+                            </a>
+                        </td>
+                        <td>{{ video.timestamp|date }}</td>
+                        <td>
+                            <div>
+                                {% if video.video %} 
+                                <div>
+                                    <a class="btn no-background teal-text" data-bs-toggle="modal" data-bs-target="#videoModal{{ video.id }}">
+                                        <i class="fas fa-play me-1"></i>
+                                        {% trans 'Regarder la vidéo' %}
+                                    </a>
+                                </div>
+                                {% endif %}
+                                
+                                {% if video.youtube_id %} 
+                                <div>
+                                    <a class="btn no-background teal-text" data-bs-toggle="modal" data-bs-target="#embedModal{{ video.id }}">
+                                        <i class="fas fa-play me-1"></i>
+                                        {% trans 'Regarder la vidéo' %}
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            {% if video.youtube_id %}
+                            <iframe width="150" height="100" src="https://www.youtube.com/embed/{{ video.youtube_id }}" frameborder="0" allowfullscreen></iframe>
+                            {% else %}
+                            <span class="text-muted">{% trans 'Aucun lien fourni' %}</span>
+                            {% endif %}
+                        </td>
+
+                        {% if request.user.is_superuser or request.user.is_lecturer %}
+                        <td>
+                            <div class="update-delete">
+                                <a href="{% url 'upload_video_edit' slug=course.slug video_slug=video.slug %}"
+                                   class="update" title="{% trans 'Edit' %}">
+                                   <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <a href="{% url 'upload_video_delete' slug=course.slug video_slug=video.slug %}"
+                                   class="delete" title="{% trans 'Delete' %}">
+                                   <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+
+                    <!-- Modal for uploaded video -->
+                    <div class="modal fade" id="videoModal{{ video.id }}" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="videoModalLabel">{{ video.title }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {% if video.video %}
+                                    <video width="100%" controls>
+                                        <source src="{{ video.video.url }}" type="video/mp4">
+                                        Votre navigateur ne prend pas en charge la balise vidéo.
+                                    </video>
+                                    {% else %}
+                                    <p class="text-muted">{% trans 'Aucune vidéo téléchargée.' %}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for embedded video -->
+                    <div class="modal fade" id="embedModal{{ video.id }}" tabindex="-1" aria-labelledby="embedModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="embedModalLabel">{{ video.title }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe width="100%" height="400" src="https://www.youtube.com/embed/{{ video.youtube_id }}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">
+                            <span class="text-danger">
+                                {% trans 'No video Uploaded.' %}
+                                {% if request.user.is_superuser or request.user.is_lecturer %}
+                                <div>
+                                    <a class="download-btn" href="{% url 'upload_video' course.slug %}" title="Upload a new video">
+                                        <i class="fas fa-upload me-1"></i>{% trans 'Téléchargez maintenant.' %}
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+
+</style>
+
+    <link rel="stylesheet" href="{% static 'css/course_detail.css' %}">
+
+
+    <div class="row">
+        <div class="col-md-12 p-0">
+            <p class="form-title m-0">{% trans 'Documentation' %}</p>
+            <div class="table-responsive">
+                <table class="table table-shadow table-light table-striped m-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{% trans 'Nom de fichier' %}</th>
+                            <th>{% trans 'Date de téléchargement' %}</th>
+                            <th>{% trans 'Date de mise à jour' %}</th>
+                            <th>{% trans 'Téléchargements' %}</th>
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <th>{% trans 'Actes' %}</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{{ file.file.url }}" title="{{ file }}" class="d-flex align-items-center">
+                                    <i class="fas fa-file-{{ file.get_extension_short }} me-1"></i>
+                                    {{ file.title|title }}
+                                </a>
+                            </td>
+                            <td>{{ file.upload_time|date }}</td>
+                            <td>{{ file.updated_date|date }}</td>
+                            <th>
+                                <div>
+                                    <a class="download-btn" href="{{ file.file.url }}" title="Download to your device">
+                                        <i class="fas fa-download me-1"></i>{% trans 'Télécharger' %}</a>
+                                </div>
+                            </th>
+
+                            {% if request.user.is_superuser or request.user.is_lecturer %}
+                            <td>
+                                <div class="update-delete">
+                                    <a href="{% url 'upload_file_edit' slug=course.slug file_id=file.pk %}"
+                                        class="update" title="{% trans 'Edit' %}">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a href="{% url 'upload_file_delete' slug=course.slug file_id=file.pk %}"
+                                        class="delete" title="{% trans 'Delete' %}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <span class="text-danger">
+                                    {% trans 'No File Uploaded.' %}
+                                    {% if request.user.is_superuser or request.user.is_lecturer %}
+                                    <a href="{% url 'upload_file_view' course.slug %}">
+                                        <i class="primary" style="font-size: 22px;">
+                                            {% trans 'Téléchargez maintenant.' %}
+                                        </i>
+                                        {% endif %}
+                                    </a>
+                                </span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="site-section mb-5 mt-4">
+    <div class="title-1">{% trans '' %}</div>
+    <br>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            {% for lecturer in lecturers %}
+            <div class="col-lg-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        {% if lecturer.lecturer.picture %}
+                        <img class="avatar avatar-lg" src="{{ lecturer.lecturer.picture.url }}" alt="">
+                        {% endif %}
+                        <h5 class="fw-bold mb-0">{{ lecturer|title }}</h5>
+                        <p class="mb-0">{{ lecturer.lecturer.email }}</p>
+                        <p class="text-muted small">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+                        <p>
+                            <a class="btn btn-sm btn-secondary" href="#" role="button"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-sm btn-secondary" href="#" role="button"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-sm btn-secondary" href="#" role="button"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

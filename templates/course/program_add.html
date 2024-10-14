@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Qbeeez QCM' %}{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programmes' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Formulaire de Programme' %}</li>
+    </ol>
+</nav>
+
+{% include 'snippets/messages.html' %}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <p class="form-title">{% trans 'Ajouter un Programme' %}</p>
+            <div class="p-3">
+                <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                    {{ form.title|as_crispy_field }}
+                    {{ form.summary|as_crispy_field }}
+                    <div id="price_field">
+                        {{ form.price|as_crispy_field }}  {# Champ de prix #}
+                    </div>
+
+                    {{ form.image|as_crispy_field }}  {# Champ de téléchargement d'image #}
+                    <input class="btn btn-primary" type="submit" value="{% trans 'Sauvegarder' %}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePriceField() {
+        const priceField = document.getElementById('price_field');
+        priceField.style.display = document.getElementById('is_free').checked ? 'none' : 'block';
+    }
+
+    // Initialiser la visibilité du champ de prix au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        togglePriceField();
+    });
+</script>
+
+{% endblock content %}

@@ -1,0 +1,371 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "All Quizzes" %} | {% trans 'Qbeeez QCM' %}{% endblock %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Examens complets' %}</li>
+    </ol>
+</nav>
+
+<div class="container">
+
+    <div class="title-1"><i class="fas fa-calendar-alt"></i>{% trans "Liste des examens complets" %}</div>
+
+        <!-- Chart.js for total correct and incorrect answers -->
+        <div class="my-4">
+            <canvas id="quizPerformanceChart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Daily Performance Chart -->
+        <div class="my-4">
+            <h3>{% trans "Performances quotidiennes" %}</h3>
+            <canvas id="dailyPerformanceChart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Weekly Performance Chart -->
+        <div class="my-4">
+            <h3>{% trans "Performance par semaine" %}</h3>
+            <canvas id="weeklyPerformanceChart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Monthly Performance Chart -->
+        <div class="my-4">
+            <h3>{% trans "Performance par mois" %}</h3>
+            <canvas id="monthlyPerformanceChart" width="400" height="200"></canvas>
+        </div>
+
+
+    {% for student in students %}<h3>{{ student.student.user.get_full_name }}</h3>{% endfor %}
+
+    {% for marking in marking_list %}<h3>{{ marking }} <small>{{ forloop.counter }}</small></h3>{% endfor %}
+
+    <form action="" method="GET" class="form-inline justify-content-center bg-white p-4 my-3 d-flex gap-3">
+        <input type="text" name="user_filter" class="form-control" placeholder="User" value="{{ request.GET.user_filter }}">
+        <input type="text" name="quiz_filter" class="form-control" placeholder="Quiz" value="{{ request.GET.quiz_filter }}">
+        <button type="submit" class="btn btn-outline-secondary">{% trans "Filtre"%}</button>
+    </form>
+
+    {% if sitting_list %}
+        <div class="text-light bg-secondary p-1 my-2">{% trans 'Total des examens complets' %}: {{ sitting_list.count }}</div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{% trans "Cours" %}</th>
+                        <th>{% trans "Quiz" %}</th>
+                        <th>{% trans "Début" %}</th>
+                        <th>{% trans "Terminé" %}</th>
+                        <th>{% trans "Fin" %}</th>
+                        <th>{% trans "Score" %}(%)</th>
+                        <th>{% trans "Questions Correctes" %}</th>
+                        <th>{% trans "Questions Incorrectes" %}</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                {% for sitting in sitting_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ sitting.quiz.course }}</td>
+                    <td>{{ sitting.quiz }}</td>
+                    <td>{{ sitting.start|date }} {{ sitting.start|time }}</td>
+                    <td>{{ sitting.end|date }}</td>
+                    <td>{{ sitting.end|date }} {{ sitting.end|time }}</td>
+                    <td>{{ sitting.get_percent_correct }}%</td>
+                    <td>{{ sitting.correct_questions }}</td>
+                    <td>{{ sitting.incorrect_questions }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const courses = [{% for course in courses %}'{{ course }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
+    const correctAnswersTotal = [{% for count in correct_counts %}{{ count }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+    const incorrectAnswersTotal = [{% for count in incorrect_counts %}{{ count }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+
+    const ctx = document.getElementById('quizPerformanceChart').getContext('2d');
+    const quizPerformanceChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: courses,
+            datasets: [{
+                label: '{% trans "Réponses correctes" %}',
+                data: correctAnswersTotal,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            },
+            {
+                label: '{% trans "Réponses incorrectes" %}',
+                data: incorrectAnswersTotal,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+            // Prepare data for user performance chart
+            const userLabels = [
+                {% for sitting in sitting_list %}
+                    '{{ sitting.user }}'{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const correctAnswersData = [
+                {% for sitting in sitting_list %}
+                    {{ sitting.correct_questions|length }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const incorrectAnswersData = [
+                {% for sitting in sitting_list %}
+                    {{ sitting.incorrect_questions|length }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            // New Chart.js for User Performance
+            const ctx2 = document.getElementById('userPerformanceChart').getContext('2d');
+            const userPerformanceChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: userLabels,
+                    datasets: [{
+                        label: '{% trans "Réponses correctes" %} - ' + courseName,
+                        data: correctAnswersData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '{% trans "Réponses incorrectes" %} - ' + courseName,
+                        data: incorrectAnswersData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Performance by Day, Week, Month Chart
+            const performanceLabels = ['{% trans "Daily" %}', '{% trans "Weekly" %}', '{% trans "Monthly" %}'];
+
+            const dailyCorrectAnswersData = [{{ daily_correct }}]; // Total correct answers for today
+            const dailyIncorrectAnswersData = [{{ daily_incorrect }}]; // Total incorrect answers for today
+
+            const weeklyCorrectAnswersData = [{{ weekly_correct }}]; // Total correct answers for the week
+            const weeklyIncorrectAnswersData = [{{ weekly_incorrect }}]; // Total incorrect answers for the week
+
+            const monthlyCorrectAnswersData = [{{ monthly_correct }}]; // Total correct answers for the month
+            const monthlyIncorrectAnswersData = [{{ monthly_incorrect }}]; // Total incorrect answers for the month
+
+            // Performance Chart by Day, Week, Month
+            const ctx3 = document.getElementById('performanceByTimeChart').getContext('2d');
+            const performanceByTimeChart = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: performanceLabels,
+                    datasets: [{
+                        label: '{% trans "Réponses correctes" %} - ' + courseName,
+                        data: [dailyCorrectAnswersData[0], weeklyCorrectAnswersData[0], monthlyCorrectAnswersData[0]],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '{% trans "Réponses incorrectes" %} - ' + courseName,
+                        data: [dailyIncorrectAnswersData[0], weeklyIncorrectAnswersData[0], monthlyIncorrectAnswersData[0]],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+
+
+        <script>
+            // Daily Performance Chart
+            const dailyLabels = [
+                {% for day in daily_performance %}
+                    '{{ day.day }}'{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const dailyCorrectData = [
+                {% for day in daily_performance %}
+                    {{ day.correct_count }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const dailyIncorrectData = [
+                {% for day in daily_performance %}
+                    {{ day.incorrect_count }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const dailyCtx = document.getElementById('dailyPerformanceChart').getContext('2d');
+            const dailyPerformanceChart = new Chart(dailyCtx, {
+                type: 'line',
+                data: {
+                    labels: dailyLabels,
+                    datasets: [{
+                        label: '{% trans "Réponses correctes" %}',
+                        data: dailyCorrectData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: '{% trans "Réponses incorrectes" %}',
+                        data: dailyIncorrectData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Weekly Performance Chart
+            const weeklyLabels = [
+                {% for week in weekly_performance %}
+                    '{{ week.week }}'{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const weeklyCorrectData = [
+                {% for week in weekly_performance %}
+                    {{ week.correct_count }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const weeklyIncorrectData = [
+                {% for week in weekly_performance %}
+                    {{ week.incorrect_count }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const weeklyCtx = document.getElementById('weeklyPerformanceChart').getContext('2d');
+            const weeklyPerformanceChart = new Chart(weeklyCtx, {
+                type: 'line',
+                data: {
+                    labels: weeklyLabels,
+                    datasets: [{
+                        label: '{% trans "Réponses correctes" %}',
+                        data: weeklyCorrectData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: '{% trans "Réponses incorrectes" %}',
+                        data: weeklyIncorrectData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Monthly Performance Chart
+            const monthlyLabels = [
+                {% for month in monthly_performance %}
+                    '{{ month.month }}'{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const monthlyCorrectData = [
+                {% for month in monthly_performance %}
+                    {{ month.correct_count }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const monthlyIncorrectData = [
+                {% for month in monthly_performance %}
+                    {{ month.incorrect_count }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            ];
+
+            const monthlyCtx = document.getElementById('monthlyPerformanceChart').getContext('2d');
+            const monthlyPerformanceChart = new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: monthlyLabels,
+                    datasets: [{
+                        label: '{% trans "Réponses correctes" %}',
+                        data: monthlyCorrectData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: '{% trans "Réponses incorrectes" %}',
+                        data: monthlyIncorrectData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+
+    {% else %}
+        <p class="p-3 bg-light">{% trans "Aucun examen terminé pour vous" %}.</p>
+    {% endif %}
+
+</div>
+{% endblock %}

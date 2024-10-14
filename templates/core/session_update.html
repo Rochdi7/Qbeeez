@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Qbeeez QCM' %}{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'session_list' %}">{% trans 'Liste des sessions' %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans 'Formulaire de session' %}</li>
+    </ol>
+</nav>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card pb-3">
+            <p class="form-title">{% trans 'Ajouter et mettre à jour la session' %}</p>
+            <div class="container"><br>
+                <form action="" method="POST">{% csrf_token %}
+                    {{ form|crispy }}
+                    <input class="btn btn-primary" type="submit" value="{% trans 'Enregistrer' %}">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

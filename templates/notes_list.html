@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!-- Navigation Breadcrumbs -->
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-light py-2 px-4 rounded shadow-md">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/home" class="breadcrumb-link text-primary">Accueil</a></li>
+        <li class="breadcrumb-item"><a href="/quiz/quiz/notes/" class="breadcrumb-link text-primary">Vos notes</a></li>
+
+        <li class="breadcrumb-item active" aria-current="page">
+        </li>
+    </ol>
+</nav>
+
+<!-- Notes Section -->
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Vos Notes</h2>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <ul class="list-group">
+                {% for note in notes %}
+                    <li class="list-group-item border rounded-lg shadow-sm mb-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <p class="note-text">{{ note.notes }}</p>
+                                <small class="text-muted">Créé à : {{ note.created_at }}</small>
+                            </div>
+                            <div>
+                                <a href="{% url 'edit_note' note.id %}" class="btn btn-warning btn-sm me-2">Modifier</a>
+                                <a href="{% url 'delete_note' note.id %}" class="btn btn-danger btn-sm">Supprimer</a>
+                            </div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item text-center">
+                        <p>Aucune note disponible. Commencez à en ajouter !</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Success Notification Modals -->
+<div class="modal fade" id="editSuccessModal" tabindex="-1" aria-labelledby="editSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSuccessModalLabel">Note Modifiée Avec Succès</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Votre note a été modifiée avec succès.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteSuccessModal" tabindex="-1" aria-labelledby="deleteSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteSuccessModalLabel">Note Supprimée Avec Succès</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Votre note a été supprimée avec succès.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="{% static 'css/notes.css' %}">
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Fond léger pour un meilleur contraste */
+    }
+
+    .breadcrumb {
+        background-color: transparent; /* Rendre le fond du fil d'Ariane transparent */
+        padding: 0; /* Supprimer le padding pour un look plus épuré */
+    }
+
+    .note-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #343a40; /* Texte sombre pour une meilleure lisibilité */
+    }
+
+    .list-group-item {
+        background-color: #ffffff; /* Fond blanc pour les notes */
+        border: 1px solid #dee2e6; /* Bordure gris clair pour séparation */
+        transition: all 0.3s ease;
+    }
+
+    .list-group-item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-warning,
+    .btn-danger {
+        border-radius: 25px; /* Boutons en forme de pilule pour un look moderne */
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-warning:hover {
+        background-color: #e0a800; /* Teinte plus foncée au survol */
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333; /* Teinte plus foncée au survol */
+    }
+
+    /* Styles responsives */
+    @media (max-width: 768px) {
+        .note-text {
+            font-size: 1rem; /* Ajuster la taille de la police pour les écrans plus petits */
+        }
+    }
+</style>
+
+<!-- Script to Show Pop-ups -->
+<script>
+    // Function to show the edit success modal
+    function showEditSuccessModal() {
+        var editModal = new bootstrap.Modal(document.getElementById('editSuccessModal'));
+        editModal.show();
+    }
+
+    // Function to show the delete success modal
+    function showDeleteSuccessModal() {
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteSuccessModal'));
+        deleteModal.show();
+    }
+
+    // Check for URL parameters to trigger the pop-ups
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('edited')) {
+            showEditSuccessModal();
+        }
+        if (urlParams.has('deleted')) {
+            showDeleteSuccessModal();
+        }
+    };
+</script>
+{% endblock %}

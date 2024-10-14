@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %} {{ title }} | {% trans 'Qbeeez QCM' %}{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        {% if request.user.is_student %}
+        <li class="breadcrumb-item"><a href="{% url 'user_course_list' %}">{% trans 'Mes cours' %}</a></li>
+        {% else %}
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programmes' %}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item active" aria-current="page">{{ program.title }}</li>
+    </ol>
+</nav>
+
+{% if request.user.is_superuser %}
+<div class="manage-wrap">
+    <a class="btn btn-sm btn-primary" href="{% url 'course_add' pk=program.pk %}"><i class="fas fa-plus"></i>{% trans 'Ajouter un cours' %}</a>
+</div>
+{% endif %}
+
+{% if program %}
+<div class="title-1">{{ program.title }}</div>
+{% if program.summary %}
+<p>{{ program.summary }}</p>
+{% endif %}
+{% endif %}
+
+{% include 'snippets/messages.html' %}
+
+<div class="filter-form p-2">
+    <form method="GET" action="" class="d-flex align-items-center">
+        <label for="course_type" class="filter-label me-2">{% trans 'Filtrer par type de cours:' %}</label>
+        <select name="course_type" id="course_type" class="form-control form-control-sm me-2" onchange="this.form.submit()">
+            <option value="qcm_course" {% if course_type == 'qcm_course' %}selected{% endif %}>{% trans 'QCM par cours' %}</option>
+            <option value="qcm_session" {% if course_type == 'qcm_session' %}selected{% endif %}>{% trans 'QCM par session' %}</option>
+        </select>
+        <button type="submit" class="btn btn-secondary btn-sm" name="reset" value="true">{% trans 'Réinitialiser' %}</button>
+    </form>
+</div>
+
+<style>
+    .filter-form {
+        margin-bottom: 20px; /* Adjust as necessary for spacing */
+        display: flex; /* Use flexbox for layout */
+        align-items: center; /* Center items vertically */
+    }
+
+    .filter-label {
+        font-weight: bold;
+        font-size: 0.9rem; /* Slightly smaller font size */
+        margin-right: 10px; /* Space between label and select */
+    }
+
+    .form-control {
+        height: 38px; /* Adjust height for a more compact look */
+    }
+
+    .btn {
+        padding: 0.25rem 0.5rem; /* Smaller padding for the button */
+        font-size: 0.85rem; /* Slightly smaller font size */
+    }
+
+    /* Responsive styles for smaller screens */
+    @media (max-width: 576px) {
+        .filter-label {
+            margin-bottom: 0; /* No bottom margin on smaller screens */
+        }
+    }
+</style>
+
+
+</style>
+
+
+<div class="table-responsive p-0 px-2 mt-5">
+    <div class="table-shadow">
+        <table class="table table-light table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{% trans 'Nom du cours' %}</th>
+                    <th>{% trans 'Code du cours' %}</th>
+                    <th>{% trans 'Année' %}</th>
+                    {% if request.user.is_superuser %}
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ forloop.counter }}.</td>
+                    <td><a href="{{ course.get_absolute_url }}">{{ course.title }}</a></td>
+                    <td>{{ course.code }}</td>
+                    <td>{{ course.year }}</td>
+                    <th>
+                   
+                    </th>
+                    {% if request.user.is_superuser %}
+                    <td>
+                        <div class="dropdown dropstart">
+                            <button style="color: black;" class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v m-0"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="{% url 'edit_course' slug=course.slug %}"><i class="fas fa-pencil-alt"></i> {% trans 'Modifier' %}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'delete_course' slug=course.slug %}"><i class="fas fa-trash-alt"></i> {% trans 'Supprimer' %}</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="9">
+                  <span class="text-danger">
+                    {% trans 'Aucun cours pour ce programme.' %}
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'course_add' pk=program.pk %}">
+                    <i class="primary" style="font-size: 22px;">
+                        {% trans 'Ajoutez-en un maintenant.' %}
+                    </i>
+                    </a>
+                    {% endif %}
+                  </span>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if courses.paginator.page_range|length > 1 %}
+<div class="content-center">
+    <div class="pagination">
+        <a href="?page=1">&laquo;</a>
+        {% for i in courses.paginator.page_range %}
+        {% if i == courses.number %}
+        <a class="pagination-active" href="?page={{ i }}"><b>{{ i }}</b></a>
+        {% else %}
+        <a href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+        <a href="?page={{ courses.paginator.num_pages }}">&raquo;</a>
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}

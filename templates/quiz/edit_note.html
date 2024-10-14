@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Modifier la Note' %} | {% trans 'Qbeeez QCM' %}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h2>{% trans 'Modifier la Note' %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="notes">{% trans 'Votre Note' %}</label>
+            <textarea class="form-control" id="notes" name="notes" rows="5">{{ note.notes }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">{% trans 'Enregistrer' %}</button>
+        <a href="{% url 'notes_list' %}" class="btn btn-secondary">{% trans 'Annuler' %}</a>
+    </form>
+</div>
+{% endblock content %}

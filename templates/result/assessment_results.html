@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ title }} | {% trans 'Qbeeez QCM' %}{% endblock title %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{% trans 'Résultats d\'évaluation' %}</li>
+  </ol>
+</nav>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="title-1"><i class="fa fa-spell-check"></i>{% trans 'Résultats d\'évaluation' %}</div>
+<p>{{ student.level }} {% trans 'Résultat' %}</p>
+
+<div class="table-responsive p-0 px-2 mt-3">
+  <div class="table-title"><u>{% trans 'Premier semestre:' %}</u></div>
+  <table class="table table-light">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>{% trans 'Titre du cours' %}</th>
+        <th>{% trans 'Code du cours' %}</th>
+        <th>{% trans 'Cr.Hr(s)' %}</th>
+        <th>{% trans 'Devoir' %}</th>
+        <th>{% trans 'Examen de mi-session' %}</th>
+        <th>{% trans 'Quiz' %}</th>
+        <th>{% trans 'Présence' %}</th>
+        <th>{% trans 'Examen final' %}</th>
+        <th>{% trans 'Total' %}</th>
+      </tr>
+    </thead>
+    {% for course in courses %}
+    {% if course.course.semester == "First" %}
+    <tbody>
+      <tr class="{% if forloop.counter|divisibleby:2 %}bg-gray{% endif %}">
+        <th scope="row">{{ forloop.counter }}</th>
+        <td><a href="{{ course.course.get_absolute_url }}">{{ course.course.title }}</a></td>
+        <td>{{ course.course.code }}</td>
+        <td>{{ course.course.credit }}</td>
+        <td>{{ course.assignment }}</td>
+        <td>{{ course.mid_exam }}</td>
+        <td>{{ course.quiz }}</td>
+        <td>{{ course.attendance }}</td>
+        <td>{{ course.final_exam }}</td>
+        {% if course.total >= 45 %}
+        <td class="success"><i class="fas fa-check-circle"></i> {{ course.total }}</td>
+        {% else %}
+        <td class="danger"><i class="fas fa-exclamation-circle"></i> {{ course.total }}</td>
+        {% endif %}
+      </tr>
+    </tbody>
+    {% endif %}
+    {% endfor %}
+  </table>
+  </div>
+
+  <div class="table-responsive p-3 mt-3">
+    <div class="table-title"><u>{% trans 'Deuxième semestre:' %}</u></div>
+    <table class="table table-light">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>{% trans 'Titre du cours' %}</th>
+        <th>{% trans 'Code du cours' %}</th>
+        <th>{% trans 'Cr.Hr(s)' %}</th>
+        <th>{% trans 'Devoir' %}</th>
+        <th>{% trans 'Examen de mi-session' %}</th>
+        <th>{% trans 'Quiz' %}</th>
+        <th>{% trans 'Présence' %}</th>
+        <th>{% trans 'Examen final' %}</th>
+        <th>{% trans 'Total' %}</th>
+      </tr>
+    </thead>
+    {% for course in courses %}
+    {% if course.course.semester == "Second" %}
+    <tbody>
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td><a href="{{ course.course.get_absolute_url }}">{{ course.course.title }}</a></td>
+        <td>{{ course.course.code }}</td>
+        <td>{{ course.course.credit }}</td>
+        <td>{{ course.assignment }}</td>
+        <td>{{ course.mid_exam }}</td>
+        <td>{{ course.quiz }}</td>
+        <td>{{ course.attendance }}</td>
+        <td>{{ course.final_exam }}</td>
+        {% if course.total >= 45 %}
+        <td class="success"><i class="fas fa-check-circle"></i> {{ course.total }}</td>
+        {% else %}
+        <td class="danger"><i class="fas fa-exclamation-circle"></i> {{ course.total }}</td>
+        {% endif %}
+      </tr>
+    </tbody>
+    {% endif %}
+    {% endfor %}
+  </table>
+</div>
+
+<br>
+{% endblock %}

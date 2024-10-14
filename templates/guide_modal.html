@@ -1,0 +1,134 @@
+<!-- Guide Button -->
+<!-- Guide Button with Icon -->
+
+
+<!-- Guide Modal -->
+<div id="guide-modal" class="guide-modal" style="display: none;">
+  <div class="guide-content">
+    <span class="close">&times;</span>
+    <div class="guide-header">Guide</div>
+    <button id="prev-btn" class="nav-btn prev" disabled>
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="guide-slides">
+      <!-- Your guide slides go here -->
+      <div class="guide-slide">
+        <div class="guide-title">Commentaire</div>
+        <div class="guide-body">
+          <div class="guide-image">
+            <img src="https://beta.qbanki.com/storage/8TC2r6lA5pmMj2yP3rf5vA3exNdZkHXqSQwGzGdx.gif" alt="Commentaire Tutorial">
+          </div>
+          <div class="guide-text">
+            <p><span style="color: blue;"><strong>Pour commenter, suivez ces étapes simples :</strong></span></p>
+            <ul>
+              <li><span style="color: black;"><strong>- Activez ou non le "Mode Anonyme" pour partager vos opinions discrètement.</strong></span></li>
+              <li><span style="color: black;"><strong>- Choisissez les propositions de QCM pertinentes pour filtrer les commentaires.</strong></span></li>
+              <li><span style="color: black;"><strong>- Rédigez votre commentaire dans la zone dédiée.</strong></span></li>
+              <li><span style="color: black;"><strong>- Publiez-le et modifiez ou supprimez-le si nécessaire. Signalez les commentaires inappropriés pour maintenir un environnement respectueux.</strong></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Repeat similar structure for other slides -->
+
+      <div class="guide-slide">
+        <div class="guide-title">Ajuster la taille de la police</div>
+        <div class="guide-body">
+          <div class="guide-image">
+            <img src="https://beta.qbanki.com/storage/h5evF6AP3yR59DAEErTa3KVTpsvGPBlx8zXuJyn4.gif" alt="Font Size Adjustment Tutorial">
+          </div>
+          <div class="guide-text">
+            <h3 style="color: blue; font-weight: bold;">La taille de police de QCM</h3>
+            <ul>
+              <li><span style="color: black; font-weight: bold;">🔹</span> Vous pouvez augmenter la taille de police des QCM en cliquant sur le bouton "<span style="color: blue; font-weight: bold;">+</span>".</li>
+              <li><span style="color: black; font-weight: bold;">🔹</span> Vous pouvez diminuer la taille de police des QCM en cliquant sur le bouton "<span style="color: blue; font-weight: bold;">-</span>".</li>
+              <li><span style="color: black; font-weight: bold;">🔹</span> Vous pouvez revenir à la taille par défaut en cliquant sur l'icône entre les boutons "<span style="color: blue; font-weight: bold;">+</span>" et "<span style="color: blue; font-weight: bold;">-</span>".</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-slide">
+        <div class="guide-title">Mode Sombre</div>
+        <div class="guide-body">
+          <div class="guide-image">
+            <img src="https://beta.qbanki.com/storage/zTo3yR6IaB0HC0ye3eO1TPXhXreS8ucO6QAROA4m.gif" alt="Dark Mode Tutorial">
+          </div>
+          <div class="guide-text">
+            <p style="font-weight: bold; color: blue;">🌙 Profitez du confort visuel avec notre Mode Sombre !</p>
+            <p style="font-weight: bold; color: black;">Activez ou désactivez facilement le Mode Sombre en cliquant sur le bouton correspondant dans la barre latérale. Offrez-vous une expérience de lecture nocturne agréable et réduisez la fatigue visuelle.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="next-btn" class="nav-btn next">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const guideBtn = document.getElementById('guide-btn');
+    const guideModal = document.getElementById('guide-modal');
+    const closeBtn = document.querySelector('.guide-modal .close');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const guideSlides = document.querySelectorAll('.guide-slide');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        guideSlides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === guideSlides.length - 1;
+        prevBtn.style.display = guideSlides.length > 1 ? 'block' : 'none';
+        nextBtn.style.display = guideSlides.length > 1 ? 'block' : 'none';
+    }
+
+    guideBtn.addEventListener('click', () => {
+        guideModal.style.display = 'flex';
+        showSlide(currentSlide);
+    });
+
+    closeBtn.addEventListener('click', () => {
+        guideModal.style.display = 'none';
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentSlide > 0) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentSlide < guideSlides.length - 1) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    });
+
+    // Fullscreen functionality for guide images
+    const fullscreenImg = document.createElement('img');
+    fullscreenImg.classList.add('fullscreen');
+    document.body.appendChild(fullscreenImg);
+
+    guideSlides.forEach(slide => {
+        const img = slide.querySelector('.guide-image img');
+        if (img) {
+            img.addEventListener('click', () => {
+                fullscreenImg.src = img.src;
+                fullscreenImg.style.display = 'block';
+            });
+        }
+    });
+
+    fullscreenImg.addEventListener('click', () => {
+        fullscreenImg.style.display = 'none';
+    });
+});
+
+</script>

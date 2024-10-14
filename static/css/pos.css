@@ -1,0 +1,370 @@
+.card {
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Increased padding for better spacing */
+    text-align: center; /* Centered content */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+    background-color: #ffffff; /* Card background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.card:hover {
+    background: #f9f9f9; /* Light background on hover */
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Flexible grid layout */
+    gap: 20px; /* Increased gap between cards */
+    margin-top: 20px; /* Spacing above the grid */
+}
+
+h5 {
+    font-weight: bold; /* Bold title */
+    color: #333; /* Darker color for title */
+    margin: 10px 0; /* Spacing around title */
+}
+
+.program-slide {
+    font-weight: bold; /* Makes the title bold */
+    transition: transform 0.3s, color 0.3s; /* Adds a smooth transition effect */
+}
+
+.program-slide:hover {
+    transform: scale(1.05); /* Slightly enlarges the text on hover */
+    color: #007bff; /* Changes the color on hover */
+}
+
+.course-count {
+    font-weight: 600; /* Semi-bold for course count */
+    color: #555; /* Slightly lighter color */
+}
+
+.price {
+    font-size: 1.2em; /* Increased font size for price */
+    color: #20A8A8; /* Primary color for price */
+    margin: 10px 0; /* Margin for spacing */
+}
+
+.btn {
+    align-items: center;
+    padding: 8px 12px; /* Smaller padding for a compact look */
+    font-size: 0.9em; /* Decreased font size */
+    border-radius: 4px; /* Keep rounded corners */
+    color: #fff !important; /* Ensure text is white */
+    background-color: #20A8A8; /* Keep primary color */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+    border: none; /* Remove default border */
+    display: inline-block; /* Align button properly */
+    margin-top: 10px; /* Space between buttons and elements */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.btn:hover {
+    background-color: #1b7c7c; /* Darker shade on hover */
+    transform: scale(1.03); /* Slight hover scale effect */
+}
+
+.btn:active {
+    transform: scale(0.98); /* Button press effect */
+}
+
+/* Sliding panel styles */
+.sliding-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 350px; /* Keep the width for better spacing */
+    height: auto; /* Change height to auto to fit the content */
+    max-height: 90%; /* Limit the height to 90% of the viewport */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the max height */
+    background: #fff; /* Panel background */
+    border-left: 1px solid #20A8A8; /* Border color */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    transform: translateX(100%); /* Start hidden */
+    transition: transform 0.3s ease; /* Smooth transition */
+    padding: 20px; /* Maintain padding for content */
+    z-index: 1000; /* Ensure above other content */
+    display: flex;
+    flex-direction: column; /* Flexbox for vertical alignment */
+}
+
+.sliding-panel.open {
+    transform: translateX(0); /* Slide in */
+}
+
+.sliding-panel h5 {
+    margin-top: 0; /* No margin for top */
+    font-size: 1.5em; /* Increased font size for heading */
+    color: #20A8A8; /* Primary color for heading */
+    border-bottom: 2px solid #20A8A8; /* Underline for the title */
+    padding-bottom: 10px; /* Spacing below the title */
+}
+
+.total {
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    margin: 20px 0; /* Spacing above and below */
+    font-weight: bold; /* Make total bold */
+    color: #20A8A8; /* Primary color for total */
+    font-size: 1.2em; /* Increase font size */
+}
+
+.total img {
+    margin-right: 10px; /* Space between icon and text */
+    width: 24px; /* Set width for the icon */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.selected-program-header {
+display: flex; /* Use flexbox to align items */
+align-items: center; /* Align items vertically */
+justify-content: center; /* Centers the title horizontally */
+}
+
+.shopping-cart-icon {
+border: 2px solid #007bff; /* Blue border */
+border-radius: 50%; /* Rounded border for circular shape */
+padding: 5px; /* Padding for spacing */
+background-color: #f9f9f9; /* Light background color */
+opacity: 0.8; /* Slightly transparent */
+margin-right: 10px; /* Space between icon and title */
+display: flex;
+justify-content: center; /* Center the GIF horizontally */
+align-items: center; /* Center the GIF vertically */
+}
+
+.shopping-cart-icon img {
+width: 32px; /* Set the size for the shopping cart icon to match the <h5> */
+height: 32px; /* Maintain equal height */
+}
+
+h5 {
+font-size: 1.25em; /* Adjust the font size of h5 as necessary */
+line-height: 32px; /* Set line height to match the height of the GIF */
+margin: 0; /* Remove default margin for consistent spacing */
+}
+
+#selected-title {
+text-align: center; /* Center the text */
+font-size: 1.25em; /* Moderately increased font size */
+font-family: Arial, sans-serif; /* Use a clean, sans-serif font */
+font-weight: normal; /* Keep the font weight normal */
+color: #555; /* Soft gray color for readability */
+margin: 5px 0; /* Slight margin for spacing */
+line-height: 1.4; /* Improved line height for readability */
+transition: color 0.3s; /* Smooth color transition */
+}
+
+#selected-title:hover {
+color: #007bff; /* Change color on hover for a subtle effect */
+}
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light background for contrast */
+    color: #333; /* Dark text for readability */
+}
+
+/* Headings */
+h3 {
+    color: #007bff; /* Blue color for headings */
+    text-align: center; /* Center-align heading */
+    margin-bottom: 15px; /* Spacing below the heading */
+}
+
+/* Sales Point Options */
+.sales-point-options {
+    display: flex; /* Align radio buttons horizontally */
+    justify-content: center; /* Center align */
+    margin-bottom: 20px; /* Spacing below the radio options */
+}
+
+.sales-point {
+    display: flex;
+    align-items: center; /* Vertically center align */
+    margin: 0 15px; /* Spacing between radio options */
+    cursor: pointer; /* Pointer cursor for better UX */
+}
+
+/* Custom styles for radio buttons */
+.sales-point input[type="radio"] {
+    display: none; /* Hide default radio button */
+}
+
+.sales-point span {
+    padding: 10px; /* Padding around label */
+    border: 2px solid #007bff; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #fff; /* White background */
+    transition: background-color 0.3s, color 0.3s; /* Transition effect */
+}
+
+.sales-point input[type="radio"]:checked + span {
+    background-color: #007bff; /* Highlight selected option */
+    color: #fff; /* White text on selected */
+    
+}
+/* POS Code Form */
+
+
+label {
+    display: block; /* Each label on new line */
+    margin: 10px 0 5px; /* Margin for spacing */
+}
+
+/* Input styles */
+input[type="text"], input[type="file"] {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px; /* Padding for text inputs */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 15px; /* Spacing below inputs */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for inputs */
+    transition: border-color 0.3s; /* Transition for border color */
+}
+
+input[type="text"]:focus, input[type="file"]:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Error message */
+.error {
+    color: red; /* Red color for error messages */
+    text-align: center; /* Center align error message */
+}
+
+.sliding-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 350px; /* Keep the width for better spacing */
+    height: auto; /* Change height to auto to fit the content */
+    max-height: 90%; /* Limit the height to 90% of the viewport */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the max height */
+    background: #fff;
+    border-left: 1px solid #20A8A8;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 20px; /* Maintain padding for content */
+    z-index: 1000;
+    display: flex;
+    flex-direction: column; /* Flexbox for vertical alignment */
+}
+
+    .sliding-panel.open {
+        transform: translateX(0);
+    }
+
+    .program-title {
+        text-align: center;
+        font-size: 1.5em; /* Larger title */
+        margin-bottom: 10px; /* Spacing below title */
+        color: #20A8A8; /* Title color */
+        font-weight: bold; /* Bold title */
+        padding-bottom: 10px; /* Spacing below the title */
+    }
+
+    .total {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+        font-weight: bold; /* Make total bold */
+        color: #20A8A8; /* Primary color for total */
+        font-size: 1.2em; /* Increase font size */
+    }
+
+    .total img {
+        margin-right: 10px; /* Space between icon and text */
+        width: 24px; /* Set width for the icon */
+        height: auto; /* Maintain aspect ratio */
+    }
+    .warning-message {
+        background-color: #ffcc00; /* Warning background color */
+        color: #333; /* Warning text color */
+        padding: 15px; /* Padding for warning */
+        border-radius: 5px; /* Rounded corners */
+        margin: 15px 0; /* Spacing around warning */
+        font-size: 14px; /* Font size for warning text */
+        display: flex;
+        align-items: center; /* Center content vertically */
+    }
+    
+    .warning-message strong {
+        font-weight: 600; /* Less bold than the default bold */
+        margin-right: 10px; /* Spacing to the right */
+        font-size: 16px; /* Slightly larger font size for emphasis */
+    }
+    
+
+    .sales-point {
+        margin-bottom: 5px; /* Spacing between options */
+        font-size: 16px; /* Increase font size */
+        color: #333; /* Font color */
+        cursor: pointer; /* Pointer cursor on hover */
+    }
+
+    .sales-point input {
+        margin-right: 8px; /* Space between radio and label */
+        cursor: pointer; /* Pointer cursor on radio button */
+    }
+
+    .pos-code-form {
+        margin-top: 10px; /* Spacing above the form */
+        padding: 15px; /* Padding around the form */
+        border: 1px solid #ddd; /* Border for form */
+        border-radius: 5px; /* Rounded corners for form */
+        background-color: #f9f9f9; /* Light background color for form */
+    }
+
+    .pos-code-form label {
+        display: block; /* Labels on their own line */
+        margin-bottom: 5px; /* Spacing below labels */
+        font-weight: bold; /* Bold labels */
+        color: #20A8A8; /* Label color */
+    }
+
+    .pos-code-form input[type="text"],
+    .pos-code-form input[type="file"] {
+        width: calc(100% - 10px); /* Full width inputs with some padding */
+        padding: 8px; /* Padding for inputs */
+        margin-bottom: 15px; /* Spacing below inputs */
+        border: 1px solid #ccc; /* Border for inputs */
+        border-radius: 4px; /* Rounded corners for inputs */
+    }
+
+
+    .error {
+        color: red; /* Error text color */
+        margin-top: 10px; /* Spacing above error message */
+        font-weight: bold; /* Bold error message */
+        display: none; /* Hidden by default */
+    }
+
+    .checkbox-container {
+        margin: 15px 0; /* Add space around the checkbox */
+    }
+    
+    .checkbox-container input[type="checkbox"] {
+        margin-right: 10px; /* Space between checkbox and label */
+        width: 20px; /* Set width */
+        height: 20px; /* Set height */
+    }
+    
+    .checkbox-container label {
+        color: #008080; /* Set label text color */
+        font-size: 16px; /* Optional: Set font size for better visibility */
+    }
+    .close-btn {
+        margin-left: auto; /* Align close button to the right */
+    }
+    

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block title %}Choisissez un moyen de paiement{% endblock title %}
+{% load static %}
+
+{% block header %}
+<!-- Ajouter des balises meta pour mobile et IE -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="https://use.fontawesome.com/aade6c6330.js"></script>
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/cih.css' %}">
+
+<div class="container">
+    <h1 class="display-4">Moyens de paiement</h1>
+    <div class="row">
+        <div class="card-payment cihbank">
+            <h4>CIH Bank</h4>
+            <div class="logo-container">
+                <img src="{% static 'icon/cihbank.png' %}" alt="Logo CIH Bank" class="cihbank-logo" />
+            </div>
+            <button class="btn" onclick="showPrograms()">Sélectionner des programmes</button>
+            <div class="programs-grid" id="programs-grid" style="display: none;">
+                {% for program in programs %}
+                <div class="card">
+                    {% if program.image %}
+                        <img src="{{ program.image.url }}" alt="{{ program.title }} Image" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px;">
+                    {% else %}
+                        <img src="{% static 'img/Qbeeezlogo.jpg' %}" alt="Image par défaut" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px;">
+                    {% endif %}
+
+                    <h5 class="program-slide">{{ program.title }}</h5>
+                    <p class="price">Prix : {{ program.price }} د.م</p>
+                    <p class="course-count">Nombre de cours : {{ program.course_set.count }}</p>
+                    <button class="btn" onclick="selectProgram('{{ program.id }}', '{{ program.title }}', '{{ program.price }}')">Sélectionner</button>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="sliding-panel" id="sliding-panel">
+                <div class="selected-program-header" style="display: flex; align-items: center;">
+                    <div class="shopping-cart-icon" style="margin-right: 10px;">
+                        <img src="{% static 'icon/icons8-shopping-cart.gif' %}" alt="Icône de panier" style="width: 24px; height: 24px;">
+                    </div>
+                    <h5 class="program-slide" style="margin-left: 10px;">Programme sélectionné :</h5>
+                </div>
+                <p id="selected-title"></p>
+                <div class="total">
+                    <img src="{% static 'icon/money.svg' %}" alt="Icône d'argent">
+                    <p id="selected-price"></p>
+                </div>
+                <div class="warning-message">
+                    <strong>Avertissement :</strong> Vous devez copier le RIB et faire une capture d'écran du "Reçu de Virement" de votre banque.
+                </div>
+
+                <div class="rib-info">
+                    <div class="rib-item">
+                        <strong>RIB :</strong> 230780466977321100430026
+                        <button class="copy-btn" onclick="copyToClipboard('230 780 4669773211004300 26')">
+                            <img src="https://img.icons8.com/pastel-glyph/64/copy--v1.png" alt="copy--v1" />
+                        </button>
+                    </div>
+                    <div class="rib-item">
+                        <strong>N° de compte :</strong> 4669773211004300
+                        <button class="copy-btn" onclick="copyToClipboard('4669773211004300')">
+                            <img src="https://img.icons8.com/pastel-glyph/64/copy--v1.png" alt="copy--v1" />
+                        </button>
+                    </div>
+                </div>
+
+                <div class="upload-section">
+                    <h5 style="display: flex; align-items: center;">
+                        <img src="https://img.icons8.com/ios-filled/50/20A8A8/upload.png" alt="Icône de téléchargement" style="width: 24px; height: 24px; margin-right: 10px;">
+                        Télécharger des documents pour la facture
+                    </h5>
+                    <form id="cihbank-form" method="POST" enctype="multipart/form-data" action="{% url 'cihbank_payment' %}">
+                        {% csrf_token %}
+                        <label for="document1">Reçu de Virement :</label>
+                        <input type="file" id="document1" name="document1" accept=".pdf,.jpg,.png" required>
+                        <label for="document2">Carte Étudiant :</label>
+                        <input type="file" id="document2" name="document2" accept=".pdf,.jpg,.png" required>
+
+                        <!-- Checkbox pour confirmer l'accord -->
+                        <label for="confirmation" style="display: flex; align-items: center; margin-top: 10px;">
+                            <input type="checkbox" id="confirmation" name="confirmation" onclick="toggleSubmitButton()">
+                            <span style="margin-left: 5px;">Je confirme que les informations sont correctes</span>
+                        </label>
+
+                        <input type="hidden" name="program_id" id="hidden-program">
+                        <button type="submit" id="submit-btn" class="btn" style="display: none;">Soumettre les documents</button>
+                    </form>
+                </div>
+
+                <button class="btn" onclick="closePanel()">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    function showPrograms() {
+        const programsGrid = document.getElementById('programs-grid');
+        programsGrid.style.display = 'grid';
+    }
+
+    function selectProgram(programId, programTitle, programPrice) {
+        document.getElementById('hidden-program').value = programId;
+        document.getElementById('selected-title').innerText = programTitle;
+        document.getElementById('selected-price').innerText = 'Total : ' + programPrice + ' د.م';
+        const slidingPanel = document.getElementById('sliding-panel');
+        slidingPanel.classList.add('open');
+    }
+
+    function closePanel() {
+        const slidingPanel = document.getElementById('sliding-panel');
+        slidingPanel.classList.remove('open');
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Copié dans le presse-papiers : ' + text);
+        }).catch(err => {
+            console.error('Erreur lors de la copie du texte : ', err);
+        });
+    }
+
+    function toggleSubmitButton() {
+        const checkbox = document.getElementById('confirmation');
+        const submitBtn = document.getElementById('submit-btn');
+        if (checkbox.checked) {
+            submitBtn.style.display = 'block';
+        } else {
+            submitBtn.style.display = 'none';
+        }
+    }
+</script>
+{% endblock js %}

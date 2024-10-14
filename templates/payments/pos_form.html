@@ -1,0 +1,213 @@
+{% extends 'base.html' %} 
+{% block title %}Sélectionner un programme pour le paiement POS{% endblock title %}
+{% load static %}
+
+{% block header %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="https://use.fontawesome.com/aade6c6330.js"></script>
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+    /* Ajoutez ici des styles supplémentaires */
+</style>
+<link rel="stylesheet" href="{% static 'css/pos.css' %}">
+
+<div class="container">
+    <h2 class="display-4">Sélectionner un programme pour le paiement POS</h2>
+    
+    <div class="row">
+        <div class="card-payment">
+            <button class="btn" onclick="showPrograms()">Afficher les programmes</button>
+
+            <!-- Grille des programmes -->
+            <div class="programs-grid" id="programs-grid" style="display: none;">
+                {% if programs %}
+                    {% for program in programs %}
+                    <div class="card">
+                        <!-- Afficher l'image du programme uniquement si elle existe -->
+                        {% if program.image %}
+                            <img src="{{ program.image.url }}" alt="{{ program.title }} Image" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px;">
+                        {% else %}
+                            <img src="{% static 'img/Qbeeezlogo.jpg' %}" alt="Image par défaut" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px;">
+                        {% endif %}
+                        
+                        <h5 class="program-slide">{{ program.title }}</h5>
+                        <p class="price">Prix : {{ program.price }} د.م</p>
+                        <p class="course-count">Nombre de cours : {{ program.course_set.count }}</p>
+                        <button class="btn" onclick="selectProgram('{{ program.id }}', '{{ program.title }}', '{{ program.price }}')">Sélectionner</button>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucun programme disponible pour le paiement POS.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Panneau coulissant -->
+<div class="sliding-panel" id="sliding-panel">
+    <div class="selected-program-header">
+        <div class="shopping-cart-icon">
+            <img src="{% static 'icon/icons8-shopping-cart.gif' %}" alt="Icône de panier" style="width: 24px; height: 24px;">
+        </div>
+        <h5 style="margin-left: 10px;">Programme sélectionné</h5>
+        <!-- Bouton de fermeture -->
+        <button class="close-btn" onclick="closeSlidingPanel()" style="background: none; border: none; cursor: pointer;">
+            <i class="fa fa-times" style="font-size: 24px; color: #008080;"></i> <!-- Icône de fermeture Font Awesome -->
+        </button>
+    </div>
+    
+    <div class="selected-program-header"> 
+        <div id="selected-title" class="program-title">Titre du programme sélectionné ici</div>
+    </div>
+    
+    <div class="total">
+        <img src="https://img.icons8.com/ios-filled/50/20A8A8/ticket.png" alt="Icône Total" />
+        <span>Total : <span id="total-price"></span> د.م</span>
+    </div>
+    
+    <div class="warning-message">
+        <strong>Avertissement :</strong> Vous devez copier le RIB et le numéro de compte et vous assurer de faire une capture d'écran du "Reçu de Virement" de votre banque.
+    </div>
+
+    <!-- Formulaire pour soumettre le paiement POS -->
+    <form id="posPaymentForm" enctype="multipart/form-data" method="POST" onsubmit="validateAndSubmit(event)">
+        {% csrf_token %}
+        <!-- Sélection du point de vente -->
+        <h3>Sélectionner le point de vente</h3>
+        <div class="sales-point-options">
+            <label class="sales-point">
+                <input type="radio" name="sales_point" value="Copy House" onclick="showPosCodeForm()">
+                <span class="radio-label">Copy House</span>
+            </label>
+            <label class="sales-point">
+                <input type="radio" name="sales_point" value="Medec'In Casa - UM6SS" onclick="showPosCodeForm()">
+                <span class="radio-label">Medec'In Casa - UM6SS</span>
+            </label>
+        </div>
+
+        <!-- Formulaire de code POS -->
+        <div id="sales-point-form" style="display: none;" class="pos-code-form">
+            <label for="pos_code">Code POS :</label>
+            <input type="text" name="pos_code" id="pos_code" required placeholder="Entrez le code POS">
+
+            <div class="upload-section">
+                <h5>Carte Étudiant :</h5>
+                <label for="student_card" class="custom-file-upload">
+                    <input type="file" name="student_card" id="student_card" accept=".pdf,.jpg,.png" required>
+                    <span>Choisir un fichier</span>
+                </label>
+            </div>
+             <!-- Case à cocher pour accepter les termes -->
+        <div class="checkbox-container">
+            <label>
+                <input type="checkbox" id="terms-checkbox" required onchange="toggleSubmitButton()">
+                J'ai lu et j'accepte les termes et conditions.
+            </label>
+        </div>
+        </div>
+
+        <input type="hidden" name="program_id" id="hidden-program"> 
+        <input type="hidden" name="user_id" id="user_id" value="{{ user.id }}"> 
+
+        <p id="error-message" class="error" style="display: none;"></p> 
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="btn" id="submit-button" disabled>Soumettre</button>
+    </form>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    let selectedProgram = null; 
+    let selectedSalesPoint = null; 
+
+    function showPrograms() {
+        const programsGrid = document.getElementById('programs-grid');
+        programsGrid.style.display = 'grid';
+    }
+
+    function selectProgram(programId, programTitle, programPrice) {
+        selectedProgram = programId;
+        document.getElementById('hidden-program').value = programId;
+        document.getElementById('selected-title').innerText = programTitle; 
+        document.getElementById('total-price').innerText = programPrice; 
+        document.getElementById('sliding-panel').classList.add('open');
+        document.getElementById('error-message').style.display = 'none';
+    }
+
+    function showPosCodeForm() {
+        document.getElementById('sales-point-form').style.display = 'block'; 
+        selectedSalesPoint = document.querySelector('input[name="sales_point"]:checked').value; 
+        document.getElementById('pos_code').value = ''; 
+    }
+
+    function validateAndSubmit(event) {
+        event.preventDefault(); 
+
+        const posCodeInput = document.getElementById('pos_code');
+        const posCode = posCodeInput ? posCodeInput.value : null;
+
+        if (!selectedProgram) {
+            document.getElementById('error-message').innerText = 'Veuillez d’abord sélectionner un programme.';
+            document.getElementById('error-message').style.display = 'block';
+            return;
+        }
+
+        if (!selectedSalesPoint) {
+            document.getElementById('error-message').innerText = 'Veuillez sélectionner un point de vente.';
+            document.getElementById('error-message').style.display = 'block';
+            return;
+        }
+
+        if (!posCode) {
+            document.getElementById('error-message').innerText = 'Veuillez entrer un code POS.';
+            document.getElementById('error-message').style.display = 'block';
+            return;
+        }
+
+        const formData = new FormData(document.getElementById('posPaymentForm'));
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value; 
+
+        fetch("{% url 'pos_submit' %}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Données de réponse:', data);  
+            if (data.success) {
+                alert('Paiement soumis avec succès !');
+                window.location.href = data.redirect_url; 
+            } else {
+                document.getElementById('error-message').innerText = data.error;
+                document.getElementById('error-message').style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+            document.getElementById('error-message').innerText = 'Une erreur est survenue lors de la soumission du formulaire.';
+            document.getElementById('error-message').style.display = 'block';
+        });
+    }
+
+    // Fonction pour activer/désactiver le bouton de soumission en fonction de l'état de la case à cocher
+    function toggleSubmitButton() {
+        const checkbox = document.getElementById('terms-checkbox');
+        const submitButton = document.getElementById('submit-button');
+        submitButton.disabled = !checkbox.checked; 
+    }
+
+    function closeSlidingPanel() {
+        document.getElementById('sliding-panel').classList.remove('open');
+    }
+</script>
+{% endblock %}

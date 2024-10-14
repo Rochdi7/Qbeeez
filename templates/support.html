@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="form-container">
+        <h1>Contacter le support</h1>
+    
+        <form method="POST" action="" class="support-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_name">Nom complet</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="id_university">Université</label>
+                {{ form.university }}
+            </div>
+            <div class="form-group">
+                <label for="id_university_phone">Numéro de téléphone</label>
+                {{ form.university_phone }}
+            </div>
+            <div class="form-group">
+                <label for="id_subject">Sujet</label>
+                {{ form.subject }}
+            </div>
+            <div class="form-group">
+                <label for="id_message">Message</label>
+                {{ form.message }}
+            </div>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f7f6;
+    }
+
+    .form-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #333;
+    }
+
+    .support-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    input, textarea {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        outline: none;
+    }
+
+    input:focus, textarea:focus {
+        border-color: #007bff;
+    }
+
+    textarea {
+        height: 100px;
+        resize: vertical;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    @media (max-width: 600px) {
+        .form-container {
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        input, textarea {
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+{% endblock %}

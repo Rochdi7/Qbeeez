@@ -1,0 +1,294 @@
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: .5s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* Card background color */
+}
+.card:hover {
+    background: #f9f9f9;
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px; /* Increased gap between cards */
+    margin-top: 20px;
+}
+h5 {
+    font-weight: bold; /* Bold title */
+    color: #333; /* Darker color for title */
+}
+.course-count {
+    font-weight: 600; /* Semi-bold for course count */
+    color: #555; /* Slightly lighter color */
+}
+.price {
+    font-size: 1.2em; /* Increased font size for price */
+    color: #20A8A8; /* Primary color for price */
+    margin: 10px 0; /* Margin for spacing */
+}
+.btn {
+    align-items: center;
+    padding: 8px 12px;  /* Smaller padding for compact look */
+    font-size: 0.9em;  /* Decrease font size */
+    border-radius: 4px;  /* Keep rounded corners */
+    color: #fff !important;  /* Ensure text is white */
+    background-color: #20A8A8;  /* Keep primary color */
+    transition: background-color 0.3s, transform 0.3s;  /* Smooth transitions */
+    border: none;  /* Remove default border */
+    display: inline-block;  /* Align button properly */
+    margin-top: 10px;  /* Space between buttons and elements */
+}
+
+.btn:hover {
+    background-color: #1b7c7c;  /* Darker shade on hover */
+    transform: scale(1.03);  /* Slight hover scale effect */
+}
+
+.btn:active {
+    transform: scale(0.98);  /* Button press effect */
+}
+
+/* Sliding panel styles */
+.sliding-panel {
+position: fixed;
+right: 0;
+top: 0;
+width: 350px; /* Keep the width for better spacing */
+height: auto; /* Change height to auto to fit the content */
+max-height: 90%; /* Limit the height to 90% of the viewport */
+overflow-y: auto; /* Enable vertical scrolling if content exceeds the max height */
+background: #fff;
+border-left: 1px solid #20A8A8;
+box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+transform: translateX(100%);
+transition: transform 0.3s ease;
+padding: 20px; /* Maintain padding for content */
+z-index: 1000;
+display: flex;
+flex-direction: column; /* Flexbox for vertical alignment */
+}
+
+.sliding-panel.open {
+transform: translateX(0);
+}
+
+.sliding-panel h5 {
+margin-top: 0;
+font-size: 1.5em; /* Increased font size for heading */
+color: #20A8A8; /* Primary color for heading */
+border-bottom: 2px solid #20A8A8; /* Underline for the title */
+padding-bottom: 10px; /* Spacing below the title */
+}
+
+.total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    font-weight: bold; /* Make total bold */
+    color: #20A8A8; /* Primary color for total */
+    font-size: 1.2em; /* Increase font size */
+}
+.total img {
+    margin-right: 10px; /* Space between icon and text */
+    width: 24px; /* Set width for the icon */
+    height: auto; /* Maintain aspect ratio */
+}
+.upload-section {
+margin-top: 20px; /* Space before the upload section */
+padding: 20px; /* Padding for better spacing */
+border: 1px solid #20A8A8; /* Solid border */
+border-radius: 8px; /* Rounded corners */
+background-color: #f9f9f9; /* Light background for contrast */
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.upload-section h5 {
+font-size: 1.5em; /* Font size for the title */
+color: #20A8A8; /* Primary color for the title */
+margin-bottom: 15px; /* Space below the title */
+}
+
+.upload-section label {
+display: flex; /* Use flexbox for alignment */
+align-items: center; /* Center align items vertically */
+margin: 10px 0 5px; /* Space around the label */
+font-weight: 600; /* Semi-bold for labels */
+color: #333; /* Darker color for labels */
+}
+
+.upload-section input[type="file"] {
+padding: 10px; /* Padding for the file input */
+border: 1px solid #20A8A8; /* Border color */
+border-radius: 4px; /* Rounded corners */
+margin-bottom: 15px; /* Space below the input */
+font-size: 1em; /* Font size for input text */
+width: 100%; /* Full width of the container */
+transition: border-color 0.3s; /* Smooth border color transition */
+}
+
+.upload-section input[type="file"]:hover {
+border-color: #007bff; /* Change border color on hover */
+}
+
+.upload-section input[type="file"]::file-selector-button {
+display: none; /* Hide the default button */
+}
+
+.upload-section .custom-file-upload {
+position: relative; /* Position for SVG icon */
+}
+
+.upload-section .custom-file-upload::before {
+content: ""; /* Create an empty element for the SVG */
+position: absolute; /* Position it absolutely */
+left: 10px; /* Positioning */
+top: 50%; /* Center vertically */
+transform: translateY(-50%); /* Align center */
+width: 20px; /* Width for the SVG */
+height: 20px; /* Height for the SVG */
+background: url('https://img.icons8.com/ios-filled/50/20A8A8/upload.png') no-repeat center; /* Upload SVG as background */
+background-size: contain; /* Maintain aspect ratio */
+pointer-events: none; /* Prevent pointer events */
+}
+.logo-container {
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    margin-bottom: 20px; /* Space below the logo */
+}
+
+.cihbank-logo {
+    width: 100px; /* Set a width for the logo */
+    height: auto; /* Maintain aspect ratio */
+    border: 3px dashed #20A8A8; /* Intermittent border style */
+    border-radius: 10px; /* Optional: rounded corners */
+    padding: 10px; /* Space between the image and border */
+    background-color: #fff; /* Background color for logo area */
+}
+.program-slide {
+    font-weight: bold; /* Makes the title bold */
+    transition: transform 0.3s, color 0.3s; /* Adds a smooth transition effect */
+}
+
+.program-slide:hover {
+    transform: scale(1.05); /* Slightly enlarges the text on hover */
+    color: #007bff; /* Changes the color on hover */
+}
+
+.card {
+    transition: box-shadow 0.3s; /* Smooth shadow effect */
+}
+
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adds a shadow on hover */
+}
+
+.selected-program-header {
+    display: flex;
+    align-items: center; /* Aligns items vertically */
+}
+
+.shopping-cart-icon {
+    border: 2px solid #007bff; /* Blue border */
+    border-radius: 50%; /* Rounded border */
+    padding: 5px; /* Padding for spacing */
+    background-color: #f9f9f9; /* Light background color */
+    opacity: 0.8; /* Slightly transparent */
+    margin-right: 10px; /* Space between icon and title */
+}
+#selected-title {
+    text-align: center;
+font-size: 1.25em; /* Moderately increased font size */
+font-family: Arial, sans-serif; /* Use a clean, sans-serif font */
+font-weight: normal; /* Keep the font weight normal */
+color: #555; /* Soft gray color for readability */
+margin: 5px 0; /* Slight margin for spacing */
+line-height: 1.4; /* Improved line height for readability */
+transition: color 0.3s; /* Smooth color transition */
+}
+
+#selected-title:hover {
+color: #007bff; /* Change color on hover for a subtle effect */
+}
+.rib-info {
+display: flex;
+flex-direction: column; /* Stack items vertically */
+margin: 10px 0;
+}
+
+.rib-item {
+display: flex; /* Align items in a row */
+align-items: center; /* Center items vertically */
+margin: 5px 0; /* Space between each item */
+font-family: 'Arial', sans-serif; /* Change to a modern font */
+font-size: 16px; /* Adjust font size for better readability */
+color: #333; /* Text color */
+}
+
+.copy-btn {
+background-color: #20A8A8; /* Background color */
+border: none;
+cursor: pointer;
+margin-left: 5px; /* Space between text and button */
+display: inline-flex;
+align-items: center;
+padding: 5px; /* Small padding for the button */
+border-radius: 5px; /* Rounded corners */
+transition: background-color 0.3s; /* Smooth transition */
+}
+
+.copy-btn img {
+width: 20px;
+height: 20px;
+}
+
+.copy-btn:hover {
+background-color: #17a8a8; /* Darker shade on hover */
+}
+
+.rib-info {
+display: flex;
+flex-direction: column; /* Stack items vertically */
+margin: 10px 0;
+}
+
+.rib-item {
+display: flex; /* Align items in a row */
+align-items: center; /* Center items vertically */
+margin: 5px 0; /* Space between each item */
+font-family: 'Arial', sans-serif; /* Change to a modern font */
+font-size: 16px; /* Adjust font size for better readability */
+color: #333; /* Text color */
+}
+
+.copy-btn {
+background-color: #20A8A8; /* Background color */
+border: none;
+cursor: pointer;
+margin-left: 5px; /* Space between text and button */
+display: inline-flex;
+align-items: center;
+padding: 5px; /* Small padding for the button */
+border-radius: 5px; /* Rounded corners */
+transition: background-color 0.3s; /* Smooth transition */
+}
+
+.copy-btn img {
+width: 24px; /* Adjust width for smaller icon */
+height: 24px; /* Adjust height for smaller icon */
+filter: invert(1); /* Set SVG color to white */
+}
+
+.copy-btn:hover {
+background-color: #17a8a8; /* Darker shade on hover */
+}
+
+.rib-item strong {
+margin-right: 5px; /* Space between the label and the value */
+font-weight: bold; /* Bold label for better emphasis */
+}
+

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Qbeeez</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- owl carousel -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/static/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/static/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- custom css -->
+        <link rel = "stylesheet" href = "static/css/main.css" />
+        <link rel = "stylesheet" href = "static/css/utilities.css" />
+        <link rel = "stylesheet" href = "static/css/index.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+        <!-- normalize.css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+
+        <div class="page-wrapper">
+            <!-- header -->
+            <header class="header">
+                <nav class="navbar">
+                    <div class="container">
+                        <div class="navbar-content d-flex justify-content-between align-items-center">
+                            <div class="brand-and-toggler d-flex align-items-center justify-content-between">
+                                <a href="#" class="navbar-brand d-flex align-items-center">
+                                    <img src="static/img/Qbeeez/logo2-2-removebg-preview.png" alt="QBeeez Logo" class="logo-image" />
+                                </a>
+            
+                                <button type="button" class="d-none navbar-show-btn">
+                                    <i class="fas fa-bars"></i>
+                                </button>
+                            </div>
+            
+                            <div class="navbar-box">
+                                <button type="button" class="navbar-hide-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+            
+                                <ul class="navbar-nav d-flex align-items-center">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link text-white nav-active text-nowrap custom-nav-item">Accueil</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#Fonctionnalités" class="nav-link text-white text-nowrap custom-nav-item">Fonctionnalités</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#feedback" class="nav-link text-white text-nowrap custom-nav-item">Témoignages</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#tarif" class="nav-link text-white text-nowrap custom-nav-item">Tarifs</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#about" class="nav-link text-white text-nowrap custom-nav-item">À propos</a>
+                                    </li>
+            
+                                    <li class="nav-item border-line1"></li> <!-- Add this empty item for the line -->
+                                    <li class="nav-item border-line"></li> <!-- Add this empty item for the line -->
+            
+                                    <!-- Conditional Logic for Authenticated User -->
+                                    {% if user.is_authenticated %}
+                                    <li class="nav-item">
+                                        <a href="{% url 'home' %}" class="nav-link text-white text-nowrap font-bold px-4 py-2 rounded transition duration-300 hover:bg-teal-700 hover:text-white">
+                                            Home
+                                        </a>
+                                    </li>
+                                
+                                    <li class="nav-item border-line-logout">
+                                        <a href="{% url 'logout' %}" class="nav-link text-white text-nowrap font-bold px-4 py-2 rounded transition duration-300 bg-teal-600 hover:bg-teal-700 hover:text-white">
+                                            Logout
+                                        </a>
+                                    </li>
+                                    {% else %}
+                                    <li class="nav-item" id="nav-item-login">
+                                        <a href="{% url 'login' %}" class="nav-link text-white text-nowrap font-bold px-4 py-2 rounded transition duration-300 hover:bg-teal-700 hover:text-white" id="nav-link-login">
+                                            Se Connecter
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" id="nav-item-signup">
+                                        <a href="{% url 'register' %}" class="nav-link text-white text-nowrap font-bold px-4 py-2 rounded transition duration-300 bg-teal-600 hover:bg-teal-700 hover:text-white" id="nav-link-signup">
+                                            S'inscrire
+                                        </a>
+                                    </li>
+                                    {% endif %}
+            
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            
+                <div class="element-one">
+                    <img src="static/images/element-img-1.png" alt="">
+                </div>
+            
+                <div class="banner">
+                    <div class="container">
+                        <div class="banner-content">
+                            <div class="banner-left">
+                                <div class="content-wrapper">
+                                    <h1 class="banner-title">Atteignez l'excellence<br> en toute simplicité</h1>
+                                    <p class="text text-white">Boostez vos performances avec nos outils innovants. Tests interactifs, annotations, révision intelligente, suivi détaillé de vos progrès, et cours vidéo exclusifs disponibles uniquement ici.</p>
+                                    <a href="#" class="btn btn-tester">Essayer Gratuitement</a>
+                                </div>
+                            </div>
+            
+                            <div class="banner-right d-flex align-items-center justify-content-end">
+                                <img src="static/img/doctor-banner.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- end of header -->
+
+<!-- Introduction Section -->
+<section class="intro-section" id="about">
+    <div class="container">
+        <div class="intro-content text-center">
+            <h2 class="intro-title">Bienvenue sur Qbeeez</h2>
+            <p class="intro-text">
+                Qbeeez est une plateforme de gestion de quiz qui transforme votre façon d'apprendre. Profitez d’une gamme d'outils de préparation interactifs, créez des annotations personnalisées, révisez vos cours PDF, et suivez vos progrès en temps réel. De plus, avec nos cours vidéo exclusifs, vous aurez tout ce dont vous avez besoin pour réussir vos examens.
+            </p>
+            <a href="#Fonctionnalités" class="btn btn-primary">Découvrez nos fonctionnalités</a>
+        </div>
+
+        <div class="flex-container">
+            <!-- Computer Image -->
+            <div class="computer-image">
+                <img class="rounded cursor-pointer" src="/static/img/video-banner.png" alt="Computer" onclick="openVideo()">
+            </div>
+
+            <!-- Features Grid -->
+            <div class="features-grid grid grid-cols-2 gap-5 md:gap-x-5 md:gap-y-7">
+                <div class="feature-item max-w-[16.66rem] mx-auto py-2">
+                    <div class="relative">
+                        <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
+                            <img class="max-w-full" src="/static/img/tests-personnalisables.svg" alt="Tests personnalisables">
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Tests personnalisables</h3>
+                        <p class="text-sm lg:text-[1rem] text-[#637381]">Entraînez-vous avec les QCM par cours ou par session.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item max-w-[16.66rem] mx-auto py-2">
+                    <div class="relative">
+                        <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
+                            <img class="max-w-full" src="/static/img/bibliotheque.svg" alt="Bibliothèque">
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Bibliothèque</h3>
+                        <p class="text-sm lg:text-[1rem] text-[#637381]">Des cours au format PDF disponibles à côté des QCM.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item max-w-[16.66rem] mx-auto py-2">
+                    <div class="relative">
+                        <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
+                            <img class="max-w-full" src="/static/img/Notes.svg" alt="Notes">
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Notes</h3>
+                        <p class="text-sm lg:text-[1rem] text-[#637381]">Prenez des notes pour mieux comprendre.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item max-w-[16.66rem] mx-auto py-2">
+                    <div class="relative">
+                        <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
+                            <img class="max-w-full" src="/static/img/analyses-detail.svg" alt="Analyses détaillées">
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Analyses détaillées</h3>
+                        <p class="text-sm lg:text-[1rem] text-[#637381]">Suivez et comparez votre performance avec les autres.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of introduction section -->
+<!-- Video Modal -->
+<div id="videoModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeVideo()">&times;</span>
+        <div class="modal-title">Watch Our Video</div>
+        <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    // Get modal and close button
+    var modal = document.getElementById("videoModal"); // Use the correct ID here
+    var closeBtn = document.getElementsByClassName("close")[0];
+
+    function openVideo() {
+        modal.classList.add("show"); // Add show class to display modal
+        var videoId = "VK3ULOnRqb0"; // Replace with your actual video ID
+        document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Set the iframe src to autoplay video
+    }
+
+    function closeVideo() {
+        modal.classList.remove("show"); // Remove show class to hide modal
+        document.getElementById('videoFrame').src = ""; // Stop the video
+    }
+
+    // Close modal when clicking outside of the modal content
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeVideo(); // Call closeVideo function to handle closing
+        }
+    }
+</script>
+
+<!-- Fonctionnalités Section -->
+<section class="fonct-section" id="Fonctionnalités">
+    <div class="container">
+        <h2 class="fonct-title text-center">Fonctionnalités</h2>
+        <p class="fonct-description text-center">
+            Découvrez les principales fonctionnalités de notre plateforme qui facilitent votre apprentissage et votre préparation.
+        </p>
+
+        <div id="featureImageDisplay" class="text-center mb-5">
+            <img id="currentFeatureImage" src="/static/img/dj-lms-dashboard.png" alt="Fonctionnalité" class="feature-image">
+        </div>
+
+        <div class="fonct-slider">
+            <div class="nav-button prev" onclick="prevSlide()">&#10094;</div> <!-- Previous Arrow -->
+            <div class="fonct-grid">
+                <div class="fonct-item">
+                    <img src="/static/img/analyses-detail.svg" alt="Quizzes Interactifs" onclick="changeFeatureImage('/static/img/dj-lms-dashboard.png')">
+                    <h3>Quizzes Interactifs</h3>
+                    <p>Testez vos connaissances avec des quizzes adaptés à votre niveau.</p>
+                </div>
+                <div class="fonct-item">
+                    <img src="/static/img/custom-notes.svg" alt="Notes Personnalisées" onclick="changeFeatureImage('/static/img/videoqbeeez.png')">
+                    <h3>Notes Personnalisées</h3>
+                    <p>Créez et sauvegardez vos propres notes pour une révision efficace.</p>
+                </div>
+                <div class="fonct-item">
+                    <img src="/static/img/performance-tracking.svg" alt="Suivi de Performance" onclick="changeFeatureImage('/static/img/quizqbeeez.png')">
+                    <h3>Suivi de Performance</h3>
+                    <p>Suivez vos progrès et améliorez vos résultats au fil du temps.</p>
+                </div>
+                <div class="fonct-item">
+                    <img src="/static/img/community-support.svg" alt="Support Communautaire" onclick="changeFeatureImage('/static/img/community-support-screenshot.png')">
+                    <h3>Support Communautaire</h3>
+                    <p>Rejoignez une communauté d'apprenants pour échanger des conseils et des ressources.</p>
+                </div>
+                <div class="fonct-item">
+                    <img src="/static/img/video-courses.svg" alt="Cours Vidéo" onclick="changeFeatureImage('/static/img/video-courses-screenshot.png')">
+                    <h3>Cours Vidéo</h3>
+                    <p>Accédez à des cours vidéo exclusifs pour une meilleure compréhension des sujets.</p>
+                </div>
+                <div class="fonct-item">
+                    <img src="/static/img/pdf-library.svg" alt="Bibliothèque PDF" onclick="changeFeatureImage('/static/img/pdf-library-screenshot.png')">
+                    <h3>Bibliothèque PDF</h3>
+                    <p>Accédez à une vaste bibliothèque de ressources PDF pour approfondir vos connaissances.</p>
+                </div>
+            </div>
+            <div class="nav-button next" onclick="nextSlide()">&#10095;</div> <!-- Next Arrow -->
+        </div>
+    </div>
+</section>
+<!-- end of fonctionnalités section -->
+
+<!-- end of fonctionnalités section -->
+
+<script>
+    let currentSlide = 0; // Track the current slide index
+    const slides = document.querySelectorAll('.fonct-item'); // Get all slides
+    const totalSlides = slides.length; // Total number of slides
+
+    // Image sources corresponding to each slide
+    const imageSources = [
+        '/static/img/dj-lms-dashboard.png', // Quizzes Interactifs
+        '/static/img/videoqbeeez.png',      // Notes Personnalisées
+        '/static/img/quizqbeeez.png',       // Suivi de Performance
+        '/static/img/community-support-screenshot.png', // Support Communautaire
+        '/static/img/video-courses-screenshot.png',     // Cours Vidéo
+        '/static/img/pdf-library-screenshot.png'        // Bibliothèque PDF
+    ];
+
+    function changeFeatureImage(imageSrc) {
+        document.getElementById('currentFeatureImage').src = imageSrc; // Change displayed image
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides; // Move to the next slide
+        updateSlider();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; // Move to the previous slide
+        updateSlider();
+    }
+
+    function updateSlider() {
+        slides.forEach((slide, index) => {
+            slide.style.display = index === currentSlide ? 'block' : 'none'; // Show the current slide only
+        });
+        changeFeatureImage(imageSources[currentSlide]); // Update the displayed image based on the current slide
+    }
+
+    // Initialize the slideshow
+    updateSlider();
+
+    // Optional: Auto slide every 5 seconds
+    setInterval(nextSlide, 5000); // Change slides automatically every 5 seconds
+</script>
+
+
+
+<script>
+    function changeFeatureImage(imagePath) {
+    var currentImage = document.getElementById('currentFeatureImage');
+    currentImage.src = imagePath; // Change the image source
+}
+
+</script>
+
+
+
+            <main>
+                <section class="sc-services" id="service">
+                    <div class="services-shape">
+                        <img src="static/images/curve-shape-1.png" alt="">
+                    </div>
+                    <div class="container">
+                        <div class="services-content">
+                            <div class="title-box text-center">
+                                <div class="content-wrapper">
+                                    <h3 class="title-box-name">Nos Services</h3>
+                                    <div class="title-separator mx-auto"></div>
+                                    <p class="text title-box-text">Nous vous offrons une gamme complète de services pour améliorer vos compétences et votre préparation médicale. Adaptez ces services à vos besoins d'apprentissage et bénéficiez d'une formation de qualité pour devenir un professionnel de santé compétent.</p>
+                                </div>
+                            </div>
+
+                            <div class="services-list">
+                                <div class="services-item">
+                                    <div class="item-icon">
+                                        <img src="static/images/service-icon-1.png" alt="service icon">
+                                    </div>
+                                    <h5 class="item-title fw-7">Quiz par Matière Médicale</h5>
+                                    <p class="text">Testez vos connaissances sur les différentes matières médicales, de l'anatomie à la pharmacologie, pour maîtriser les concepts essentiels.</p>
+                                </div>
+
+                                <div class="services-item">
+                                    <div class="item-icon">
+                                        <img src="static/images/service-icon-2.png" alt="service icon">
+                                    </div>
+                                    <h5 class="item-title fw-7">Quizzes Basés sur des Cas Cliniques</h5>
+                                    <p class="text">Plongez dans des scénarios réalistes et améliorez vos compétences de diagnostic avec des cas cliniques variés.</p>
+                                </div>
+
+                                <div class="services-item">
+                                    <div class="item-icon">
+                                        <img src="static/images/service-icon-3.png" alt="service icon">
+                                    </div>
+                                    <h5 class="item-title fw-7">Préparation aux Examens Pratiques</h5>
+                                    <p class="text">Entraînez-vous aux examens pratiques comme l’ECOS et développez vos compétences cliniques avec des scénarios interactifs.</p>
+                                </div>
+
+                                <div class="services-item">
+                                    <div class="item-icon">
+                                        <img src="static/images/service-icon-4.png" alt="service icon">
+                                    </div>
+                                    <h5 class="item-title fw-7">Préparation aux Examens Nationaux</h5>
+                                    <p class="text">Préparez-vous aux examens nationaux avec des quizzes couvrant tous les sujets clés et des questions type ECN ou USMLE.</p>
+                                </div>
+
+                                <div class="services-item">
+                                    <div class="item-icon">
+                                        <img src="static/images/service-icon-5.png" alt="service icon">
+                                    </div>
+                                    <h5 class="item-title fw-7">Quizzes pour le Développement des Compétences</h5>
+                                    <p class="text">Améliorez vos compétences médicales avec des quizzes spécialisés, de l'interprétation des résultats à la terminologie médicale.</p>
+                                </div>
+
+                                <div class="services-item">
+                                    <div class="item-icon">
+                                        <img src="static/images/service-icon-6.png" alt="service icon">
+                                    </div>
+                                    <h5 class="item-title fw-7">Classement et Suivi de la Progression</h5>
+                                    <p class="text">Suivez vos progrès grâce à un classement et des rapports détaillés après chaque quiz pour rester motivé.</p>
+                                </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pricing-section py-10" id="tarif">
+                    <div class="container">
+                        <h2 class="font-bold text-[1.66rem] lg:text-[2.53rem] text-center text-[#212B36]">Plan tarifaire génial</h2>
+                        <p class="place-self-center text-center text-sm lg:text-base max-w-[40.5rem] mx-auto text-[#637381]">Essaye Qbanki gratuitement et sans aucun risque en ouvrant un compte en quelques clics !</p>
+                      <div class="flex md:gap-7 gap-5 flex-wrap md:flex-nowrap items-center justify-center">
+
+                        <!-- Card 1: Free Plan -->
+                        <div class="pricing-card py-10 px-5 md:px-7 flex flex-col justify-between z-[100] rounded-lg shadow md:shadow-xl auto-rows-max lg:px-[3.66rem] place-content-center lg:py-[3.3rem] md:min-h-[33.3rem] bg-white text-gray-500 max-w-[25.3rem] md:max-w-[auto] md:w-[30%]">
+                          <div class="dark:text-white">
+                            <div class="text-lg mb-7">Entraînez-vous</div>
+                            <div class="mb-7 text-gray-500 dark:text-white">
+                              <div class="text-2xl font-medium flex items-center gap-2">
+                                <div class="text-[2.1rem] font-bold">Gratuit <small class="text-base font-light opacity-80">Demo</small></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-base leading-6 opacity-90 mb-10 flex-grow">Accès Limité aux Différents Examens et Fonctionnalités de Qbeeez <p style="font-style: italic; font-weight: bold;">Regarder la vidéo du cours</p></div>
+
+                          <button class="hover:opacity-90 hover:shadow-md transition-all duration-500 inline-flex items-center justify-center main-button button-md button-primary rounded button-fillable justify-between pl-5 pr-1.5 font-medium">
+                            Rejoignez-Nous
+                            <span class="swiped-icon inline-flex rounded justify-center items-center"><i class="fa-arrow-right fa-solid"></i></span>
+                          </button>
+                        </div>
+
+                        <!-- Card 2: Paid Plan (100 DH) -->
+                        <div class="pricing-card py-10 px-5 md:px-7 flex flex-col justify-between z-[100] rounded-lg shadow md:shadow-xl auto-rows-max lg:px-[3.66rem] place-content-center md:py-[6.6rem] md:min-h-[40rem] bg-green text-white max-w-[25.3rem] md:max-w-none md:w-[34%]">
+                          <div class="dark:text-white">
+                            <div class="text-lg mb-7 text-white">À partir de</div>
+                            <div class="mb-7 text-white">
+                              <div class="text-2xl font-medium flex items-center gap-2">
+                                <div class="text-[2.1rem] font-bold">100 DH <small class="text-base font-light opacity-80">Par Semestre</small></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-base leading-6 opacity-90 mb-10 flex-grow">
+                            Accès aux anciens examens <br>QCM par cours et session <br>Modes examen & étude <br>PDF cours et résumés <br>Commentaires & Corrections <br>Annotations Personnalisées <br>Analyse performance & suivi progression
+                          </div>
+                          <button class="hover:opacity-90 hover:shadow-md transition-all duration-500 inline-flex items-center justify-center main-button button-md button-light rounded button-bordered justify-between pl-5 pr-1.5 font-medium pricing-btn-focused">
+                            Rejoignez-Nous
+                            <span class="swiped-icon inline-flex rounded justify-center items-center"><i class="fa-arrow-right fa-solid"></i></span>
+                          </button>
+                        </div>
+
+                        <!-- Card 3: Paid Plan (150 DH for 2 Semesters) -->
+                        <div class="pricing-card py-10 px-5 md:px-7 flex flex-col justify-between z-[100] rounded-lg shadow md:shadow-xl auto-rows-max lg:px-[3.66rem] place-content-center lg:py-[3.3rem] md:min-h-[33.3rem] bg-white text-gray-500 max-w-[25.3rem] md:max-w-[auto] md:w-[30%]">
+                          <div class="dark:text-white">
+                            <div class="text-lg mb-7">À partir de</div>
+                            <div class="mb-7 text-gray-500 dark:text-white">
+                              <div class="text-2xl font-medium flex items-center gap-2">
+                                <div class="text-[2.1rem] font-bold">150 DH <small class="text-base font-light opacity-80">Pour 2 Semestres</small></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-base leading-6 opacity-90 mb-10 flex-grow">
+                            Accès aux anciens examens <br>QCM par cours et session <br>Modes examen & étude <br>PDF cours et résumés <br>Commentaires & Corrections <br>Annotations Personnalisées <br>Analyse performance & suivi progression
+                          </div>
+                          <button class="hover:opacity-90 hover:shadow-md transition-all duration-500 inline-flex items-center justify-center main-button button-md button-primary rounded button-fillable justify-between pl-5 pr-1.5 font-medium">
+                            Rejoignez-Nous
+                            <span class="swiped-icon inline-flex rounded justify-center items-center"><i class="fa-arrow-right fa-solid"></i></span>
+                          </button>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </section>
+
+
+                  <section class="sc-feedback" id="feedback">
+                    <div class="container">
+                        <div class="feedback-content">
+                            <div class="feedback-element">
+                                <img src="static/images/element-img-3.png">
+                            </div>
+                            <div class="feedback-element-2">
+                                <img src="static/images/element-img-5.png">
+                            </div>
+                            <div class="title-box text-center">
+                                <div class="content-wrapper">
+                                    <h3 class="title-box-name text-white">Ce que disent nos utilisateurs</h3>
+                                    <div class="title-separator mx-auto"></div>
+                                </div>
+                            </div>
+
+                            <div class="feedback-list feedback-slider owl-carousel owl-theme">
+                                <!-- Slide 1 -->
+                                <div class="feedback-item d-grid">
+                                    <div class="item-left d-flex align-items-center">
+                                        <div class="item-img initials-circle" style="background-color: #FF6347;">AM</div> <!-- Ahmed: Tomato background -->
+                                        <div class="item-info text-white">
+                                            <p class="fw-7 name">Ahmed El Mansouri</p>
+                                            <span class="designation fw-4">Fondateur de Qbeeez</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-right">
+                                        <p class="text text-white">"Notre application dédiée à l'engagement des patients et notre portail web vous permettent d'accéder aux informations instantanément, en toute sécurité."</p>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 1 -->
+                                <div class="feedback-item d-grid">
+                                    <div class="item-left d-flex align-items-center">
+                                        <div class="item-img initials-circle" style="background-color: #4682B4;">FB</div> <!-- Fatima: Steel Blue background -->
+                                        <div class="item-info text-white">
+                                            <p class="fw-7 name">Fatima Benchekroun</p>
+                                            <span class="designation fw-4">Étudiante en Médecine</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-right">
+                                        <p class="text text-white">"Grâce à cette plateforme, j'ai pu accéder aux ressources académiques et aux examens pratiques sans difficulté. C'est un outil indispensable pour ma préparation."</p>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 2 -->
+                                <div class="feedback-item d-grid">
+                                    <div class="item-left d-flex align-items-center">
+                                        <div class="item-img initials-circle" style="background-color: #32CD32;">RA</div> <!-- Rachid: Lime Green background -->
+                                        <div class="item-info text-white">
+                                            <p class="fw-7 name">Rachid Alaoui</p>
+                                            <span class="designation fw-4">Professionnel de la Santé</span>
+                                        </div>
+                                    </div>
+                                    <div class="item-right">
+                                        <p class="text text-white">"L'accès rapide aux contenus et la facilité d'utilisation de la plateforme en font un excellent outil pour réviser et progresser efficacement."</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!--   <div class="faq-section" id="Instructions">
+                    <div class="faq-title-container">
+                        <h2 class="faq-title">Ce qu'on nous demande souvent</h2>
+                        <p class="faq-subtitle">Vous trouverez ici les réponses sur toutes les questions fréquemment posées concernant Qbeeez QCM.</p>
+                    </div>
+
+                    <div class="faq-content">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                C'est quoi Qbeeez QCM?
+                                <i class="fa fa-plus faq-icon"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Qbeeez, la première banque de questions en ligne pour les étudiants en médecine au Maroc. Notre plateforme permet aux étudiants de se préparer aux examens facilement et efficacement en travaillant sur des QCMs organisés par cours ou par session.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                J’ai trouvé une faute sur une question. Que puis-je faire pour la corriger?
+                                <i class="fa fa-plus faq-icon"></i>
+                            </div>
+                            <div class="faq-answer">
+                                La base de données de Qbeeez QCM compte actuellement plus de 40 000 questions provenant de diverses sources. Parfois, il peut arriver qu'un QCM contienne une réponse erronée.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Quelles sont les sources des questions sur la plateforme?
+                                <i class="fa fa-plus faq-icon"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Les questions sur la plateforme proviennent d'anciens examens de chaque faculté au Maroc. Elles sont organisées par cours et par session.
+                            </div>
+                        </div>
+
+                        Add more FAQ items as needed
+                    </div>
+                </div>
+                -->
+
+                <script>
+         document.querySelectorAll('.faq-question').forEach(function (question) {
+    question.addEventListener('click', function () {
+        // Toggle active state
+        question.classList.toggle('active');
+
+        // Toggle answer display
+        const answer = question.nextElementSibling;
+        if (answer.style.display === 'block') {
+            answer.style.display = 'none';
+        } else {
+            answer.style.display = 'block';
+        }
+    });
+});
+
+
+                </script>
+
+
+                <section class = "sc-grid sc-grid-one">
+                    <div class="container">
+                        <div class = "grid-content d-grid align-items-center">
+                            <div class = "grid-img">
+                                <img src = "static/images/health-care-img.png" alt = "">
+                            </div>
+                            <div class = "grid-text">
+                                <div class = "content-wrapper text-start">
+                                    <div class = "title-box">
+                                        <h3 class = "title-box-name text-white">La Plateforme Intelligente Et Collaborative Pour Externes</h3>
+                                        <div class = "title-separator mx-auto"></div>
+                                    </div>
+
+                                    <p class = "text title-box-text text-white">Découvrez Qbeeez, la plateforme intelligente pour la préparation aux examens médicaux. Fini les méthodes classiques, optez pour le changement avec la première banque de questions en ligne pour les étudiants en médecine</p>
+                                    <button type = "button" class = "btn btn-white-outline">Rejoignez-Nous</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-list d-grid text-white">
+                            <!-- QBeeez Brand and Description -->
+                            <div class="footer-item">
+                                <a href="#" class="navbar-brand d-flex align-items-center">
+                                    <img src="static/img/Qbeeez/logo2-2-removebg-preview.png" alt="QBeeez Logo" class="logo-image" />
+                                </a>
+                                <p class="text-white">QBeeez est une plateforme dédiée aux étudiants en médecine, leur permettant de s'entraîner aux QCM avant les examens, de regarder des vidéos de cours, et de consulter leurs statistiques.</p>
+                                <p class="text-white copyright-text">&copy; QBeeez 2024. Tous droits réservés.</p>
+                            </div>
+
+                            <!-- Enterprise Links -->
+                            <div class="footer-item">
+                                <h3 class="footer-item-title">Entreprise</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#about">À propos</a></li>
+                                    <li><a href="#Fonctionnalités">Comment ça fonctionne</a></li>
+                                    <li><a href="#tarif">Tarif</a></li>
+                                    <li><a href="#service">Nos services</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Region Links -->
+                            <div class="footer-item">
+                                <h3 class="footer-item-title">Région</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#">Maroc</a></li>
+                                    <li><a href="#">Algérie</a></li>
+                                    <li><a href="#">Tunisie</a></li>
+                                    <li><a href="#">France</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Help Links -->
+                            <div class="footer-item">
+                                <h3 class="footer-item-title">Aide</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#">Centre d'aide</a></li>
+                                    <li><a href="{% url 'support' %}">Contacter le support</a></li>
+                                    <li><a href="#Instructions">Instructions</a></li>
+                                </ul>
+                            </div>
+
+                      <!-- Social Media Icons -->
+<div class="footer-item">
+    <h3 class="footer-item-title">Suivez-nous</h3>
+    <div class="d-flex social-icons">
+        <a href="https://web.facebook.com/profile.php?id=61567102379004" target="_blank" class="social-link facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/qbeeezoff/?utm_source=ig_web_button_share_sheet" target="_blank" class="social-link instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/+212611040232" target="_blank" class="social-link whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.youtube.com/@Qbeeez" target="_blank" class="social-link youtube">
+            <i class="fab fa-youtube"></i>
+        </a>
+    </div>
+</div>
+
+
+                            <!-- Footer elements -->
+                            <div class="footer-element-1">
+                                <img src="static/images/element-img-4.png" alt="">
+                            </div>
+                            <div class="footer-element-2">
+                                <img src="static/images/element-img-5.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+
+        <!-- jquery cdn -->
+        <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+        <!-- owl carousel -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- custom js -->
+        <script src = "static/js/script.js"></script>
+    </body>
+</html>

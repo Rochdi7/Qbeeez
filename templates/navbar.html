@@ -1,0 +1,154 @@
+{% load static %}
+{% load i18n %}
+<link rel="stylesheet" href="{% static 'css/night-mode.css' %}">
+<style>
+    .form-header {
+        flex-grow: 1;                 /* Permet au formulaire de prendre l'espace disponible */
+    }
+
+    #primary-search {
+        max-width: 440px;            /* Définir une largeur maximale pour le champ de recherche */
+    }
+
+    .night-mode-toggle {
+        background: transparent;      /* Pas de fond */
+        border: none;                /* Retirer la bordure */
+        border-radius: 50%;          /* Le rendre rond */
+        width: 40px;                 /* Définir la largeur */
+        height: 40px;                /* Définir la hauteur */
+        display: flex;               /* Flexbox pour centrer */
+        align-items: center;         /* Centrer verticalement */
+        justify-content: center;     /* Centrer horizontalement */
+        cursor: pointer;             /* Curseur de pointeur au survol */
+        transition: background 0.3s, transform 0.3s; /* Effets de transition */
+    }
+
+    .night-mode-toggle:hover {
+        background: rgba(255, 255, 255, 0.1); /* Fond clair au survol */
+        transform: scale(1.1); /* Légèrement agrandir au survol */
+    }
+
+    .night-mode-toggle:focus {
+        outline: none;           /* Retirer le contour */
+    }
+
+    /* Changements de couleur de l'icône */
+    .night-mode-toggle #night-icon {
+        color: inherit; /* Couleur par défaut */
+        transition: color 0.3s; /* Transition douce pour le changement de couleur */
+    }
+
+    /* Lorsque le mode nuit est actif */
+    body.night-mode #night-icon {
+        color: yellow; /* Couleur jaune pour l'icône du soleil */
+    }
+
+    /* Lorsque le mode jour est actif (couleur par défaut de l'icône) */
+    body #night-icon {
+        color: white; /* Vous pouvez changer cette couleur selon vos besoins */
+    }
+</style>
+
+<div id="top-navbar" class="py-1">
+    <div class="container">
+        <div class="nav-wrapper">
+            <div class="toggle-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <form class="form-header" action="{% url 'query' %}" method="GET">
+                <input id="primary-search" class="form-control rounded-end-0" type="text" name="q" value="{{ request.GET.q }}"
+                    placeholder="{% trans 'Rechercher tout... #cours, #programme, #Quiz, #Nouvelles, #Événements' %}" required />
+                <button class="btn btn-dark rounded-start-0" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+            <!-- Basculer le mode nuit -->
+            <button id="night-mode-toggle" class="night-mode-toggle" onclick="toggleNightMode()">
+                <i class="fas fa-moon" id="night-icon"></i>  <!-- Ajouté l'id à l'icône -->
+            </button>
+
+            <div class="dropdown">
+                <div class="avatar border border-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ request.user.picture.url }}">
+                </div>
+                <div class="dropdown-menu" style="min-width: 14rem !important;">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="avatar avatar-md border">
+                            <img src="{{ request.user.picture.url }}">
+                        </div>
+                        <p class="small text-muted text-center mb-0">
+                            {% trans 'Dernière connexion:' %} {{ request.user.last_login|date }}</p>
+                    </div>
+                    <hr>
+
+                    {% if request.user.is_lecturer or request.user.is_student %}
+                    <a class="dropdown-item" href="{% url 'user_course_list' %}">
+                        <i class="fas fa-book me-2"></i>{% trans 'Mes Cours' %}
+                    </a>
+                    {% endif %}
+
+                    {% if request.user.is_superuser %}
+                    <a class="dropdown-item" href="{% url 'admin_panel' %}">
+                        <i class="fas fa-user-tie me-2"></i>{% trans 'Panneau Admin' %}
+                    </a>
+                    {% endif %}
+
+                    <a class="dropdown-item" href="{% url 'profile' %}">
+                        <i class="fas fa-user me-2"></i>{% trans 'Profil' %}
+                    </a>
+                    <a class="dropdown-item" href="{% url 'edit_profile' %}">
+                        <i class="fas fa-cog me-2"></i>{% trans 'Paramètres' %}
+                    </a>
+                    <hr>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <a class="btn btn-secondary" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt"></i> {% trans 'Se déconnecter' %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleNightMode() {
+        document.body.classList.toggle('night-mode');
+        const icon = document.getElementById('night-icon');
+        
+        if (document.body.classList.contains('night-mode')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+        
+        // Mettre à jour la couleur de l'icône directement
+        updateIconColor();
+    }
+
+    // Mettre à jour la couleur de l'icône en fonction du mode actuel
+    function updateIconColor() {
+        const icon = document.getElementById('night-icon');
+        
+        if (document.body.classList.contains('night-mode')) {
+            icon.style.color = 'yellow';  // Couleur de l'icône du soleil en mode nuit
+        } else {
+            icon.style.color = 'white';   // Couleur de l'icône de la lune en mode jour
+        }
+    }
+
+    // Optionnel : Vérifier les préférences de l'utilisateur au chargement de la page
+    window.onload = function() {
+        if (localStorage.getItem('night-mode') === 'enabled') {
+            document.body.classList.add('night-mode');
+            const icon = document.getElementById('night-icon');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            updateIconColor(); // Définir la bonne couleur au chargement
+        }
+    };
+</script>

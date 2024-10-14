@@ -1,0 +1,68 @@
+.no-background {
+    background-color: transparent !important; /* Remove background color */
+    border: none !important; /* Remove border */
+    color: inherit; /* Use the inherited text color */
+    text-decoration: none; /* Remove underline if any */
+}
+
+.no-background:hover {
+    text-decoration: underline; /* Optional: Add underline on hover */
+}
+
+.teal-text {
+    color: #008080; /* Teal color for buttons */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.teal-text:hover {
+    color: #005757; /* Darker teal on hover for contrast */
+}
+
+.modal-content {
+    border-radius: 10px; /* Rounded corners for modals */
+}
+
+.modal-header {
+    background-color: #008080; /* Teal background for header */
+    color: white; /* White text in the header */
+    border-top-left-radius: 10px; /* Rounded corners */
+    border-top-right-radius: 10px; /* Rounded corners */
+}
+
+.modal-body {
+    padding: 20px; /* Spacing in the modal body */
+}
+
+
+
+.table {
+    border-radius: 10px; /* Rounded corners for the table */
+    overflow: hidden; /* Hide overflow for rounded corners */
+}
+
+.table-light {
+    background-color: #f8f9fa; /* Light background for the table */
+}
+
+.table-shadow {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for table */
+}
+
+.table th, .table td {
+    vertical-align: middle; /* Center content vertically */
+    padding: 15px; /* Padding for table cells */
+}
+
+.update-delete {
+    display: flex; /* Flex layout for actions */
+    gap: 10px; /* Space between action buttons */
+}
+
+.update, .delete {
+    color: #008080; /* Teal color for action buttons */
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+.update:hover, .delete:hover {
+    color: #005757; /* Darker teal on hover */
+}

@@ -1,0 +1,235 @@
+  /* Container styling for the objective card */
+  .objective-card {
+    background-color: #ffffff; /* Light background */
+    border-radius: 0.75rem; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* smoother transition and box shadow effect */
+    margin-bottom: 0.75rem;
+    flex: 1 1 100%;
+    cursor: pointer; /* Add pointer to improve interactivity */
+}
+
+/* Night mode styles for objective cards */
+body.night-mode .objective-card {
+    background-color: #1e1e1e; /* Dark background for cards */
+    color: #e0e0e0; /* Light text color */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow in night mode */
+}
+
+.objective-card:hover {
+    transform: translateY(-6px) scale(1.02); /* lift and slight zoom effect */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* increase shadow on hover */
+}
+
+/* Flex item adjustment for spacing */
+.flex-item {
+    margin-right: 0.5rem;
+    flex: 1 1 30%;
+}
+
+/* Header section of the card */
+.objective-header {
+    display: flex;
+    padding: 0.75rem;
+    align-items: center;
+    background-color: #f8f9fa; /* Light background */
+    transition: background-color 0.3s ease-in-out; /* smoother color change */
+}
+
+/* Night mode styles for header */
+body.night-mode .objective-header {
+    background-color: #2c2c2c; /* Dark background for header */
+}
+
+.objective-header:hover {
+    background-color: #eef2f7; /* light color on hover */
+}
+
+.objective-icon {
+    width: 3rem;
+    transition: transform 0.3s ease; /* add icon animation */
+}
+
+.objective-card:hover .objective-icon {
+    transform: rotate(10deg) scale(1.1); /* slight rotation and zoom on hover */
+}
+
+.objective-details {
+    padding-left: 0.5rem;
+    flex-grow: 1;
+}
+
+.objective-title {
+    font-size: 1rem;
+    color: #6c757d; /* Default text color */
+    opacity: 0.8;
+    margin-bottom: 0.25rem;
+    transition: color 0.3s ease; /* smooth color transition */
+}
+
+/* Night mode styles for title */
+body.night-mode .objective-title {
+    color: #ffffff; /* Light text color in night mode */
+}
+
+.objective-card:hover .objective-title {
+    color: #20A8A8 ; /* change text color on hover */
+}
+
+.objective-count {
+    font-size: 1.25rem;
+    color: #212529;
+    font-weight: 500;
+}
+
+/* Night mode styles for count */
+body.night-mode .objective-count {
+    color: #ffffff; /* Light text color in night mode */
+}
+
+/* Footer section of the card */
+.objective-footer {
+    background-color: #f4f4f4; /* Light background */
+    padding: 0.5rem;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Night mode styles for footer */
+body.night-mode .objective-footer {
+    background-color: #2c2c2c; /* Dark footer background */
+    color: #e0e0e0; /* Light text color */
+}
+
+.objective-footer:hover {
+    background-color: #20A8A8 ; /* Background color on hover */
+    color: white; /* Text color on hover */
+}
+
+.objective-footer a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease; /* link color transition */
+}
+
+.objective-footer a:hover {
+    color: #fff; /* Link hover color */
+}
+
+/* Span elements in night mode */
+body.night-mode .objective-card span {
+    color: #ffffff; /* Make span text color white in night mode */
+}
+
+/* Modal styling */
+.modal-content {
+    border-radius: 0.5rem;
+    animation: fadeIn 0.4s ease-in-out; /* modal fade-in effect */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+/* Input and button styling */
+.input-container {
+    margin-top: 1rem;
+}
+
+.input-container label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.btn-success {
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease; /* smoother button color transition */
+}
+
+.btn-success:hover {
+    background-color: #28a745cc; /* slightly transparent on hover */
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .d-flex {
+        flex-direction: column;
+    }
+
+    .objective-card {
+        flex: 1 1 100%;
+        margin-right: 0;
+    }
+
+    .objective-details {
+        padding-left: 0;
+    }
+
+    .objective-icon {
+        width: 2.5rem;
+    }
+
+    .objective-title {
+        font-size: 0.9rem;
+    }
+
+    .objective-count {
+        font-size: 1rem;
+    }
+
+    .objective-footer {
+        padding: 0.4rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.85rem;
+    }
+
+    .manage-wrap {
+        margin-bottom: 1rem;
+    }
+
+    .col-md-2.ms-auto.d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.btn-bubble {
+    position: fixed;
+    bottom: 30px; /* distance from bottom */
+    right: 30px; /* distance from right */
+    width: 70px; /* increased width of the button */
+    height: 70px; /* increased height of the button */
+    background-color: #20A8A8 ; /* background color */
+    color: white; /* icon color */
+    border-radius: 50%; /* make it circular */
+    display: flex; /* center the icon */
+    justify-content: center; /* center the icon */
+    align-items: center; /* center the icon */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* shadow effect */
+    text-decoration: none; /* remove underline */
+    transition: background-color 0.3s; /* smooth background color change */
+    font-size: 1.5rem; /* increase icon size */
+}
+
+.btn-bubble:hover {
+    background-color: #009999; /* change color on hover */
+}
+

@@ -1,0 +1,244 @@
+{% load static %}
+{% load i18n %}
+
+    <style>
+		
+ body {
+        background-color: #ffffff; /* Light background */
+        color: #000000; /* Dark text */
+        transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    }
+
+    /* Night Mode Styles */
+    body.night-mode {
+        background-color: #121212; /* Dark background */
+        color: #e0e0e0; /* Light text */
+    }
+
+    body.night-mode #side-nav {
+        background-color: #1e1e1e; /* Dark background for sidebar */
+        color: #e0e0e0; /* Light text color for sidebar */
+    }
+
+    body.night-mode a {
+        color: #bb86fc; /* Link color in night mode */
+    }
+
+    body.night-mode .table {
+        background-color: #1e1e1e; /* Dark table background */
+        color: #e0e0e0; /* Light text color */
+    }
+
+    body.night-mode .table th {
+        background-color: #2c2c2c; /* Darker header background */
+    }
+
+    body.night-mode .table input {
+        background-color: #333333; /* Dark input background */
+        color: #ffffff; /* Light input text */
+    }
+
+    body.night-mode .card-footer {
+        background-color: #1c1c1c; /* Dark footer background */
+        color: #e0e0e0; /* Light footer text */
+    }
+
+    /* Change icon color in night mode */
+    body.night-mode i {
+        color: #e0e0e0; /* Light color for icons */
+    }
+
+    .top-side {
+        background-size: cover;
+        background-position: top center;
+    }
+	.logo {
+    width: 150px; /* Set to your desired size */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+    </style>
+
+<div id="side-nav">
+	<div class="main-menu">
+		<div class="top-side text-center py-4" style="background-image: url({% static 'img/dotted.jpg' %});">
+			<div class="desktop-hide">
+				<div class="toggle-btn" onclick="toggleSidebar()">
+					<i class="fas fa-times"></i>
+				</div>
+			</div>
+			<a href="/">
+				<img src="{% static 'img/Qbeeez/logo2-1-removebg-preview.png' %}" class="logo" width="110px" alt="Logo Qbeeez">
+			</a>
+			<p class="text-orange" >
+				<mark>
+					<i class="far fa-hand-point-right" ></i>
+					{{ request.user.get_user_role }}
+				</mark>
+			</p>
+		</div>
+		{% url 'home' as hom %} {% url 'dashboard' as dash %} {% url 'profile' as prof %}
+		{% url 'lecturer_list' as lec %}
+		{% url 'student_list' as stu %} {% url 'course_allocation_view' as cav %}
+		{% url 'programs' as pro %} {% url 'session_list' as sess %} {% url 'semester_list' as sem %}
+		{% url 'add_score' as ascore %} {% url 'grade_results' as vr %}{% url 'ass_results' as ar %}
+		{% url 'course_registration' as cr %} {% url 'edit_profile' as ep %} {% url 'change_password' as cp %}
+		{% url 'quiz_progress' as qpr %} {% url 'quiz_marking' as qce %} {% url 'user_course_list' as ucl %}
+		{% url 'admin_panel' as admin_p %}
+		
+
+
+		<ul>
+			{% if request.user.is_superuser %}
+			<li class="{% if request.path == dash %}active{% endif %}">
+				<a href="{% url 'dashboard' %}"><i class="fas fa-tachometer-alt"></i>{% trans 'Dashboard' %}</a>
+			</li>
+			{% endif %}
+			<li class="{% if request.path == hom %}active{% endif %}">
+				<a href="{% url 'home' %}"><i class="fas fa-home"></i>{% trans 'Accueil' %}</a>
+			</li>
+			<li class="{% if request.path == prof %}active{% endif %}">
+				<a href="{% url 'profile' %}"><i class="fas fa-user"></i>{% trans 'Profile' %}</a>
+			</li>
+
+			{% if request.user.is_superuser %}
+
+
+			<li class="{% if request.path == stu %}active{% endif %}">
+				<a href="{% url 'student_list' %}"><i class="fas fa-user-graduate"></i>{% trans 'Students' %}</a>
+			</li>
+			{% endif %}
+
+			{% if request.user.is_lecturer or request.user.is_student %}
+			<li class="{% if request.path == ucl %}active{% endif %}">
+				<a href="{% url 'user_course_list' %}"><i class="fas fa-book"></i>{% trans 'My Courses' %}</a>
+			</li>
+			{% endif %}
+
+			{% if request.user.is_superuser or request.user.is_lecturer or request.user.is_student %}
+			<li class="{% if request.path == pro %}active{% endif %}">
+				<a href="{% url 'programs' %}"><i class="fas fa-book-open"></i>{% trans 'Révision' %}</a>
+			</li>
+			{% endif %}
+			
+
+			{% if request.user.is_superuser or request.user.is_lecturer %}
+			<li class="{% if request.path == qce %}active{% endif %}">
+				<a href="{% url 'quiz_marking' %}"><i class="fas fa-check-double"></i>{% trans 'Complete Exams' %}</a>
+			</li>
+			{% endif %}
+
+			{% if request.user.is_superuser %}
+			<li class="{% if request.path == qpr %}active{% endif %}">
+				<a href="{% url 'quiz_progress' %}"><i class="fas fa-record-vinyl"></i>{% trans 'Quiz Progress Rec' %}</a>
+			</li>
+
+			{% endif %}
+
+			{% if request.user.is_lecturer %}
+			<li class="{% if request.path == ascore %}active{% endif %}">
+				<a href="{% url 'add_score' %}"><i class="fas fa-table"></i>{% trans 'Manage Score' %}</a>
+			</li>
+			{% endif %}
+
+			{% if request.user.is_student %}
+			<li class="{% if request.path == qpr %}active{% endif %}">
+				<a href="{% url 'quiz_progress' %}"><i class="fas fa-record-vinyl"></i>{% trans 'Progression Point' %}</a>
+			</li>
+             <li class="{% if request.path == qce %}active{% endif %}">
+				<a href="{% url 'quiz_marking' %}"><i class="fas fa-chart-bar"></i>{% trans 'Statistic' %}</a>
+			</li>
+			<li class="{% if request.path == '/en/quiz/quiz/notes/' %}active{% endif %}">
+				<a href="{% url 'notes_list' %}">
+					<i class="fas fa-sticky-note"></i> {% trans 'Your Notes' %}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="{% url 'support' %}" class="nav-link">
+					<i class="fas fa-headset"></i> Support
+				</a>
+			</li>			
+			
+			{% endif %}
+			<br />
+			<p class="ml-3">&RightArrow; Autres</p>
+			<li class="{% if request.path == ep %}active{% endif %}">
+				<a href="{% url 'edit_profile' %}"><i class="fas fa-cogs"></i>{% trans 'Paramétrage du compte' %}</a>
+			</li>
+			<li class="{% if request.path == cp %}active{% endif %}">
+				<a href="{% url 'change_password' %}"><i class="fas fa-key"></i>{% trans 'Changer le mot de passe' %}</a>
+			</li>
+			<li class="{% if request.path == hom %}active{% endif %}">
+				<a href="{% url 'payment_gateways' %}"><i class="fas fa-credit-card"></i>Payments</a>
+			</li>
+		</ul>
+	</div>
+	<footer class="card-footer mt-5 pt-3 pb-5 px-2">
+		<div class="col-12 text-center">
+			<p class="small m-0">
+				{% trans 'Read our' %} <a href="#"> {% trans 'Privacy' %} </a> {% trans 'and' %} <a href="#"> {% trans 'Terms of use.' %} </a>
+				<br />Django LMS &copy; <script>document.write(new Date().getFullYear());</script>
+				<br />
+			</p>
+	
+			<!-- Social Media Links -->
+			<div class="social-icons">
+				<a href="https://www.facebook.com" target="_blank" class="social-icon facebook" title="Facebook">
+					<i class="fab fa-facebook-f"></i>
+				</a>
+				<a href="https://www.instagram.com" target="_blank" class="social-icon instagram" title="Instagram">
+					<i class="fab fa-instagram"></i>
+				</a>
+				<a href="https://wa.me/yourwhatsapplink" target="_blank" class="social-icon whatsapp" title="WhatsApp">
+					<i class="fab fa-whatsapp"></i>
+				</a>
+				<a href="https://www.youtube.com" target="_blank" class="social-icon youtube" title="YouTube">
+					<i class="fab fa-youtube"></i>
+				</a>
+			</div>
+		</div>
+	</footer>
+	
+	<style>
+		.social-icons {
+			margin-top: 10px; /* Space between the text and icons */
+		}
+	
+		.social-icon {
+			margin: 0 10px; /* Space between icons */
+			color: #000; /* Default icon color */
+			font-size: 24px; /* Icon size */
+			transition: color 0.3s; /* Smooth color transition */
+		}
+	
+		.social-icon.facebook:hover {
+			color: #3b5998; /* Facebook color */
+		}
+	
+		.social-icon.instagram:hover {
+			color: #e4405f; /* Instagram color */
+		}
+	
+		.social-icon.whatsapp:hover {
+			color: #25D366; /* WhatsApp color */
+		}
+	
+		.social-icon.youtube:hover {
+			color: #FF0000; /* YouTube color */
+		}
+	</style>
+	
+	<!-- Font Awesome for icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM0HO1D7jOqS9Dq0W+9KtxN99MG7hXTdmbWq6N" crossorigin="anonymous">
+	
+</div>
+
+{% block js %}
+<script>
+	document.getElementById("lang-select").addEventListener("change", function() {
+		console.log("Changed!")
+    	document.getElementById("lang-form").submit();  // Submit the form programmatically
+	});
+</script>
+{% endblock js %}

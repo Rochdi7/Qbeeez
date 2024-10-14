@@ -1,0 +1,75 @@
+{% extends 'base.html' %} 
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programs' %}">{% trans 'Programmes' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'program_detail' course.program.id %}">{{ course.program }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course }}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'quiz_index' course.slug %}">{% trans 'Quiz' %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Formulaire de question à choix multiples' %}</li>
+    </ol>
+</nav>
+
+<div class="title-1 mb-3">{% trans 'Ajouter des questions' %} [{{ quiz_obj|truncatechars:15 }}]</div>
+
+{% if formset.non_form_errors %}
+<div class="alert alert-danger">
+    <ul class="mb-0">
+    {% for e in formset.non_form_errors %}
+    <li>{{ e }}</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="container">
+    <div class="info-text bg-orange mb-3">{{ quizQuestions }} {% trans 'question ajoutée' %}</div>
+
+    <form action="#" method="POST">{% csrf_token %}
+        {% if form.errors %}<p class="alert alert-danger">{% trans 'Corrigez l\'erreur (ou les erreurs) ci-dessous.' %}</p>{% endif %}
+        <div class="row">
+            <div class="col mx-3 py-4 border bg-white">
+                <div class="mb-2" hidden>
+                    {{ form.quiz }}
+                </div>
+                {{ form.content|as_crispy_field }}
+                {{ form.figure|as_crispy_field }}
+                {{ form.explanation|as_crispy_field }}
+                {{ form.year.label_tag }} {{ form.year|as_crispy_field }}
+                {{ form.question_type.label_tag }} {{ form.question_type|as_crispy_field }}
+                {{ form.correction_type.label_tag }} {{ form.correction_type|as_crispy_field }}
+                
+            </div>
+            <div class="col mx-3 py-4 border bg-white">
+                {{ form.choice_order|as_crispy_field }}
+                <div class="border p-2">
+                    <label class="lead">{% trans 'Choix' %}</label>
+                    {{ formset.management_form }}
+                    {% for fs in formset %}
+                        <label for="{{ fs.prefix }}_choice">{{ fs.label }}</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ fs.correct }} <small class="ms-1">{% trans 'Correct' %}</small></span>
+                            </div>
+                            {{ fs.choice }}
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{ fs.DELETE }} <small class="ms-1">{% trans 'Supprimer' %}</small></span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <button type="submit" formnovalidate name="another" class="btn btn-outline-primary">
+            Enregistrer et ajouter un autre
+        </button>
+        <button class="btn btn-primary my-4" type="submit">{% trans 'Enregistrer' %}</button>
+    </form>
+</div>
+
+{% endblock %}

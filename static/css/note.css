@@ -1,0 +1,274 @@
+/* Notes Section Style */
+.notes-section {
+    margin-top: 70px;
+    /* Margin from the top */
+    background-color: #ffffff;
+    /* White background for a clean look */
+    padding: 20px;
+    /* Padding around the section */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Shadow for depth */
+    border-radius: 8px;
+    /* Rounded corners for a softer look */
+    font-family: 'Roboto', sans-serif;
+    /* Modern font */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+    /* Animation */
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add some padding inside the note-taking section */
+.note-taking-section {
+    padding-top: 20px;
+    /* Top padding for the note-taking section */
+}
+
+/* Textarea container */
+.textarea-container {
+    margin-bottom: 10px;
+    /* Margin below the textarea */
+}
+
+/* Button styling */
+.custom-btn {
+    background-color: #007bff;
+    /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-weight: 500;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Smooth transition */
+    cursor: pointer;
+}
+
+/* Button hover effect */
+.custom-btn:hover {
+    background-color: #009999;
+    /* Darker shade on hover */
+    transform: scale(1.05);
+    /* Slight scale on hover */
+}
+
+/* Textarea styling */
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth border transition */
+    width: 100%;
+    /* Ensure textarea uses full width */
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+/* Textarea focus effect */
+.form-control:focus {
+    border-color: #007bff;
+    /* Change border color on focus */
+    outline: none;
+    /* Remove outline */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    /* Add shadow effect */
+}
+
+/* Notes display styling */
+h6 {
+    margin-top: 20px;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+/* Notes display styling */
+ul {
+    list-style-type: none;
+    /* Remove default list styles */
+    padding: 0;
+    /* Remove default padding */
+    margin: 0;
+    /* Ensure there’s no default margin */
+    max-width: 100%;
+    /* Ensure the list does not exceed container width */
+    text-align: left;
+    /* Ensure text is aligned to the left */
+}
+
+/* Note item style */
+li.note-item {
+    max-width: 100%;
+    /* Ensure it does not exceed the container */
+    padding: 12px;
+    /* Padding inside note items */
+    margin-bottom: 10px;
+    /* Space between notes */
+    border-radius: 6px;
+    /* Rounded corners */
+    word-wrap: break-word;
+    /* Break long words to the next line */
+    overflow-wrap: break-word;
+    /* Allow breaking long words */
+    white-space: normal;
+    /* Allow normal white space handling */
+    text-align: left;
+    /* Align text to the left */
+    background-color: #f8f9fa;
+    /* Light gray background for notes */
+    border-left: 4px solid #007bff;
+    /* Accent border on left */
+    opacity: 0;
+    transform: scale(0.95);
+    animation: popIn 0.4s ease-out forwards;
+    /* Animation for popping in */
+}
+
+/* Pop-in animation */
+@keyframes popIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.note-item p {
+    margin: 0;
+    /* Remove margin from paragraphs for better spacing */
+    line-height: 1.6;
+    /* Increase line height for readability */
+    text-align: left;
+    /* Align text to the left */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Small date styling */
+small {
+    display: block;
+    /* Display date below the note */
+    color: #666;
+    /* Lighter color for date */
+    font-size: 0.9em;
+    /* Slightly smaller font size for date */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+    .notes-section {
+        margin-top: 20px;
+        /* Reduce margin on small screens */
+        padding: 15px;
+        /* Reduce padding */
+    }
+
+    .note-taking-section {
+        padding-top: 15px;
+        /* Adjust padding */
+    }
+
+    .form-control {
+        font-size: 14px;
+        /* Adjust font size */
+    }
+
+    .custom-btn {
+        padding: 8px 12px;
+        /* Smaller button padding */
+    }
+
+    h5,
+    h6 {
+        font-size: 16px;
+        /* Adjust heading size */
+    }
+}
+
+/* Specific styles for 400px screens */
+@media (max-width: 400px) {
+    .notes-section {
+        padding: 10px;
+        /* Further reduce padding */
+    }
+
+    .note-taking-section {
+        padding-top: 10px;
+        /* Further adjust padding */
+    }
+
+    .form-control {
+        font-size: 12px;
+        /* Decrease font size for textarea */
+        padding: 8px;
+        /* Reduce padding inside textarea */
+    }
+
+    .custom-btn {
+        font-size: 12px;
+        /* Smaller button text */
+        padding: 6px 10px;
+        /* Smaller button padding */
+    }
+
+    h5,
+    h6 {
+        font-size: 14px;
+        /* Smaller heading size */
+    }
+
+    li.note-item {
+        padding: 8px;
+        /* Reduce padding for notes */
+    }
+
+    small {
+        font-size: 0.8em;
+        /* Smaller font size for date */
+    }
+}
+
+/* btn svg*/
+.btn svg {
+    vertical-align: middle;
+    fill: currentColor;
+}
+
+.btn {
+    background-color: #008080;
+    /* Set the default button background color */
+    color: white;
+    /* Set text/icon color */
+    border: none;
+    /* Remove default border */
+    padding: 10px 20px;
+    /* Adjust padding as needed */
+    cursor: pointer;
+    /* Change cursor on hover */
+    transition: background-color 0.3s ease;
+    /* Smooth transition for hover effect */
+}
+
+.btn:hover {
+    background-color: darken(#008080, 10%);
+    /* Darken the button on hover */
+    color: white;
+    /* Maintain icon color on hover */
+}
+
+.btn svg {
+    vertical-align: middle;
+    /* Align icon vertically */
+    fill: currentColor;
+    /* Inherit the button text color */
+}

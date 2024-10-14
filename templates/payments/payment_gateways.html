@@ -1,0 +1,170 @@
+{% extends 'base.html' %} 
+{% block title %}Choisissez une passerelle{% endblock title %}
+{% load static %}
+
+{% block header %}
+<!-- Ajouter des méta-tags pour mobile et IE -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="https://use.fontawesome.com/aade6c6330.js"></script>
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+    body {
+        background-color: #f8f9fa; /* Arrière-plan clair pour contraste */
+    }
+
+    .container {
+        margin-top: 20px;
+        padding: 0 15px; /* Ajouter un padding pour les petits écrans */
+    }
+
+    .card-payment {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px; /* Réduire la marge pour les petits écrans */
+        text-align: center;
+        transition: .3s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Rendre les cartes pleine largeur sur les petits écrans */
+        max-width: 300px; /* Définir une largeur maximale pour les écrans plus grands */
+    }
+
+    .card-payment:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-payment h4 {
+        font-weight: 600; /* Rendre le titre plus gras */
+        margin: 10px 0;
+        color: #343a40; /* Couleur de texte plus foncée */
+    }
+
+    .card-payment p {
+        font-weight: 300;
+        margin-bottom: 15px;
+        color: #6c757d; /* Couleur grise pour la description */
+    }
+
+    .btn {
+        width: 100%;
+        border-radius: 5px;
+        padding: 10px;
+        color: #fff!important;
+        transition: .3s;
+        font-weight: bold;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+    .cih-bank .btn {
+        background: #6869d4; /* Couleur personnalisée pour CIH Bank */
+    }
+
+    .sales-point .btn {
+        background: #60a65d; /* Couleur personnalisée pour le Point de Vente */
+    }
+
+    .program-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px; /* Réduire la marge pour les petits écrans */
+        text-align: center;
+        transition: transform 0.2s;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Rendre les cartes pleine largeur sur les petits écrans */
+        max-width: 300px; /* Définir une largeur maximale pour les écrans plus grands */
+    }
+
+    .program-card:hover {
+        transform: scale(1.03);
+    }
+
+    .course-counter {
+        background-color: #e9ecef; /* Arrière-plan gris clair */
+        padding: 8px;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 10px;
+        color: #495057; /* Couleur de texte plus foncée pour un meilleur contraste */
+        text-align: center;
+    }
+
+    .course-count {
+        font-size: 14px; /* Taille de police légèrement plus petite */
+        margin: 10px 0;
+    }
+
+    @media (max-width: 400px) {
+        .container {
+            padding: 10px; /* Ajuster le padding pour les très petits écrans */
+        }
+
+        .card-payment, .program-card {
+            margin: 5px; /* Ajuster la marge pour les très petits écrans */
+        }
+
+        .btn {
+            padding: 8px; /* Padding de bouton légèrement plus petit pour les petits écrans */
+        }
+
+        h1.display-4, h2 {
+            font-size: 1.5rem; /* Ajuster la taille de police pour les titres */
+        }
+
+        h4 {
+            font-size: 1.25rem; /* Ajuster la taille de police pour les titres de programme */
+        }
+    }
+</style>
+
+<div class="container">
+    <h1 class="display-4 text-center">Passerelles de Paiement</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center flex-wrap">
+            <div class="card-payment cih-bank">
+                <h4>CIH Bank</h4>
+                <button class="btn" onclick="window.location.href='{% url 'cihbank_payment' %}'">Sélectionner les Programmes</button>
+                <p>Effectuez un paiement en utilisant CIH Bank pour des transactions faciles.</p>
+            </div>
+
+            <div class="card-payment sales-point">
+                <h4>Point de Vente</h4>
+                <button class="btn" onclick="window.location.href='{% url 'sales_point_payment' %}'">Sélectionner les Programmes</button>
+                <p>Sélectionnez les programmes à payer commodément à votre Point de Vente le plus proche.</p>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<div class="active-programs">
+    <h2 class="text-center">Vos Programmes Actifs :</h2>
+    <div class="row justify-content-center">
+        {% if active_programs %}
+            {% for program in active_programs %}
+                <div class="col-12 col-md-4">
+                    <div class="program-card">
+                        <img src="{{ program.image.url }}" alt="{{ program.title }} Image" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px;">  <!-- Image du programme -->
+                        <h4>{{ program.name }}</h4>
+                        <p>{{ program.summary }}</p>
+                        <div class="course-counter">Nombre de Cours : {{ program.course_set.count }}</div> <!-- Afficher le nombre de cours -->
+                        <button class="btn" onclick="window.location.href='{% url 'program_detail' program.id %}'">Entrer dans le Programme</button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">Vous n'avez aucun programme actif.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

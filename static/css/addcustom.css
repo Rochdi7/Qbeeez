@@ -1,0 +1,85 @@
+    /* Specific styling for each button */
+
+#settings-btn:hover,
+#guide-btn:hover,
+#fullscreen-btn:hover,
+#take-notes-btn:hover {
+    background-color: #005757; /* Darker shade on hover */
+}
+    /* Ensuring it keeps the danger background on hover */
+    #exit-btn:hover {
+        background-color: #c82333; /* Darken danger color on hover */
+    }
+    
+    /* Optional: Adjust button container spacing */
+    .button-container {
+        display: flex;
+        gap: 10px; /* Add spacing between the buttons */
+    }
+
+    .btn-trigger {
+        width: 50px;
+        height: 50px;
+        background-color: #008080; /* Chat bubble color */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-trigger:hover {
+        background-color: #005757; /* Darker shade on hover */
+    }
+    
+    .btn-trigger i {
+        color: #fff; /* Icon color */
+    }
+    /* Specific styling for each button */
+#take-notes-btn {
+    width: 40px; /* Fixed width */
+    height: 40px; /* Fixed height */
+    padding: 0; /* No padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Fully rounded */
+    font-size: 18px; /* Font size for any text (if needed) */
+    background-color: #008080; /* Button color */
+    color: white; /* Icon color */
+    border: none; /* Remove default border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+#take-notes-btn:hover {
+    background-color: #005757; /* Darker shade on hover */
+}
+
+#take-notes-btn svg {
+    width: 20px; /* Set icon width */
+    height: 20px; /* Set icon height */
+    fill: white; /* Icon color */
+}
+
+/* Other button styles */
+#settings-btn, #guide-btn, #fullscreen-btn, #exit-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 18px;
+    background-color: #008080; /* Change for specific button colors as needed */
+    color: white;
+}
+
+/* Optional: Adjust button container spacing */
+.button-container {
+    display: flex;
+    gap: 10px; /* Add spacing between the buttons */
+}

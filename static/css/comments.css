@@ -1,0 +1,372 @@
+   /* Basic Reset */
+   body {
+       font-family: 'Roboto', sans-serif;
+       background-color: #f9f9f9;
+   }
+
+   /* Form Container */
+   .form-group {
+       margin-bottom: 1.5rem;
+   }
+
+   textarea {
+       padding: 12px;
+       border-radius: 8px;
+       border: 1px solid #d1d5db;
+       /* Tailwind's gray-300 */
+       width: 100%;
+       font-size: 1rem;
+       transition: border-color 0.2s ease-in-out;
+   }
+
+   textarea:focus {
+       border-color: #008080;
+       /* Tailwind's blue-600 */
+       outline: none;
+   }
+
+   /* Checkbox Styling */
+   .form-check-input {
+       appearance: none;
+       background-color: #fff;
+       border-radius: 4px;
+       border: 1px solid #d1d5db;
+       display: inline-block;
+       height: 16px;
+       width: 16px;
+       transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+       cursor: pointer;
+   }
+
+   .form-check-input:checked {
+       background-color: #008080;
+       /* Tailwind's blue-600 */
+       border-color: #008080;
+   }
+
+   /* Submit Button */
+   .main-button {
+       background-color: #008080;
+       /* Tailwind's blue-600 */
+       padding: 12px 24px;
+       font-weight: bold;
+       font-size: 1.1rem;
+       border-radius: 24px;
+       text-align: center;
+       cursor: pointer;
+       transition: background-color 0.3s ease-in-out;
+   }
+
+   .main-button:hover {
+       background-color: #02a7a7;
+       /* Tailwind's blue-700 */
+   }
+
+   .main-button:focus {
+       outline: none;
+       box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.5);
+       /* Light blue focus ring */
+   }
+
+   /* Basic Reset */
+   body {
+       font-family: 'Roboto', sans-serif;
+       background-color: #f9f9f9;
+   }
+
+   /* Chat bubble styles */
+   .chat-bubble {
+       position: relative;
+       padding: 10px;
+       border-radius: 12px;
+       word-wrap: break-word;
+       background-color: #e2e8f0;
+       /* Light gray for others */
+   }
+
+   .chat-bubble.self {
+       background-color: #d1f7c4;
+       /* Light green for self */
+       align-self: flex-end;
+   }
+
+   .chat-bubble:not(.self)::after {
+       content: '';
+       position: absolute;
+       top: 0;
+       left: -8px;
+       border-width: 8px 8px 0;
+       border-style: solid;
+       border-color: transparent #e2e8f0 transparent transparent;
+   }
+
+   .chat-bubble.self::after {
+       content: '';
+       position: absolute;
+       top: 0;
+       right: -8px;
+       border-width: 8px 0 8px 8px;
+       border-style: solid;
+       border-color: transparent transparent transparent #d1f7c4;
+   }
+
+   /* Avatar styling */
+   .avatar {
+       width: 40px;
+       height: 40px;
+       border-radius: 50%;
+       object-fit: cover;
+   }
+
+   /* Style the chat area */
+   .chat-area {
+       max-height: 400px;
+       overflow-y: auto;
+   }
+
+   .chat-area::-webkit-scrollbar {
+       width: 8px;
+   }
+
+   .chat-area::-webkit-scrollbar-thumb {
+       background-color: #a0aec0;
+       border-radius: 4px;
+   }
+
+   /* Username styling */
+   .username-display {
+       font-size: 0.875rem;
+       font-weight: 600;
+       color: #00218f;
+       /* Tailwind color for text-blue-800 */
+       padding: 5px 0;
+       margin-bottom: 5px;
+       display: inline-block;
+       border-bottom: 2px solid #008080;
+       /* Underline effect */
+   }
+
+   /* Style for the Discussion Title */
+   .discussion {
+       font-size: 1.25rem;
+       font-weight: bold;
+       color: #019292;
+       /* Tailwind blue-700 color */
+       padding: 5px 0;
+       text-transform: uppercase;
+       letter-spacing: 1px;
+   }
+
+   /* Comment content styling */
+   .commentcontent {
+       font-size: 0.75rem;
+       color: #718096;
+       /* Tailwind gray-600 */
+       margin-top: 8px;
+       text-align: right;
+   }
+
+
+
+   /* Define color variables */
+   :root {
+       --primary-color: #008080;
+       /* Main color for buttons and accents */
+       --secondary-color: #1abc9c;
+       /* Lighter shade for hover effects */
+       --error-color: #e74c3c;
+       /* Error color for validation */
+   }
+
+   body {
+       font-family: 'Roboto', sans-serif;
+       background-color: #f9f9f9;
+   }
+
+   .mt-6 {
+       padding: 1.5rem;
+       background-color: white;
+       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+       border-radius: 0.375rem;
+   }
+
+   h3 {
+       font-size: 1.5rem;
+       font-weight: 600;
+       color: #4a4a4a;
+       margin-bottom: 1rem;
+   }
+
+   textarea {
+       display: block;
+       width: 100%;
+       padding: 0.75rem;
+       border: 1px solid #d1d5db;
+       border-radius: 0.375rem;
+       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+       transition: border-color 0.2s ease, box-shadow 0.2s ease;
+   }
+
+   textarea:focus {
+       border-color: var(--primary-color);
+       box-shadow: 0 0 5px rgba(0, 128, 128, 0.5);
+       outline: none;
+   }
+
+   .form-check {
+       display: flex;
+       align-items: center;
+       margin-bottom: 1rem;
+   }
+
+   .form-check-input {
+       height: 1rem;
+       width: 1rem;
+       color: var(--primary-color);
+       border: 1px solid #d1d5db;
+       border-radius: 0.25rem;
+       transition: transform 0.2s ease;
+   }
+
+   .form-check-input:checked {
+       background-color: var(--primary-color);
+       border-color: var(--primary-color);
+   }
+
+   label {
+       margin-left: 0.5rem;
+       font-size: 0.875rem;
+       color: #4a4a4a;
+   }
+
+   button {
+       background-color: #20A8A8;
+       color: white;
+       font-weight: bold;
+       padding: 0.75rem 1.5rem;
+       border-radius: 9999px;
+       width: 100%;
+       transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+       border: none;
+       cursor: pointer;
+   }
+
+   button:hover {
+       background-color: var(--secondary-color);
+       box-shadow: 0 4px 20px rgba(0, 128, 128, 0.2);
+       transform: scale(1.05);
+   }
+
+   button:active {
+       transform: scale(0.95);
+   }
+
+   /* Styles for the chat bubbles */
+   .chat-bubble {
+       position: relative;
+       padding: 0.75rem;
+       border-radius: 0.75rem;
+       word-wrap: break-word;
+       background-color: var(--secondary-color);
+       margin-bottom: 0.5rem;
+   }
+
+   .chat-bubble.self {
+       background-color: rgba(0, 128, 128, 0.3);
+       align-self: flex-end;
+   }
+
+   .chat-bubble p {
+       color: #4a4a4a;
+   }
+
+   /* Comment timestamp */
+   .commentcontent {
+       font-size: 0.75rem;
+       color: #7f8c8d;
+       margin-top: 0.25rem;
+   }
+
+   /* Error messages */
+   .error-message {
+       font-size: 0.875rem;
+       color: var(--error-color);
+       margin-top: 0.25rem;
+   }
+
+   /* Breadcrumb Link Style */
+   .breadcrumb-link {
+       color: #008080;
+       /* Tailwind's blue-600 */
+       text-decoration: none;
+       transition: color 0.2s ease;
+   }
+
+   .breadcrumb-link:hover {
+       text-decoration: underline;
+       color: #008080;
+       /* Tailwind's blue-700 */
+   }
+
+   /* Breadcrumb Question Title Style */
+   .breadcrumb-question-title {
+       font-size: 1.5rem;
+       /* Adjust size as needed */
+       font-weight: 600;
+       color: #4a4a4a;
+       /* Dark gray color */
+       margin: 0;
+       /* Remove default margin */
+       padding-left: 0.5rem;
+       /* Slight left padding for spacing */
+   }
+
+   /* Question Content Container Style */
+   .question-content-container {
+       margin-top: 1.5rem;
+       /* Space above the question content */
+       padding: 1.5rem;
+       background: linear-gradient(135deg, #f9fafb, #f0f4f8);
+       /* Light gradient background */
+       border-radius: 0.375rem;
+       /* Rounded corners */
+       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+       /* Subtle shadow */
+       transition: transform 0.3s ease, box-shadow 0.3s ease;
+       /* Animation for transform and shadow */
+   }
+
+   .question-content-container:hover {
+       transform: translateY(-2px);
+       /* Slight lift effect on hover */
+       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+       /* Deeper shadow on hover */
+   }
+
+   /* Question Title Style */
+   .question-title {
+       text-align: center;
+       font-size: 2rem;
+       /* Size of the question title */
+       font-weight: 700;
+       /* Bold weight */
+       color: #008080
+       /* Tailwind blue-700 color */
+       margin: 0;
+       /* Remove default margin */
+       animation: fadeIn 0.5s ease;
+       /* Fade-in animation */
+   }
+
+   /* Fade-in animation */
+   @keyframes fadeIn {
+       from {
+           opacity: 0;
+           transform: translateY(10px);
+       }
+
+       to {
+           opacity: 1;
+           transform: translateY(0);
+       }
+   }

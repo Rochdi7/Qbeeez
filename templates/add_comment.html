@@ -1,0 +1,42 @@
+<!-- add_comment.html -->
+<div id="comment-section" class="comment-section">
+    <h2>Comments</h2>
+    <form id="comment-form" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+        <div class="form-group">
+            <textarea id="comment-content" name="comment_content" rows="4" class="form-control" placeholder="Add your comment..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+
+    <div id="comments-list">
+        {% for comment in comments %}
+            <div class="comment">
+                <p>{{ comment.user.username }} says:</p>
+                <p>{{ comment.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const commentBtn = document.getElementById("comment-btn");
+    const commentSection = document.getElementById("comment-section");
+    const closeCommentBtn = document.getElementById("close-comment");
+
+    // Toggle comment section visibility
+    commentBtn.addEventListener("click", function() {
+        if (commentSection.classList.contains("show")) {
+            commentSection.classList.remove("show");
+        } else {
+            commentSection.classList.add("show");
+        }
+    });
+
+    // Close comment section
+    closeCommentBtn.addEventListener("click", function() {
+        commentSection.classList.remove("show");
+    });
+});
+</script>

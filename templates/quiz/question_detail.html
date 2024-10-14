@@ -1,0 +1,117 @@
+{% extends "base.html" %} 
+
+{% load static %}
+
+{% block content %}
+<!-- Navigation Breadcrumbs -->
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-gray-200 py-2 px-4 rounded shadow-md">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <h2 style="font-size: small;" class="breadcrumb-question-title">{{ question.content }}</h2>
+        </li>
+    </ol>
+</nav>
+
+<!-- Question Content -->
+<div class="question-content-container">
+    <h2 class="question-title">{{ question.content }}</h2>
+</div>
+
+<hr class="my-4">
+
+
+
+
+<!-- Floating Trigger Button (Ellipsis Icon) -->
+<div class="fixed bottom-4 right-4 md:bottom-6 md:right-6">
+    <span id="btn-trigger" class="btn-trigger w-14 h-14 flex justify-center items-center bg-blue-600 text-white shadow-lg rounded-full cursor-pointer transition-transform transform hover:scale-110">
+        <i class="fa-solid fa-comments text-3xl"></i>
+    </span>
+</div>
+
+<!-- Sliding Chat Panel (Comment Section) -->
+<div id="slide-panel" class="fixed top-0 right-0 bottom-0 pt-16 bg-white dark:bg-gray-900 shadow-lg w-96 transform translate-x-full transition-transform duration-500 z-50">
+    <div class="p-6 flex flex-col h-full">
+        <div class="flex justify-between items-center mb-6 text-gray-600 dark:text-white">
+            <h3 class="text-xl font-bold discussion">Discussion</h3>
+            <i id="close-panel" class="fa-solid fa-times text-2xl cursor-pointer hover:text-red-600"></i>
+        </div>
+
+        <!-- Comment List -->
+        {% for comment in comments %}
+        <div class="flex items-start space-x-2">
+            {% if not comment.is_anonymous %}
+                <img src="{{ comment.user.picture.url }}" alt="{{ comment.user.username }}'s avatar" class="avatar">
+                <div class="flex flex-col">
+                    <div class="username-display">{{ comment.user.username }}</div>
+                    <div class="chat-bubble {% if comment.user == user %}self{% endif %} p-3 rounded-lg shadow-sm max-w-xs break-words">
+                        <p class="text-gray-700 dark:text-gray-200 mt-1">{{ comment.content }}</p>
+                        <div class="commentcontent">
+                            Publié le {{ comment.created_at }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="flex items-start space-x-2">
+                    <img src="{% static 'img/Qbeeez/logo2-5-removebg-preview.png' %}" alt="Avatar anonyme" class="avatar">
+                    <div class="flex flex-col">
+                        <div class="username-display">Anonyme</div>
+                        <div class="chat-bubble p-3 rounded-lg shadow-sm max-w-xs break-words">
+                            <p class="text-gray-700 dark:text-gray-200 mt-1">{{ comment.content }}</p>
+                            <div class="commentcontent">
+                                Publié le {{ comment.created_at }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="chat-bubble bg-gray-200 p-3 rounded-lg shadow-sm max-w-xs">
+            <p>Aucun commentaire pour l'instant. Commencez la conversation !</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<form method="POST" action="{% url 'question_detail' question_id=question.id %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    
+    <div class="form-group">
+        <label for="comment-content">Votre commentaire</label>
+        <textarea id="comment-content" name="content" rows="4" class="form-control">{{ form.content.value|default:"" }}</textarea>
+        {{ form.content.errors }}
+    </div>
+
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="anonymous-check" name="is_anonymous">
+        <label for="anonymous-check" class="form-check-label">Publier comme anonyme</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Envoyer le commentaire</button>
+</form>
+
+<link rel="stylesheet" href="{% static 'css/comments.css' %}">
+
+<style>
+    .avatar {
+        border: 2px solid #008080;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+    }
+</style>
+
+<script>
+    document.getElementById('btn-trigger').addEventListener('click', function() {
+        document.getElementById('slide-panel').classList.toggle('translate-x-full');
+    });
+
+    document.getElementById('close-panel').addEventListener('click', function() {
+        document.getElementById('slide-panel').classList.add('translate-x-full');
+    });
+</script>
+{% endblock %}

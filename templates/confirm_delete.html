@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!-- Navigation Breadcrumbs -->
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-gray-200 py-3 px-4 rounded shadow-md">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">Accueil</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'notes_list' %}" class="breadcrumb-link">Vos Notes</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <span class="breadcrumb-question-title">Supprimer la Note</span>
+        </li>
+    </ol>
+</nav>
+
+<!-- Delete Note Section -->
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h2 class="font-weight-bold text-danger">Supprimer la Note</h2>
+        <p class="lead">Êtes-vous sûr de vouloir supprimer cette note ? Cette action ne peut pas être annulée.</p>
+    </div>
+    <div class="note-content bg-light p-4 rounded shadow-sm mb-4">
+        <p class="text-dark font-italic">{{ note.notes }}</p>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-danger btn-lg mr-2 custom-btn" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Supprimer</button>
+        <a href="{% url 'notes_list' %}" class="btn btn-secondary btn-lg custom-btn">Annuler</a>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirmer la Suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûr de vouloir supprimer cette note ? Cette action ne peut pas être annulée.
+            </div>
+            <div class="modal-footer">
+                <form method="POST" id="deleteNoteForm">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="{% static 'css/delete_note.css' %}">
+
+<style>
+    .note-content {
+        border: 2px solid #dc3545; /* Bord rouge pour la boîte de suppression de note */
+        background-color: #f8d7da; /* Fond rouge clair pour mettre en valeur */
+        transition: transform 0.3s ease; /* Ajoute une transition subtile */
+    }
+
+    .note-content:hover {
+        transform: scale(1.02); /* Légèrement agrandir le contenu de la note au survol */
+    }
+
+    .custom-btn {
+        border-radius: 50px; /* Boutons en forme de pilule */
+        padding: 12px 30px; /* Augmentation de l'espacement pour de meilleures cibles tactiles */
+        transition: background-color 0.3s ease, transform 0.2s; /* Transition douce */
+    }
+
+    .btn-danger {
+        background-color: #dc3545; /* Couleur danger Bootstrap */
+        color: white; /* Couleur du texte pour le bouton de suppression */
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333; /* Teinte plus foncée pour le bouton de suppression au survol */
+    }
+
+    .btn-secondary {
+        background-color: #6c757d; /* Couleur secondaire Bootstrap */
+        color: white; /* Couleur du texte pour le bouton d'annulation */
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268; /* Teinte plus foncée pour le bouton d'annulation au survol */
+    }
+
+    /* Typographie */
+    h2 {
+        font-family: 'Arial', sans-serif; /* Changer la police si nécessaire */
+    }
+</style>
+{% endblock %}

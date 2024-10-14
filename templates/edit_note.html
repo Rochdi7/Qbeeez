@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<!-- Navigation Breadcrumbs -->
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="bg-gray-200 py-2 px-4 rounded shadow-md">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">Accueil</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'notes_list' %}" class="breadcrumb-link">Vos Notes</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <span class="breadcrumb-question-title">Modifier la Note</span>
+        </li>
+    </ol>
+</nav>
+
+<!-- Edit Note Section -->
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Modifier Votre Note</h2>
+    <form id="editNoteForm" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <textarea name="notes" class="form-control" rows="6" placeholder="Modifiez votre note...">{{ note.notes }}</textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn custom-btn" onclick="openModal()">Enregistrer les Modifications</button>
+        </div>
+    </form>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Succès</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                Votre note a été enregistrée avec succès !
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <a href="{% url 'notes_list' %}" class="btn custom-btn">Voir les Notes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="{% static 'css/edit_note.css' %}">
+
+<style>
+    /* Styling for the text area */
+    .form-control {
+        border: 1px solid #008080; /* Couleur de la bordure */
+        border-radius: 0.5rem; /* Coins arrondis */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Effets de transition */
+        padding: 10px; /* Espacement à l'intérieur de la zone de texte */
+        resize: none; /* Désactiver le redimensionnement */
+    }
+
+    .form-control:focus {
+        border-color: #005f5f; /* Bordure plus foncée au focus */
+        box-shadow: 0 0 0.25rem rgba(0, 159, 159, 0.25); /* Effet d'ombre au focus */
+        outline: none; /* Supprimer le contour par défaut */
+    }
+
+    /* Styling for the save changes button */
+    .custom-btn {
+        background-color: #008080; /* Couleur du bouton */
+        color: white; /* Couleur du texte */
+        padding: 10px 20px; /* Espacement du bouton */
+        border-radius: 0.5rem; /* Coins arrondis */
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Effets de transition */
+        font-size: 1.2rem; /* Taille de police plus grande pour le bouton */
+        width: 200px; /* Largeur fixe pour le bouton */
+    }
+
+    .custom-btn:hover {
+        background-color: #005f5f; /* Teinte plus foncée au survol */
+        transform: translateY(-2px); /* Légère élévation au survol */
+    }
+
+    /* Consistent styling for the heading */
+    h2 {
+        font-family: 'Arial', sans-serif; /* Famille de police */
+        color: #333; /* Couleur du texte */
+    }
+
+    /* Centered styling for text */
+    .text-center {
+        text-align: center; /* Texte centré */
+    }
+
+    /* Modal styles */
+    .modal-header {
+        background-color: #008080; /* Couleur de l'en-tête */
+        color: white; /* Couleur du texte de l'en-tête */
+    }
+
+    .modal-body {
+        font-size: 1.1rem; /* Taille du texte du corps */
+    }
+
+    .modal-footer .btn {
+        margin-left: 10px; /* Espacement entre les boutons */
+    }
+</style>
+
+<script>
+    // Open modal function
+    function openModal() {
+        event.preventDefault(); // Empêcher la soumission de formulaire par défaut
+        const form = document.getElementById('editNoteForm');
+        
+        // Show modal after form submission
+        const bootstrapModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+        bootstrapModal.show();
+
+        // Submit the form after showing the modal
+        setTimeout(() => {
+            form.submit();
+        }, 500); // Ajuster le délai si nécessaire
+    }
+</script>
+
+{% endblock %}
