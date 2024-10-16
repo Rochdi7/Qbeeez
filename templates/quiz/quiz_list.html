@@ -72,7 +72,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <button type="button" class="btn btn-secondary ms-2 btn-sm" onclick="resetFilter()">Réinitialiser</button>
+            <button  type="button" class="btn btn-secondary ms-2 btn-sm" onclick="resetFilter()">Réinitialiser</button>
         </form>
     </div>
 </div>
@@ -124,13 +124,13 @@
         <div class="col-12 col-sm-6 col-md-4 mb-2">
             <div class="card p-2 quiz-card">
                 <div class="d-flex justify-content-between align-items-center text-success mb-4">
-                    <em class="text-left">{{ quiz.category|title }} {% trans 'Quiz' %}</em>
+                    <em style="font-weight: bold;" class="text-left">{{ quiz.category|title }} {% trans 'Quiz' %}</em>
                     <div class="text-right text-light bg-danger px-2 small rounded">
                         {{ quiz.get_questions.count }} {% trans 'Questions' %}
                     </div>
                 </div>
 
-                <h6>{{ quiz.title|title }}</h6>
+                <h6 style="font-weight: bold;">{{ quiz.title|title }}</h6>
 
                 {% if quiz.description %}
                 <p class="text-muted small">{{ quiz.description }}</p>
@@ -146,12 +146,12 @@
                     <!-- Bouton de basculement du mode examen -->
                     <form method="POST" action="{% url 'quiz_take' pk=course.pk slug=quiz.slug %}" class="me-2">
                         {% csrf_token %}
-                        <button type="submit" name="toggle_exam_mode" class="btn btn-secondary btn-sm">
-                            {% if request.session.exam_mode and request.path == request.path %}{% trans "Désactiver le Mode Examen" %}{% else %}{% trans "Activer le Mode Examen" %}{% endif %}
+                        <button style="background-color: #008080; type="submit" name="toggle_exam_mode" class="btn btn-secondary btn-sm">
+                            {% if request.session.exam_mode and request.path == request.path %}{% trans "Désactiver Mode Examen" %}{% else %}{% trans "Activer Mode Examen" %}{% endif %}
                         </button>
                     </form>
 
-                    <a class="btn btn-block btn-secondary w-100" href="{% url 'quiz_take' pk=course.pk slug=quiz.slug %}">{% trans "Commencer le quiz" %} &raquo;</a>
+                    <a style="background-color: #008080;" class="btn btn-block btn-secondary w-100" href="{% url 'quiz_take' pk=course.pk slug=quiz.slug %}">{% trans "Commencer le quiz" %} &raquo;</a>
 
                     {% if request.user.is_superuser or request.user.is_lecturer %}
                     <div class="dropup">

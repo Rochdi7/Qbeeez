@@ -1,7 +1,7 @@
 {% extends 'registration/registration_base.html' %}
 {% load i18n %}
 {% load static %}
-{% block title %}{% trans 'Dj Learning Management System - Login' %}{% endblock title %}
+{% block title %}{% trans 'Se Connecter :: Qbeeez' %}{% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
 
@@ -9,38 +9,49 @@
     <div class="row">
         <div class="col-md-6">
             <div class="text-center mb-4">
-                <img src="{% static 'img/Qbeeez/logo2-5-removebg-preview.png' %}" alt="QBeeez Logo" class="img-fluid mb-2" style="max-width: 200px;"> <!-- Replace 'logo.png' with your logo filename -->
-                <h1 class="font-weight-bold">{% trans 'rochdi' %}</h1>
-                <span>{% trans 'ou' %} <a href="{% url 'register' %}">{% trans 'Créez votre compte maintenant' %}</a></span>
+                <img src="{% static 'img/Qbeeez/logo2-5-removebg-preview.png' %}" alt="QBeeez Logo" class="img-fluid mb-2" style="max-width: 200px;"> 
+                <h1 style="font-weight: bold;" class="font-weight-bold">{% trans 'Connectez-vous à votre compte' %}</h1>
+                <span>{% trans 'ou' %} <a style="text-decoration: underline;" href="{% url 'register' %}">{% trans 'Créez votre compte maintenant' %}</a></span>
             </div>
 
             <!-- Google Sign-In button -->
             <div class="google-login text-center mt-3">
-                <div>{% trans 'Se connecter avec' %}</div>
-                <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-danger w-100">
-                    <i class="fab fa-google"></i> {% trans 'Se Connecter avec Google' %}
+                <div style="font-weight: bold; ">{% trans 'Se connecter avec' %}</div>
+                <a href="{% url 'social:begin' 'google-oauth2' %}" style="background-color: rgba(212, 211, 211, 0.623); color: #DB4437; margin-bottom: 20px; padding: 10px;" class="btn btn-danger w-100">
+                    <i class="fab fa-google"></i> {% trans ' Google' %}
                 </a>
+                
             </div>
-
+                <i id="oucon" style="color: #008080; text-align: center; margin-left: 200px; font-weight: bold;">
+                    {% trans 'Ou continuez avec' %}
+                </i>
             <div class="card mt-3">
-                <div class="form-title text-center">
-                    <i class="fas fa-lock me-2"></i>
-                    {% trans 'Se Connecter' %}
+                <div style="color: 008080;" >
+                    <i style="color: #008080;" ></i>
+                    {% trans '' %}
                 </div>
                 <div class="card-body">
                     <form action="" method="POST" id="login-form">{% csrf_token %}
                         <div class="form-group mb-3">
-                            <label class="mb-2" for="username_id"><i class="fas fa-address-card me-2"></i>{% trans 'ID Number' %}</label>
+                            <label class="mb-2" for="username_id"><i class="fas fa-address-card me-2"></i>{% trans 'Numéro d\'identification' %}</label>
                             <input type="text" name="username" id="username_id" class="form-control" required>
                             <div id="message-wrapper"></div>
                         </div>
                         <div class="form-group mb-3">
-                            <label class="mb-2" for="password_id"><i class="fas fa-key me-2"></i>{% trans 'Password' %}</label>
+                            <label class="mb-2" for="password_id"><i class="fas fa-key me-2"></i>{% trans 'Mot de passe' %}</label>
                             <input type="password" name="password" id="password_id" class="form-control" required>
                         </div>
+
+                        <!-- Remember Me Checkbox -->
+                        <div class="form-group form-check mb-3">
+                            <input type="checkbox" name="remember_me" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">{% trans 'Se souvenir de moi' %}</label>
+                        </div>
+
                         {% if form.errors %}
                             <span class="text-danger"><i class="fas fa-exclamation-circle"></i> {% trans 'Invalid ID & Password.' %}</span><br>
                         {% endif %}
+                        
                         <div class="text-center"> <!-- Centering the button -->
                             <button type="submit" class="btn btn-primary" id="login-btn">
                                 <i class="fas fa-sign-in-alt"></i><small>{% trans 'Se Connecter' %}</small>
@@ -55,7 +66,7 @@
             </div>
         </div>
         <div class="col-md-6 d-none d-md-block">
-            <img src="{% static 'img/hero-img.png' %}" class="img-fluid" alt="Doctor Banner">
+            <img src="{% static 'icon/LoginPic.svg' %}" class="img-fluid" alt="Doctor Banner">
         </div>
     </div>
 </div>
@@ -109,7 +120,5 @@
         $('#login-btn').addClass('disabled');
         $('#login-btn').html(`<i class="fas fa-sign-in-alt"></i> Signing you in . . .`);
     });
-
-  
 </script>
-{% endblock %}
+{% endblock js %}

@@ -1,14 +1,14 @@
 @font-face {
-    font-family: "Rubik";
+    font-family: "Roboto";
     font-style: normal;
-    font-weight: 300;
-    src: url("../fonts/rubik-v14-latin/rubik-v14-latin-300.eot");
-    src: local(""), url("../fonts/rubik-v14-latin/rubik-v14-latin-300.eot?#iefix") format("embedded-opentype"), url("../fonts/rubik-v14-latin/rubik-v14-latin-300.woff2") format("woff2"), url("../fonts/rubik-v14-latin/rubik-v14-latin-300.woff") format("woff"), url("../fonts/rubik-v14-latin/rubik-v14-latin-300.ttf") format("truetype"), url("../fonts/rubik-v14-latin/rubik-v14-latin-300.svg#Rubik") format("svg")
+    font-weight: 400; /* Regular weight */
+    src: url("../fonts/roboto-3/Roboto-Regular.ttf") format("truetype"); /* Ensure this path is correct */
 }
 
+/* Apply the font to all elements */
 *,
 body {
-    font-family: "Rubik", sans-serif
+    font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -489,7 +489,6 @@ a {
     height: 15px;
     z-index: -1;
     border-radius: 1px;
-    background-color: rgba(83, 126, 226, .2);
     animation: lineAnim 1s ease-in forwards
 }
 
@@ -521,7 +520,7 @@ a {
     font-weight: 400;
     font-size: 17px;
     padding: 10px;
-    background: linear-gradient(40deg, #008080, #00BFFF);
+    background: #008080;
     color: #fff;
     text-align: center;
     margin-bottom: 10px
@@ -532,7 +531,7 @@ a {
 }
 
 .news {
-    background: linear-gradient(40deg, #008080, #00BFFF) !important;
+    background: #008080;
     color: #fff
 }
 
@@ -606,7 +605,7 @@ a {
 }
 
 .score-wrapper .bg-danger {
-    background-color: #f53d3d !important
+    background-color: #008080 !important
 }
 
 .bg-sub-info {

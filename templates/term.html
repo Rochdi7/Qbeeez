@@ -1,69 +1,108 @@
+{% load static %}
+
 <!-- Term Modal -->
 <div class="modal fade" id="term-of-service" tabindex="-1" aria-labelledby="termOfService" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="termOfService">Terms of Service</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered"> <!-- Added modal-dialog-centered class -->
+        <div class="modal-content shadow-lg">
+            <div class="modal-header bg-teal text-white">
+                <h5 class="modal-title" id="termOfService">Conditions d'utilisation</h5>
+            </div>
+            <div class="modal-body">
+                <!-- Add your logo here -->
+                <div class="text-center mb-3">
+                    <img src="{% static 'img/Qbeeez/logo2-1-removebg-preview.png' %}" alt="Qbeeez Logo" class="img-fluid" style="max-width: 100px; margin-right: 10px;">
+                </div>
+                
+                <p><strong>Dernière mise à jour : [2024]</strong></p>
+
+                <h2 class="mt-3">1. Introduction</h2>
+                <p>Bienvenue sur Qbeeez ! Nous sommes une plateforme conçue pour la révision et la préparation aux examens de QCM (Questions à Choix Multiples). En utilisant nos services, vous acceptez de vous conformer et d'être lié par les conditions suivantes. Si vous n'acceptez pas une partie de ces conditions, vous ne devez pas utiliser notre plateforme.</p>
+
+                <h2>2. Définitions</h2>
+                <ul>
+                    <li><strong>Qbeeez :</strong> Fait référence au système en ligne de révision et d'examens de QCM.</li>
+                    <li><strong>Utilisateur :</strong> Toute personne qui s'inscrit et utilise la plateforme Qbeeez, y compris les étudiants de divers domaines, tels que la médecine.</li>
+                </ul>
+
+                <h2>3. Inscription de l'utilisateur</h2>
+                <p>Pour accéder à certaines fonctionnalités de notre plateforme, vous devez créer un compte. Vous acceptez de :</p>
+                <ul>
+                    <li>Fournir des informations précises, actuelles et complètes lors du processus d'inscription.</li>
+                    <li>Maintenir la sécurité de votre mot de passe et accepter la responsabilité de toutes les activités qui se produisent sous votre compte.</li>
+                    <li>Nous informer immédiatement de toute utilisation non autorisée de votre compte.</li>
+                </ul>
+
+                <h2>4. Utilisation de la plateforme</h2>
+                <p>Vous acceptez d'utiliser la plateforme Qbeeez uniquement à des fins légales et conformément à ces Conditions d'utilisation. Vous ne devez pas :</p>
+                <ul>
+                    <li>Utiliser la plateforme de manière à enfreindre toute loi ou réglementation fédérale, étatique, locale ou internationale applicable.</li>
+                    <li>Participer à toute conduite qui restreint ou inhibe l'utilisation ou le plaisir de la plateforme par quiconque.</li>
+                    <li>Introduire des virus, chevaux de Troie, vers ou tout autre matériel malveillant ou technologiquement nuisible.</li>
+                </ul>
+
+                <h2>5. Propriété intellectuelle</h2>
+                <p>Le contenu de Qbeeez, y compris, mais sans s'y limiter, le texte, les graphiques et les logiciels, est la propriété de nous ou de nos concédants de licence et est protégé par le droit d'auteur, la marque et d'autres lois sur la propriété intellectuelle. Vous ne pouvez pas reproduire, distribuer ou modifier une partie de la plateforme sans notre consentement écrit préalable.</p>
+
+                <h2>6. Contenu utilisateur</h2>
+                <p>Les utilisateurs peuvent avoir la possibilité de soumettre du contenu à la plateforme. En soumettant du contenu, vous nous accordez une licence non exclusive, libre de droits et mondiale pour utiliser, reproduire, modifier et publier ce contenu.</p>
+
+                <h2>7. Liens tiers</h2>
+                <p>Notre plateforme peut contenir des liens vers des sites Web tiers. Nous n'avons aucun contrôle sur le contenu de ces sites et n'assumons aucune responsabilité à leur égard. Nous vous encourageons à consulter les conditions et politiques de tout site tiers que vous visitez.</p>
+
+                <h2>8. Avertissements</h2>
+                <p>Qbeeez est fourni sur une base "tel quel" et "selon disponibilité". Nous ne faisons aucune garantie de quelque nature que ce soit, expresse ou implicite, concernant le fonctionnement de notre plateforme ou les informations, contenus, matériaux ou produits inclus.</p>
+
+                <h2>9. Limitation de responsabilité</h2>
+                <p>Dans toute la mesure permise par la loi, Qbeeez ne sera pas responsable des dommages indirects, accessoires, spéciaux, consécutifs ou punitifs, y compris mais sans s'y limiter, la perte de bénéfices ou de données, découlant de ou en lien avec votre utilisation de la plateforme.</p>
+
+                <h2>10. Modifications des conditions</h2>
+                <p>Nous nous réservons le droit de modifier ces Conditions d'utilisation à tout moment. Toute modification sera effective immédiatement après la publication des conditions révisées sur la plateforme. Votre utilisation continue de la plateforme après toute modification indique votre acceptation des nouvelles conditions.</p>
+
+                <h2>11. Droit applicable</h2>
+                <p>Ces Conditions d'utilisation seront régies par et interprétées conformément aux lois de [Votre Pays/Région]. Tout litige découlant de ces conditions sera résolu devant les tribunaux de [Votre Ville/Région].</p>
+
+                <h2>12. Contactez-nous</h2>
+                <p>Si vous avez des questions ou des préoccupations concernant ces Conditions d'utilisation, veuillez nous contacter à :</p>
+                <p><strong>Email :</strong> contact.qbeeez@gmail.com<br>
+                    <strong>Téléphone :</strong> +212 611-040232</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'home' %}" class="btn btn-primary stylish-button">Compris</a>
+            </div>
         </div>
-        <div class="modal-body">
-        <p>
-            What follows is just some placeholder text for this modal dialog. You just gotta ignite the light 
-            and let it shine! Come just as you are to me. Just own the night like the 4th of July. Infect me with 
-            your love and fill me with your poison. Come just as you are to me. End of the rainbow looking treasure.
-        </p>
-        <p>
-            I can't sleep let's run away and don't ever look back, don't ever look back. I can't sleep let's run 
-            away and don't ever look back, don't ever look back. Yes, we make angels cry, raining down on earth 
-            from up above. I'm walking on air (tonight). Let you put your hands on me in my skin-tight jeans. 
-            Stinging like a bee I earned my stripes. I went from zero, to my own hero. Even brighter than the 
-            moon, moon, moon. Make 'em go, 'Aah, aah, aah' as you shoot across the sky-y-y! Why don't you let me 
-            stop by?
-        </p>
-        <p>
-            Boom, boom, boom. Never made me blink one time. Yeah, you're lucky if you're on her plane. 
-            Talk about our future like we had a clue. Oh my God no exaggeration. You're original, cannot be replaced. 
-            The girl's a freak, she drive a jeep in Laguna Beach. It's no big deal, it's no big deal, 
-            it's no big deal. In another life I would make you stay. I'm ma get your heart racing in my 
-            skin-tight jeans. I wanna walk on your wave length and be there when you vibrate Never made me 
-            blink one time.
-        </p>
-        <p>
-            We'd keep all our promises be us against the world. In another life I would be your girl. We can 
-            dance, until we die, you and I, will be young forever. And on my 18th Birthday we got matching 
-            tattoos. So open up your heart and just let it begin. 'Cause she's the muse and the artist. 
-            She eats your heart out. Like Jeffrey Dahmer (woo). Pop your confetti. (This is how we do) I 
-            know one spark will shock the world, yeah yeah. If you only knew what the future holds.
-        </p>
-        <p>
-            Sipping on Rosé, Silver Lake sun, coming up all lazy. It’s in the palm of your hand now baby. 
-            So we hit the boulevard. So make a wish, I'll make it like your birthday everyday. Do you ever 
-            feel already buried deep six feet under? It's time to bring out the big balloons. 
-            You could've been the greatest. Passport stamps, she's cosmopolitan. Your kiss is cosmic, 
-            every move is magic.
-        </p>
-        <p> 
-            We're living the life. We're doing it right. Open up your heart. I was tryna hit it and quit it. 
-            Her love is like a drug. Always leaves a trail of stardust. The girl's a freak, she drive a jeep 
-            in Laguna Beach. Fine, fresh, fierce, we got it on lock. All my girls vintage Chanel baby.
-        </p>
-        <p>
-            Before you met me I was alright but things were kinda heavy. Peach-pink lips, yeah, everybody stares. 
-            This is no big deal. Calling out my name. I could have rewrite your addiction. She's got that, je ne 
-            sais quoi, you know it. Heavy is the head that wears the crown. 'Cause, baby, you're a firework. 
-            Like thunder gonna shake the ground.
-        </p>
-        <p>
-            Just own the night like the 4th of July! I’m gon’ put her in a coma. What you're waiting for, it's 
-            time for you to show it off. Can't replace you with a million rings. You open my eyes and I'm ready 
-            to go, lead me into the light. And here you are. I’m gon’ put her in a coma. Come on, let your 
-            colours burst. So cover your eyes, I have a surprise. As I march alone to a different beat. 
-            Glitter all over the room pink flamingos in the pool.
-        </p>
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Understood</button>
-        </div>
-    </div>
     </div>
 </div>
+
+<style>
+    .modal-content {
+        background-color: #f9f9f9; /* Light background for better readability */
+    }
+    .modal-title {
+        color: #008080; /* Primary color */
+    }
+    .modal-body p, .modal-body ul {
+        color: #555; /* Darker text color for better readability */
+    }
+    .modal-body h2 {
+        color: #005757; /* Subtle dark color for headings */
+    }
+    .btn-primary {
+        color: white;
+
+        text-decoration: none; /* Remove underline */
+        background-color: #008080; /* Primary button color */
+        border: none; /* Remove border */
+        padding: 10px 20px; /* Add padding for a better appearance */
+        border-radius: 25px; /* Rounded button */
+        font-weight: bold; /* Bold text for emphasis */
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+    }
+    .btn-primary:hover {
+        background-color: #006666; /* Darker shade on hover */
+        transform: translateY(-2px); /* Lift effect on hover */
+    }
+    .btn-primary:focus {
+        outline: none; /* Remove default focus outline */
+        box-shadow: 0 0 5px rgba(0, 136, 128, 0.5); /* Add glow on focus */
+    }
+</style>

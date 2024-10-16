@@ -53,7 +53,7 @@
         background-position: top center;
     }
 	.logo {
-    width: 150px; /* Set to your desired size */
+    width: 230px; /* Set to your desired size */
     height: auto; /* Maintain aspect ratio */
 }
 
@@ -72,8 +72,8 @@
 				<img src="{% static 'img/Qbeeez/logo2-1-removebg-preview.png' %}" class="logo" width="110px" alt="Logo Qbeeez">
 			</a>
 			<p class="text-orange" >
-				<mark>
-					<i class="far fa-hand-point-right" ></i>
+				<mark >
+					<i   ></i>
 					{{ request.user.get_user_role }}
 				</mark>
 			</p>
@@ -106,7 +106,7 @@
 
 
 			<li class="{% if request.path == stu %}active{% endif %}">
-				<a href="{% url 'student_list' %}"><i class="fas fa-user-graduate"></i>{% trans 'Students' %}</a>
+				<a href="{% url 'student_list' %}"><i class="fas fa-user-graduate"></i>{% trans 'étudiants ' %}</a>
 			</li>
 			{% endif %}
 
@@ -177,8 +177,12 @@
 	<footer class="card-footer mt-5 pt-3 pb-5 px-2">
 		<div class="col-12 text-center">
 			<p class="small m-0">
-				{% trans 'Read our' %} <a href="#"> {% trans 'Privacy' %} </a> {% trans 'and' %} <a href="#"> {% trans 'Terms of use.' %} </a>
-				<br />Django LMS &copy; <script>document.write(new Date().getFullYear());</script>
+				{% trans 'Read our' %} 
+				<a href="{% url 'privacy_policy' %}">{% trans 'Privacy' %}</a> 
+				{% trans 'and' %} 
+				<a href="{% url 'terms_of_use' %}">{% trans 'Terms of use.' %}</a>
+				<br />
+				Qbeeez &copy; <script>document.write(new Date().getFullYear());</script>
 				<br />
 			</p>
 	

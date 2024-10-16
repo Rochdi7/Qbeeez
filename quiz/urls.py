@@ -3,10 +3,11 @@ from .views import *
 from . import views
 from .views import save_notes, notes_list
 from .views import delete_note
-
+from course.views import course_pdfs_view
 urlpatterns = [
 
-
+    path('course/<int:course_id>/pdfs/', pdf_list_view, name='pdf_list'),
+    
     path('quiz-marking/', QuizMarkingList.as_view(), name='quiz_marking_list'),
     path('notes/', notes_list, name='notes_list'),
     path('notes/edit/<int:note_id>/', edit_note, name='edit_note'),

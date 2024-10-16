@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% block title %}{{ title }} | {% trans 'Qbeeez Qcm' %}{% endblock title %}
+{% block title %}{{ title }} | {% trans 'Qbeeez' %}{% endblock title %}
 {% load static %}
 
 {% block content %}
@@ -319,13 +319,14 @@
                 <img class="objective-icon" src="{% static 'img/book-svgrepo-com.svg' %}" alt="Program Icon">
                 <div class="objective-details flex-grow pl-3">
                     <div class="mb-2.5">
-                        <span class="px-2 py-1 rounded text-[.8rem] bg-primary text-white">{% trans 'Payé' %}</span>
+                        <span id="paye" class="px-2 py-1 rounded text-[.8rem] bg-primary text-white"  >{% trans 'Payé' %}</span>
                     </div>
                     <div class="objective-count">
                         <span>{% trans 'explorer vos programmes.' %}</span>
                     </div>
                 </div>
             </div>
+    
             <div class="objective-footer cursor-pointer">
                 <a href="{% url 'program_list' %}" class="btn btn-footer">
                     {% trans 'Explorer ' %}

@@ -218,3 +218,12 @@ class DepartmentHead(models.Model):
 
     def __str__(self):
         return "{}".format(self.user)
+
+class CustomSession(models.Model):
+    session_key = models.CharField(max_length=40, primary_key=True)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
+    is_current_session = models.BooleanField(default=False)  # Custom field
+
+    def __str__(self):
+        return self.session_key

@@ -2202,7 +2202,7 @@
 
 .bg-danger {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity)) !important;
+  background-color: rgba(0, 128, 128, 0.8) !important;
 }
 
 .bg-light {

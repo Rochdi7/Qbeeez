@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\rochdi\Desktop\test\django-lms-main\venv_new"
+VIRTUAL_ENV="C:\Users\rochdi\Desktop\test\Qbeeez\venv_new"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

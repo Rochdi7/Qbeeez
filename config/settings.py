@@ -96,13 +96,18 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",  # Moved up
+    'accounts.middleware.SingleSessionMiddleware',  # After auth middleware
     'social_django.middleware.SocialAuthExceptionMiddleware',  # Correct placement
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
+
+SESSION_COOKIE_AGE = 3600  # Session lasts 1 hour
+
+
 
 ROOT_URLCONF = "config.urls"
 

@@ -292,3 +292,19 @@ margin-right: 5px; /* Space between the label and the value */
 font-weight: bold; /* Bold label for better emphasis */
 }
 
+.warning-message {
+    background-color: #ffcc00; /* Warning background color */
+    color: #333; /* Warning text color */
+    padding: 15px; /* Padding for warning */
+    border-radius: 5px; /* Rounded corners */
+    margin: 15px 0; /* Spacing around warning */
+    font-size: 14px; /* Font size for warning text */
+    display: flex;
+    align-items: center; /* Center content vertically */
+}
+
+.warning-message strong {
+    font-weight: 600; /* Less bold than the default bold */
+    margin-right: 10px; /* Spacing to the right */
+    font-size: 16px; /* Slightly larger font size for emphasis */
+}

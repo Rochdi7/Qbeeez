@@ -44,20 +44,32 @@ def register(request):
         form = StudentAddForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, f"Account created successfuly.")
+            messages.success(request, "Account created successfully.")
+            return redirect('login')  # Replace 'login' with the name of your login URL
         else:
-            messages.error(
-                request, f"Somthing is not correct, please fill all fields correctly."
-            )
+            messages.error(request, "Something is not correct, please fill all fields correctly.")
     else:
-        form = StudentAddForm(request.POST)
+        form = StudentAddForm()
+    
     return render(request, "registration/register.html", {"form": form})
 
+from django.shortcuts import render, redirect
+from django.contrib.sessions.models import Session
 
+def too_many_connections_view(request):
+    if request.method == 'POST':
+        # Delete the current user's session
+        request.session.flush()
+        return redirect('login')  # Redirect to the login page after session deletion
+    return render(request, 'too_many_connections.html')
+
+
+
+from .models import CustomSession
 @login_required
 def profile(request):
-    """Show profile of any user that fire out the request"""
-    current_session = Session.objects.filter(is_current_session=True).first()
+    """Show profile of any user that fires out the request"""
+    current_session = CustomSession.objects.filter(is_current_session=True).first()
     current_semester = Semester.objects.filter(
         is_current_semester=True, session=current_session
     ).first()
@@ -77,22 +89,38 @@ def profile(request):
             },
         )
     elif request.user.is_student:
-        level = Student.objects.get(student__pk=request.user.id)
         try:
+            level = Student.objects.get(student__pk=request.user.id)
             parent = Parent.objects.get(student=level)
-        except:
+        except Student.DoesNotExist:
+            # Handle the case where the Student does not exist
+            level = None
             parent = "no parent set"
-        courses = TakenCourse.objects.filter(
-            student__student__id=request.user.id, course__level=level.level
-        )
-        context = {
-            "title": request.user.get_full_name,
-            "parent": parent,
-            "courses": courses,
-            "level": level,
-            "current_session": current_session,
-            "current_semester": current_semester,
-        }
+        except Parent.DoesNotExist:
+            parent = "no parent set"
+        
+        if level is not None:
+            courses = TakenCourse.objects.filter(
+                student__student__id=request.user.id, course__level=level.level
+            )
+            context = {
+                "title": request.user.get_full_name,
+                "parent": parent,
+                "courses": courses,
+                "level": level,
+                "current_session": current_session,
+                "current_semester": current_semester,
+            }
+        else:
+            context = {
+                "title": request.user.get_full_name,
+                "parent": parent,
+                "courses": [],
+                "level": None,
+                "current_session": current_session,
+                "current_semester": current_semester,
+            }
+        
         return render(request, "accounts/profile.html", context)
     else:
         staff = User.objects.filter(is_lecturer=True)
@@ -106,6 +134,7 @@ def profile(request):
                 "current_semester": current_semester,
             },
         )
+
 
 
 # function that generate pdf by taking Django template and its context,

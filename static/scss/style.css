@@ -550,7 +550,6 @@ a {
   height: 15px;
   z-index: -1;
   border-radius: 1px;
-  background-color: rgba(83, 126, 226, 0.2);
   animation: lineAnim 1s ease-in forwards;
 }
 
@@ -582,8 +581,8 @@ a {
   font-weight: 400;
   font-size: 17px;
   padding: 10px;
-  background: -o-linear-gradient(50deg, #008080, #00BFFF);
-  background: linear-gradient(40deg, #008080, #00BFFF);
+  background: #008080;
+  background: #008080;
   color: #fff;
   text-align: center;
   margin-bottom: 10px;
@@ -594,8 +593,8 @@ a {
 }
 
 .news {
-  background: -o-linear-gradient(50deg, #008080, #00BFFF) !important;
-  background: linear-gradient(40deg, #008080, #00BFFF) !important;
+  background: #008080;
+  background: #008080;
   color: #fff;
 }
 
@@ -676,7 +675,7 @@ a {
 }
 
 .score-wrapper .bg-danger {
-  background-color: #f53d3d !important;
+  background-color: #008080 !important;
 }
 
 .bg-sub-info {

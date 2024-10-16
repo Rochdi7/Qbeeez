@@ -6,6 +6,8 @@
         <title>Qbeeez</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+
         <!-- font awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- owl carousel -->
@@ -16,8 +18,20 @@
         <link rel = "stylesheet" href = "static/css/utilities.css" />
         <link rel = "stylesheet" href = "static/css/index.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="icon" href="{% static 'img/Asset 5@2x.png' %}" type="image/x-icon">
 
+<!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
+<!-- Owl Carousel Theme CSS (Optional) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+<!-- jQuery (Required for Owl Carousel) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Owl Carousel JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
         <!-- normalize.css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
@@ -107,7 +121,7 @@
                                 <div class="content-wrapper">
                                     <h1 class="banner-title">Atteignez l'excellence<br> en toute simplicité</h1>
                                     <p class="text text-white">Boostez vos performances avec nos outils innovants. Tests interactifs, annotations, révision intelligente, suivi détaillé de vos progrès, et cours vidéo exclusifs disponibles uniquement ici.</p>
-                                    <a href="#" class="btn btn-tester">Essayer Gratuitement</a>
+                                    <a href="{% url 'register' %}" class="btn btn-tester">Essayer Gratuitement</a>
                                 </div>
                             </div>
             
@@ -209,7 +223,7 @@
     function openVideo() {
         modal.classList.add("show"); // Add show class to display modal
         var videoId = "VK3ULOnRqb0"; // Replace with your actual video ID
-        document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Set the iframe src to autoplay video
+        document.getElementById('videoFrame').src = ``; // Set the iframe src to autoplay video
     }
 
     function closeVideo() {
@@ -241,32 +255,27 @@
             <div class="nav-button prev" onclick="prevSlide()">&#10094;</div> <!-- Previous Arrow -->
             <div class="fonct-grid">
                 <div class="fonct-item">
-                    <img src="/static/img/analyses-detail.svg" alt="Quizzes Interactifs" onclick="changeFeatureImage('/static/img/dj-lms-dashboard.png')">
-                    <h3>Quizzes Interactifs</h3>
+                    <img src="/static/img/Notes.svg" alt="Quizzes Interactifs" onclick="changeFeatureImage('/static/screenshots/comment.png')">
+                    <h3>Commentaires</h3>
                     <p>Testez vos connaissances avec des quizzes adaptés à votre niveau.</p>
                 </div>
                 <div class="fonct-item">
-                    <img src="/static/img/custom-notes.svg" alt="Notes Personnalisées" onclick="changeFeatureImage('/static/img/videoqbeeez.png')">
+                    <img src="/static/img/Notes.svg" alt="Notes Personnalisées" onclick="changeFeatureImage('/static/screenshots/notes.png')">
                     <h3>Notes Personnalisées</h3>
                     <p>Créez et sauvegardez vos propres notes pour une révision efficace.</p>
                 </div>
                 <div class="fonct-item">
-                    <img src="/static/img/performance-tracking.svg" alt="Suivi de Performance" onclick="changeFeatureImage('/static/img/quizqbeeez.png')">
+                    <img src="/static/img/analyses-detail.svg" alt="Suivi de Performance" onclick="changeFeatureImage('/static/screenshots/static.png')">
                     <h3>Suivi de Performance</h3>
                     <p>Suivez vos progrès et améliorez vos résultats au fil du temps.</p>
                 </div>
                 <div class="fonct-item">
-                    <img src="/static/img/community-support.svg" alt="Support Communautaire" onclick="changeFeatureImage('/static/img/community-support-screenshot.png')">
-                    <h3>Support Communautaire</h3>
-                    <p>Rejoignez une communauté d'apprenants pour échanger des conseils et des ressources.</p>
-                </div>
-                <div class="fonct-item">
-                    <img src="/static/img/video-courses.svg" alt="Cours Vidéo" onclick="changeFeatureImage('/static/img/video-courses-screenshot.png')">
-                    <h3>Cours Vidéo</h3>
+                    <img src="/static/img/tests-personnalisables.svg" alt="Support Communautaire" onclick="changeFeatureImage('/static/screenshots/course2.png')">
+                    <h3>Tutorial Cours</h3>
                     <p>Accédez à des cours vidéo exclusifs pour une meilleure compréhension des sujets.</p>
                 </div>
                 <div class="fonct-item">
-                    <img src="/static/img/pdf-library.svg" alt="Bibliothèque PDF" onclick="changeFeatureImage('/static/img/pdf-library-screenshot.png')">
+                    <img src="/static/img/bibliotheque.svg" alt="Bibliothèque PDF" onclick="changeFeatureImage('/static/screenshots/pdf.png')">
                     <h3>Bibliothèque PDF</h3>
                     <p>Accédez à une vaste bibliothèque de ressources PDF pour approfondir vos connaissances.</p>
                 </div>
@@ -286,12 +295,11 @@
 
     // Image sources corresponding to each slide
     const imageSources = [
-        '/static/img/dj-lms-dashboard.png', // Quizzes Interactifs
-        '/static/img/videoqbeeez.png',      // Notes Personnalisées
-        '/static/img/quizqbeeez.png',       // Suivi de Performance
-        '/static/img/community-support-screenshot.png', // Support Communautaire
-        '/static/img/video-courses-screenshot.png',     // Cours Vidéo
-        '/static/img/pdf-library-screenshot.png'        // Bibliothèque PDF
+        '/static/screenshots/comment.png', // Quizzes Interactifs
+        '/static/screenshots/course2.png',       // Suivi de Performance
+        '/static/screenshots/qcmparcours.png', // Support Communautaire
+        '/static/screenshots/pdf.png',     // Cours Vidéo
+        '/static/screenshots/static.png'        // Bibliothèque PDF
     ];
 
     function changeFeatureImage(imageSrc) {
@@ -401,148 +409,430 @@
                     </div>
                 </section>
 
-                <section class="pricing-section py-10" id="tarif">
-                    <div class="container">
-                        <h2 class="font-bold text-[1.66rem] lg:text-[2.53rem] text-center text-[#212B36]">Plan tarifaire génial</h2>
-                        <p class="place-self-center text-center text-sm lg:text-base max-w-[40.5rem] mx-auto text-[#637381]">Essaye Qbanki gratuitement et sans aucun risque en ouvrant un compte en quelques clics !</p>
-                      <div class="flex md:gap-7 gap-5 flex-wrap md:flex-nowrap items-center justify-center">
-
+                <section class="tarif-section" id="tarif">
+                    <h2>Plan tarifaire génial</h2>
+                    <p style="margin-bottom: 20px;" class="place-self-center text-center text-sm lg:text-base max-w-[40.5rem] mx-auto text-[#637381]">
+                        Essaye Qbeeez gratuitement et sans aucun risque en ouvrant un compte en quelques clics !
+                    </p>
+                    <div class="cards-container">
                         <!-- Card 1: Free Plan -->
-                        <div class="pricing-card py-10 px-5 md:px-7 flex flex-col justify-between z-[100] rounded-lg shadow md:shadow-xl auto-rows-max lg:px-[3.66rem] place-content-center lg:py-[3.3rem] md:min-h-[33.3rem] bg-white text-gray-500 max-w-[25.3rem] md:max-w-[auto] md:w-[30%]">
-                          <div class="dark:text-white">
-                            <div class="text-lg mb-7">Entraînez-vous</div>
-                            <div class="mb-7 text-gray-500 dark:text-white">
-                              <div class="text-2xl font-medium flex items-center gap-2">
-                                <div class="text-[2.1rem] font-bold">Gratuit <small class="text-base font-light opacity-80">Demo</small></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="text-base leading-6 opacity-90 mb-10 flex-grow">Accès Limité aux Différents Examens et Fonctionnalités de Qbeeez <p style="font-style: italic; font-weight: bold;">Regarder la vidéo du cours</p></div>
-
-                          <button class="hover:opacity-90 hover:shadow-md transition-all duration-500 inline-flex items-center justify-center main-button button-md button-primary rounded button-fillable justify-between pl-5 pr-1.5 font-medium">
-                            Rejoignez-Nous
-                            <span class="swiped-icon inline-flex rounded justify-center items-center"><i class="fa-arrow-right fa-solid"></i></span>
-                          </button>
+                        <div class="card">
+                            <h3 style="color: #334155;">Entraînez-vous</h3>
+                            <p class="price">
+                                <span style="color: #334155;" class="text-[2.1rem] font-bold">Gratuit</span> 
+                                <small class="text-base font-light opacity-80">Demo</small>
+                            </p>
+                            <ul>
+                                <li>Accès Limité aux Différents Examens et Fonctionnalités de Qbeeez</li>
+                                <li style="font-style: italic; font-weight: bold;">Regarder la vidéo du cours</li>
+                            </ul>
+                            <a href="{% url 'login' %}" class="subscribe-btn">Rejoignez-Nous</a>
                         </div>
-
+                
+                        
                         <!-- Card 2: Paid Plan (100 DH) -->
-                        <div class="pricing-card py-10 px-5 md:px-7 flex flex-col justify-between z-[100] rounded-lg shadow md:shadow-xl auto-rows-max lg:px-[3.66rem] place-content-center md:py-[6.6rem] md:min-h-[40rem] bg-green text-white max-w-[25.3rem] md:max-w-none md:w-[34%]">
-                          <div class="dark:text-white">
-                            <div class="text-lg mb-7 text-white">À partir de</div>
-                            <div class="mb-7 text-white">
-                              <div class="text-2xl font-medium flex items-center gap-2">
-                                <div class="text-[2.1rem] font-bold">100 DH <small class="text-base font-light opacity-80">Par Semestre</small></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="text-base leading-6 opacity-90 mb-10 flex-grow">
-                            Accès aux anciens examens <br>QCM par cours et session <br>Modes examen & étude <br>PDF cours et résumés <br>Commentaires & Corrections <br>Annotations Personnalisées <br>Analyse performance & suivi progression
-                          </div>
-                          <button class="hover:opacity-90 hover:shadow-md transition-all duration-500 inline-flex items-center justify-center main-button button-md button-light rounded button-bordered justify-between pl-5 pr-1.5 font-medium pricing-btn-focused">
-                            Rejoignez-Nous
-                            <span class="swiped-icon inline-flex rounded justify-center items-center"><i class="fa-arrow-right fa-solid"></i></span>
-                          </button>
+                        <div class="card">
+                            <h3>À partir de</h3>
+                            <p class="price">
+                                <span class="text-[2.1rem] font-bold">100 DH</span>
+                                <small class="text-base font-light opacity-80">Par Semestre</small>
+                            </p>
+                            <ul>
+                                <li>Accès aux anciens examens</li>
+                                <li>QCM par cours et session</li>
+                                <li>Modes examen & étude</li>
+                                <li>PDF cours et résumés</li>
+                                <li>Commentaires & Corrections</li>
+                                <li>Annotations Personnalisées</li>
+                                <li>Analyse performance & suivi progression</li>
+                            </ul>
+                            <a href="{% url 'login' %}" class="subscribe-btn">Rejoignez-Nous</a>
                         </div>
-
+                
                         <!-- Card 3: Paid Plan (150 DH for 2 Semesters) -->
-                        <div class="pricing-card py-10 px-5 md:px-7 flex flex-col justify-between z-[100] rounded-lg shadow md:shadow-xl auto-rows-max lg:px-[3.66rem] place-content-center lg:py-[3.3rem] md:min-h-[33.3rem] bg-white text-gray-500 max-w-[25.3rem] md:max-w-[auto] md:w-[30%]">
-                          <div class="dark:text-white">
-                            <div class="text-lg mb-7">À partir de</div>
-                            <div class="mb-7 text-gray-500 dark:text-white">
-                              <div class="text-2xl font-medium flex items-center gap-2">
-                                <div class="text-[2.1rem] font-bold">150 DH <small class="text-base font-light opacity-80">Pour 2 Semestres</small></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="text-base leading-6 opacity-90 mb-10 flex-grow">
-                            Accès aux anciens examens <br>QCM par cours et session <br>Modes examen & étude <br>PDF cours et résumés <br>Commentaires & Corrections <br>Annotations Personnalisées <br>Analyse performance & suivi progression
-                          </div>
-                          <button class="hover:opacity-90 hover:shadow-md transition-all duration-500 inline-flex items-center justify-center main-button button-md button-primary rounded button-fillable justify-between pl-5 pr-1.5 font-medium">
-                            Rejoignez-Nous
-                            <span class="swiped-icon inline-flex rounded justify-center items-center"><i class="fa-arrow-right fa-solid"></i></span>
-                          </button>
-                        </div>
-
-
-                      </div>
-                    </div>
-                  </section>
-
-
-                  <section class="sc-feedback" id="feedback">
-                    <div class="container">
-                        <div class="feedback-content">
-                            <div class="feedback-element">
-                                <img src="static/images/element-img-3.png">
-                            </div>
-                            <div class="feedback-element-2">
-                                <img src="static/images/element-img-5.png">
-                            </div>
-                            <div class="title-box text-center">
-                                <div class="content-wrapper">
-                                    <h3 class="title-box-name text-white">Ce que disent nos utilisateurs</h3>
-                                    <div class="title-separator mx-auto"></div>
-                                </div>
-                            </div>
-
-                            <div class="feedback-list feedback-slider owl-carousel owl-theme">
-                                <!-- Slide 1 -->
-                                <div class="feedback-item d-grid">
-                                    <div class="item-left d-flex align-items-center">
-                                        <div class="item-img initials-circle" style="background-color: #FF6347;">AM</div> <!-- Ahmed: Tomato background -->
-                                        <div class="item-info text-white">
-                                            <p class="fw-7 name">Ahmed El Mansouri</p>
-                                            <span class="designation fw-4">Fondateur de Qbeeez</span>
-                                        </div>
-                                    </div>
-                                    <div class="item-right">
-                                        <p class="text text-white">"Notre application dédiée à l'engagement des patients et notre portail web vous permettent d'accéder aux informations instantanément, en toute sécurité."</p>
-                                    </div>
-                                </div>
-
-                                <!-- Slide 1 -->
-                                <div class="feedback-item d-grid">
-                                    <div class="item-left d-flex align-items-center">
-                                        <div class="item-img initials-circle" style="background-color: #4682B4;">FB</div> <!-- Fatima: Steel Blue background -->
-                                        <div class="item-info text-white">
-                                            <p class="fw-7 name">Fatima Benchekroun</p>
-                                            <span class="designation fw-4">Étudiante en Médecine</span>
-                                        </div>
-                                    </div>
-                                    <div class="item-right">
-                                        <p class="text text-white">"Grâce à cette plateforme, j'ai pu accéder aux ressources académiques et aux examens pratiques sans difficulté. C'est un outil indispensable pour ma préparation."</p>
-                                    </div>
-                                </div>
-
-                                <!-- Slide 2 -->
-                                <div class="feedback-item d-grid">
-                                    <div class="item-left d-flex align-items-center">
-                                        <div class="item-img initials-circle" style="background-color: #32CD32;">RA</div> <!-- Rachid: Lime Green background -->
-                                        <div class="item-info text-white">
-                                            <p class="fw-7 name">Rachid Alaoui</p>
-                                            <span class="designation fw-4">Professionnel de la Santé</span>
-                                        </div>
-                                    </div>
-                                    <div class="item-right">
-                                        <p class="text text-white">"L'accès rapide aux contenus et la facilité d'utilisation de la plateforme en font un excellent outil pour réviser et progresser efficacement."</p>
-                                    </div>
-                                </div>
-
-                            </div>
+                        <div class="card">
+                            <h3>À partir de</h3>
+                            <p class="price">
+                                <span style="color: #334155;" class="text-[2.1rem] font-bold">150 DH</span>
+                                <small class="text-base font-light opacity-80">Pour 2 Semestres</small>
+                            </p>
+                            <ul>
+                                <li>Accès aux anciens examens</li>
+                                <li>QCM par cours et session</li>
+                                <li>Modes examen & étude</li>
+                                <li>PDF cours et résumés</li>
+                                <li>Commentaires & Corrections</li>
+                                <li>Annotations Personnalisées</li>
+                                <li>Analyse performance & suivi progression</li>
+                            </ul>
+                            <a href="{% url 'login' %}" class="subscribe-btn">Rejoignez-Nous</a>
                         </div>
                     </div>
                 </section>
+                
+                <style>
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
+                    * {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300; /* Default font weight */
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700; /* Bold for headings */
+}
+
+p, a, span {
+    font-weight: 400; /* Regular weight for paragraphs and links */
+}
+
+                    body {
+                        font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+                        color: #333;
+                    }
+                
+                    .tarif-section {
+                        padding: 40px 20px;
+                        text-align: center;
+                        background-color: whitesmoke;
+                        border-radius: 10px;
+                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                        margin-bottom: 40px; /* Adds space below the section */
+                    }
+                
+                    .tarif-section h2 {
+                        margin-bottom: 20px;
+                        font-size: 2.5em;
+                        color: #333;
+                    }
+                
+                    .cards-container {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        gap: 20px;
+                    }
+                
+                    .card {
+                        background-color: #fff;
+                        border: 1px solid #ddd;
+                        border-radius: 10px;
+                        padding: 20px;
+                        width: 300px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                        position: relative;
+                        overflow: hidden;
+                        z-index: 1; /* Ensure card stays above surrounding elements */
+                    }
+                
+                    /* Raised card effect to prevent hiding text when hovering */
+                    .card:hover {
+                        transform: translateY(-10px); /* Lifts the card up */
+                        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow effect */
+                        z-index: 2; /* Brings card above others */
+                    }
+                
+                    .card h3 {
+                        font-size: 1.8em;
+                        margin-bottom: 10px;
+                        color: #008080; /* Updated color */
+                    }
+                
+                    .price {
+                        font-size: 1.5em;
+                        color: #008080; /* Updated color */
+                        margin-bottom: 20px;
+                    }
+                
+                    .card ul {
+                        list-style: none;
+                        margin-bottom: 20px;
+                        padding-left: 0;
+                    }
+                
+                    .card ul li {
+                        margin: 10px 0;
+                    }
+                
+                    /* Stylish button with hover effect */
+                    .subscribe-btn {
+                        padding: 12px 24px;
+                        background-color: #008080; /* Teal */
+                        color: #fff;
+                        border: none;
+                        border-radius: 30px; /* Rounded button */
+                        cursor: pointer;
+                        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+                        font-size: 1.1em;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        display: inline-block;
+                    }
+                
+                    .subscribe-btn:hover {
+                        background-color: #007070; /* Darker teal */
+                        transform: translateY(-5px); /* Lift the button */
+                        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increased shadow effect */
+                    }
+                
+                    /* Custom styles for Card 2 (Navy Blue background) */
+                    .card:nth-child(2) {
+                        background-color: navy; /* Navy background for Card 2 */
+                        color: white; /* Change text color to white */
+                    }
+                
+                    .card:nth-child(2) .price,
+                    .card:nth-child(2) h3 {
+                        color: white; /* White color for price and title in Card 2 */
+                    }
+                
+                    /* Responsive styles */
+                    @media (max-width: 768px) {
+                        .cards-container {
+                            flex-direction: column;
+                            align-items: center;
+                        }
+                
+                        .card {
+                            width: 90%;
+                        }
+                    }
+                </style>
+                
+<script>
+    // Example JS to handle click events on the Subscribe buttons
+    document.querySelectorAll('.subscribe-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            alert('Subscription selected: ' + this.parentElement.querySelector('h3').textContent);
+        });
+    });
+</script>
+                
+<section class="sc-feedback" id="feedback">
+    <div class="container" style="max-width: 80%; padding: 10px 0;">
+        <div class="feedback-content">
+            <div class="feedback-element">
+                <img src="static/images/element-img-3.png" style="width: 60px; height: auto;">
+            </div>
+            <div class="feedback-element-2">
+                <img src="static/images/element-img-5.png" style="width: 60px; height: auto;">
+            </div>
+            <div class="title-box text-center">
+                <div class="content-wrapper">
+                    <h3 class="title-box-name text-white" style="font-size: 20px; margin-bottom: 10px;">
+                        Ce que disent nos utilisateurs
+                    </h3>
+                    <div class="title-separator mx-auto" style="width: 50px; height: 2px;"></div>
+                </div>
+            </div>
+
+            <!-- Feedback Slider (renamed as curseur) -->
+            <div class="feedback-list curseur owl-carousel owl-theme" style="gap: 15px;">
+                
+                <!-- Slide 1 -->
+                <div class="feedback-item d-grid" style="padding: 10px;">
+                    <div class="item-left d-flex align-items-center">
+                        <div class="item-img initials-circle" style="background-color: #FF6347; width: 40px; height: 40px; font-size: 14px;">AM</div>
+                        <div class="item-info text-white" style="font-size: 14px;">
+                            <p class="fw-7 name">Ahmed El Mansouri</p>
+                            <span class="designation fw-4">Fondateur de Qbeeez</span>
+                        </div>
+                    </div>
+                    <div class="item-right" style="font-size: 14px;">
+                        <p class="text text-white">"Notre application dédiée à l'engagement des patients et notre portail web vous permettent d'accéder aux informations instantanément, en toute sécurité."</p>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="feedback-item d-grid" style="padding: 10px;">
+                    <div class="item-left d-flex align-items-center">
+                        <div class="item-img initials-circle" style="background-color: #4682B4; width: 40px; height: 40px; font-size: 14px;">FB</div>
+                        <div class="item-info text-white" style="font-size: 14px;">
+                            <p class="fw-7 name">Fatima Benchekroun</p>
+                            <span class="designation fw-4">Étudiante en Médecine</span>
+                        </div>
+                    </div>
+                    <div class="item-right" style="font-size: 14px;">
+                        <p class="text text-white">"Grâce à cette plateforme, j'ai pu accéder aux ressources académiques et aux examens pratiques sans difficulté. C'est un outil indispensable pour ma préparation."</p>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="feedback-item d-grid" style="padding: 10px;">
+                    <div class="item-left d-flex align-items-center">
+                        <div class="item-img initials-circle" style="background-color: #32CD32; width: 40px; height: 40px; font-size: 14px;">RA</div>
+                        <div class="item-info text-white" style="font-size: 14px;">
+                            <p class="fw-7 name">Rachid Alaoui</p>
+                            <span class="designation fw-4">Professionnel de la Santé</span>
+                        </div>
+                    </div>
+                    <div class="item-right" style="font-size: 14px;">
+                        <p class="text text-white">"L'accès rapide aux contenus et la facilité d'utilisation de la plateforme en font un excellent outil pour réviser et progresser efficacement."</p>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="feedback-item d-grid" style="padding: 10px;">
+                    <div class="item-left d-flex align-items-center">
+                        <div class="item-img initials-circle" style="background-color: #FFD700; width: 40px; height: 40px; font-size: 14px;">MH</div>
+                        <div class="item-info text-white" style="font-size: 14px;">
+                            <p class="fw-7 name">Mehdi Harrouchi</p>
+                            <span class="designation fw-4">Étudiant en Médecine</span>
+                        </div>
+                    </div>
+                    <div class="item-right" style="font-size: 14px;">
+                        <p class="text text-white">"Le site QCM Quiz m'a permis de renforcer mes connaissances médicales tout en préparant mes examens dans les meilleures conditions. Une plateforme de qualité."</p>
+                    </div>
+                </div>
+
+                <!-- Slide 5 -->
+                <div class="feedback-item d-grid" style="padding: 10px;">
+                    <div class="item-left d-flex align-items-center">
+                        <div class="item-img initials-circle" style="background-color: #FF4500; width: 40px; height: 40px; font-size: 14px;">KH</div>
+                        <div class="item-info text-white" style="font-size: 14px;">
+                            <p class="fw-7 name">Khadija Hamdani</p>
+                            <span class="designation fw-4">Étudiante en Médecine</span>
+                        </div>
+                    </div>
+                    <div class="item-right" style="font-size: 14px;">
+                        <p class="text text-white">"J'utilise la plateforme QCM Quiz depuis plusieurs mois maintenant, et je trouve que c'est l'un des meilleurs outils pour réviser mes cours de médecine."</p>
+                    </div>
+                </div>
+
+                <!-- Slide 6 -->
+                <div class="feedback-item d-grid" style="padding: 10px;">
+                    <div class="item-left d-flex align-items-center">
+                        <div class="item-img initials-circle" style="background-color: #6A5ACD; width: 40px; height: 40px; font-size: 14px;">YA</div>
+                        <div class="item-info text-white" style="font-size: 14px;">
+                            <p class="fw-7 name">Yassine Azami</p>
+                            <span class="designation fw-4">Interne en Médecine</span>
+                        </div>
+                    </div>
+                    <div class="item-right" style="font-size: 14px;">
+                        <p class="text text-white">"La plateforme QCM Quiz est intuitive et facile à utiliser. Elle m'a aidé à me préparer aux examens en ligne avec des contenus interactifs et des tests pratiques."</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.owl-prev, .owl-next {
+    background-color: #008080;  /* Teal background */
+    color: white;  /* Icon color */
+    border: none;
+    border-radius: 50%;  /* Fully rounded buttons */
+    padding: 15px;  /* Increase padding for a larger, rounder button */
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    pointer-events: all;  /* Re-enable pointer events for buttons */
+}
+
+.owl-prev:hover, .owl-next:hover {
+    background-color: #004c4c;  /* Darker teal on hover */
+}
+
+.owl-prev:focus, .owl-next:focus {
+    outline: none;  /* Remove focus outline */
+}
+
+.owl-prev {
+    position: absolute;
+    left: -50px;  /* Position to the left of the slider */
+}
+
+.owl-next {
+    position: absolute;
+    right: -50px;  /* Position to the right of the slider */
+}
+
+.owl-prev.disabled, .owl-next.disabled {
+    opacity: 0.3;  /* Dim disabled buttons */
+    cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .owl-prev, .owl-next {
+        padding: 10px;  /* Smaller buttons for tablets */
+        font-size: 16px;
+    }
+
+    .owl-prev {
+        left: -35px;  /* Adjust position for smaller screens */
+    }
+
+    .owl-next {
+        right: -35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .owl-prev, .owl-next {
+        padding: 8px;  /* Even smaller buttons for phones */
+        font-size: 14px;
+    }
+
+    .owl-prev {
+        left: -30px;
+    }
+
+    .owl-next {
+        right: -30px;
+    }
+}
+
+</style>
+
+<script>
+ $(document).ready(function(){
+  $(".curseur").owlCarousel({
+    items: 1,
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: true,
+    autoplay: true,
+    autoplayTimeout: 5000,
+    autoplayHoverPause: true,
+    navText: ["<i class='fas fa-chevron-left'></i>", "<i class='fas fa-chevron-right'></i>"] // FontAwesome left and right icons
+  });
+});
+
+</script>
 
                 <!--   <div class="faq-section" id="Instructions">
                     <div class="faq-title-container">
                         <h2 class="faq-title">Ce qu'on nous demande souvent</h2>
-                        <p class="faq-subtitle">Vous trouverez ici les réponses sur toutes les questions fréquemment posées concernant Qbeeez QCM.</p>
+                        <p class="faq-subtitle">Vous trouverez ici les réponses sur toutes les questions fréquemment posées concernant Qbeeez.</p>
                     </div>
 
                     <div class="faq-content">
                         <div class="faq-item">
                             <div class="faq-question">
-                                C'est quoi Qbeeez QCM?
+                                C'est quoi Qbeeez?
                                 <i class="fa fa-plus faq-icon"></i>
                             </div>
                             <div class="faq-answer">
@@ -556,7 +846,7 @@
                                 <i class="fa fa-plus faq-icon"></i>
                             </div>
                             <div class="faq-answer">
-                                La base de données de Qbeeez QCM compte actuellement plus de 40 000 questions provenant de diverses sources. Parfois, il peut arriver qu'un QCM contienne une réponse erronée.
+                                La base de données de Qbeeez compte actuellement plus de 40 000 questions provenant de diverses sources. Parfois, il peut arriver qu'un QCM contienne une réponse erronée.
                             </div>
                         </div>
 

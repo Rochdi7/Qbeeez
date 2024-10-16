@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block title %} {{ quiz.title }} | Qbeeez QCM {% endblock %}
+{% block title %} {{ quiz.title }} | Qbeeez {% endblock %}
 {% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
 
 {% block content %}
@@ -21,15 +21,20 @@
 <div class="title-1">{{ quiz.title|title|truncatechars:25 }}</div>
 <br>
 
+
+
 <!-- Buttons Container -->
 <div class="button-container">
 
+<!-- Toggle Button with PDF Icon -->
+<button id="toggle-pdf-list" class="btn btn-primary btn-lg rounded-pill shadow">
+    <i class="fas fa-file-pdf"></i> Voir cours
+</button>
     <!-- Take Notes Button -->
     <button class="btn custom-btn info" onclick="goToNotesSection()" id="take-notes-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="white">
-            <path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10 1.78 0 3.44-.47 4.88-1.29l3.69 3.69c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-3.69-3.69C21.53 15.44 22 13.78 22 12c0-5.52-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM10 9h4v2h-4zm0 4h4v2h-4z"/>
-        </svg>
+        <i class="fas fa-sticky-note" style="color: white;"></i> <!-- This is the note icon -->
     </button>
+    
     <!-- Settings Button -->
     <button id="settings-btn" class="btn custom-btn info" onclick="openNav()">
         <i class="fas fa-cog"></i>
@@ -47,7 +52,6 @@
         </a>
     {% endif %}
 </div>
-
 
 <div class="container">
     <!-- Exam Mode Toggle Button -->
@@ -264,17 +268,148 @@
             {% endif %}
         </div>
     {% endif %}
+<!-- Toggle Button for PDF List -->
+
+
+<!-- Slide-Out Panel for PDF List -->
+<div id="pdf-list-panel" class="pdf-list-panel slide-panel">
+    <div class="panel-header">
+        <h3 class="text-center">{{ course.name }}</h3>  <!-- Course name -->
+        <button id="close-panel" class="btn btn-close" aria-label="Close">×</button>
+    </div>
+    
+    <ul class="list-group">
+        {% for pdf in pdf_files %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{{ pdf.file.url }}" target="_blank" class="pdf-link">{{ pdf.title }}</a>  <!-- PDF title -->
+            <span style="background-color: #4fb2b2;" class="badge rounded-pill">Open</span>
+        </li>
+<style>
+    .custom-badge {
+    background-color: #4fb2b2; /* Custom color */
+    color: white; /* Change text color if needed */
+}
+
+</style>        
+        {% empty %}
+            <li class="list-group-item text-center">No PDFs available for this course.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="panel-footer">
+        <a href="{% url 'quiz_index' course.slug %}" class="btn custom-btn secondary">Back to Course</a>
+    </div>
+</div>
+
+<style>
+    .pdf-list-panel {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initially hidden off-screen */
+    width: 300px;
+    height: 100%;
+    background-color: #ffffff;
+    border-left: 2px solid #008080;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto; /* Allows scrolling if the list is long */
+}
+
+.pdf-list-panel.slide-panel {
+    right: 0; /* Slide in */
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #008080;
+    color: #ffffff;
+    padding: 10px 15px;
+}
+
+.panel-header h3 {
+    margin: 0;
+}
+
+.btn-close {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.list-group-item {
+    transition: background-color 0.3s;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa; /* Light background on hover */
+}
+
+.pdf-link {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pdf-link:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.panel-footer {
+    padding: 15px;
+    text-align: center;
+}
+
+</style>
 
     {% include 'quiz/slide.html' %}
 
     {% include 'guide_modal.html' %}
 </div>
 
+    <script>
+// Toggle open/close for the main panel using the toggle button
+document.getElementById('toggle-pdf-list').addEventListener('click', function () {
+    const pdfPanel = document.getElementById('pdf-list-panel');
+    pdfPanel.classList.toggle('open'); // Only toggle the open class
+});
+
+// Close button functionality (X icon)
+document.getElementById('close-panel').addEventListener('click', function () {
+    const pdfPanel = document.getElementById('pdf-list-panel');
+    pdfPanel.classList.remove('open'); // Close the panel when "X" is clicked
+});
+
+
+    </script>
+    <style>
+        .pdf-list-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px; /* Width of the panel */
+            height: 100%;
+            background-color: white; /* Background color */
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            overflow-y: auto; /* Scroll if content is too long */
+            transition: transform 0.3s ease; /* Smooth transition */
+            transform: translateX(100%); /* Start hidden off-screen */
+            z-index: 1000; /* Ensure it is above other elements */
+        }
+    
+        .pdf-list-panel.open {
+            transform: translateX(0); /* Slide in */
+        }
+    </style>
+
 
 <a href="{% url 'question_detail' question_id=question.id %}">
             <div class="btn-trigger">
                 <i class="fa-solid fa-comments text-3xl"></i>
             </div>
+
         </a>
 
 <!-- Toggleable Notes Section -->

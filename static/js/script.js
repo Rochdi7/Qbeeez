@@ -1,6 +1,5 @@
 
 
-
     $('.navbar-show-btn').click(function(){
         $('.navbar-box').addClass('navbar-box-show');
     });

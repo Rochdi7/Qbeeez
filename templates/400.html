@@ -1,7 +1,51 @@
 {% extends 'error_handler_base.html' %}
 {% load i18n %}
 {% block content %}
-<div class="text-center mt-5">
+<style>
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 100px auto;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    h1 {
+        font-size: 2.2rem;
+        color: #dc3545;
+        margin-bottom: 20px;
+    }
+    p {
+        font-size: 1.1rem;
+        color: #495057;
+        margin-bottom: 30px;
+    }
+    .link {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 1rem;
+        padding: 10px 20px;
+        border: 2px solid #007bff;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    .link:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+    .link:focus {
+        outline: none;
+    }
+</style>
+
+<div class="container">
     <h1>{% trans 'Bad request' %}</h1>
     <p>{% trans 'Please make sure the form is correctly filled.' %}</p>
     <a href="/" class="link">&LeftArrow; {% trans 'Return to the app' %}</a>

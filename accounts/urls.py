@@ -33,8 +33,13 @@ from .views import (
 # from .forms import EmailValidationOnForgotPassword
 
 from social_django.views import complete
+from .views import too_many_connections_view
 
 urlpatterns = [
+    path('profile/', profile, name='profile'),  # Define the URL path for profile view
+
+    path('too-many-connections/', too_many_connections_view, name='too_many_connections'),
+    path('delete-session/', too_many_connections_view, name='delete_session'),
     path('accounts/', include('django.contrib.auth.urls')),  # Default auth URLs
     path('accounts/', include('social_django.urls', namespace='social')),  # Social auth URLs
     path("admin_panel/", admin_panel, name="admin_panel"),

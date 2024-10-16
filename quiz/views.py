@@ -279,7 +279,7 @@ def question_detail(request, question_id):
                 comment.user = None  # Set user to None for anonymous comments
             else:
                 comment.user = request.user if request.user.is_authenticated else None
-            
+
             comment.save()  # Save the comment
             return redirect('question_detail', question_id=question.id)
     else:
@@ -290,6 +290,18 @@ def question_detail(request, question_id):
         'form': form,
         'comments': comments
     })
+
+from course.models import Course, Upload  # Ensure Upload is imported
+
+def pdf_list_view(request, course_id):
+    course = get_object_or_404(Course, id=course_id)  # Fetch the course
+    pdf_files = Upload.objects.filter(course=course, file__endswith='.pdf')  # Fetch only PDFs related to the course
+    
+    context = {
+        'course': course,
+        'pdf_files': pdf_files,
+    }
+    return render(request, 'quiz/pdf_list.html', context)
 
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Quiz, Question, Note  # Assuming you have a Note model for storing notes
@@ -515,6 +527,7 @@ from .models import Quiz, Sitting, Progress, Question, EssayQuestion, Course  # 
 from .forms import QuestionForm, EssayForm  # Ensure your form imports are correct
 from django.utils import timezone
 from datetime import timedelta
+from course.models import Course, Upload
 
 logger = logging.getLogger(__name__)
 
@@ -525,6 +538,7 @@ class QuizTake(FormView):
     result_template_name = "result.html"
 
     def dispatch(self, request, *args, **kwargs):
+        self.pdf_files = []  # Initialize to an empty list
         self.quiz = get_object_or_404(Quiz, slug=self.kwargs["slug"])
         self.course = get_object_or_404(Course, pk=self.kwargs["pk"])
 
@@ -554,6 +568,7 @@ class QuizTake(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(QuizTake, self).get_context_data(**kwargs)
+        context['pdf_files'] = Upload.objects.filter(course=self.course, file__endswith='.pdf')
         context.update({
             "question": self.question,
             "quiz": self.quiz,

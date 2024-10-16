@@ -15,37 +15,39 @@
         <h1 class="lead my-0 mt-3">{% trans 'Tu vas voir, c\'est vraiment cool 😊 !' %}</h1> <!-- Additional Text -->
         <span>{% trans 'Déjà inscrit ?' %} <a href="{% url 'login' %}" class="link">{% trans 'Connecte-toi' %}</a></span>
     </div>
-<style>
-    .text-light {
-    color: black !important; /* Override color to #008080 */
-}
-   .container {
-        max-width: 900px;
-    }
-    .form-group input {
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        padding: 10px;
-        width: 100%;
-    }
-    .form-group label {
-        font-weight: bold;
-        color: #008080;
-    }
-    .btn-block {
-        width: 100%;
-        padding: 12px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-    }
-    .btn-google {
-        padding: 12px;
-        font-size: 16px;
-        font-weight: bold;
-    }
-</style>
+    
+    <style>
+        .text-light {
+            color: black !important; /* Override color to #008080 */
+        }
+        .container {
+            max-width: 900px;
+        }
+        .form-group input {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 100%;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #008080;
+        }
+        .btn-block {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .btn-google {
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+    
     <div class="row">
         <div class="col-lg-6">
             <form action="" method="POST" id="register-form">
@@ -111,7 +113,7 @@
         </div>
 
         <div class="col-lg-6 d-none d-lg-block">
-            <img src="{% static 'img/hero-img.png' %}" class="img-fluid" alt="Bannière Docteur">
+            <img src="{% static 'icon/LoginPic.svg' %}" class="img-fluid" alt="Bannière Docteur">
         </div>
     </div>
 </div>
@@ -147,4 +149,4 @@
         });
     });
 </script>
-{% endblock %}
+{% endblock js %}

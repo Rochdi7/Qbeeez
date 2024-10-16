@@ -586,14 +586,21 @@ class Question(models.Model):
         return self.content
 
 class Comment(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name='comments',
+        null=True,  # Allow null for anonymous comments
+        blank=True  # Allow empty user field in forms
+    )
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    is_anonymous = models.BooleanField(default=False)  # New field for anonymity
+    is_anonymous = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.comment_text
+        return self.content
+
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _

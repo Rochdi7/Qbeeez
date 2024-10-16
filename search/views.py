@@ -36,3 +36,11 @@ class SearchView(ListView):
             self.count = len(queryset)  # since queryset is actually a list
             return queryset
         return NewsAndEvents.objects.none()  # just an empty queryset as default
+
+from django.views.generic import TemplateView
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'privacy.html'  # Ensure this matches your template name
+
+class TermsOfUseView(TemplateView):
+    template_name = 'term.html' 

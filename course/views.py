@@ -88,6 +88,17 @@ def program_add(request):
         },
     )
 
+def course_pdfs_view(request, course_slug):
+    # Retrieve the course based on the provided slug
+    course = get_object_or_404(Course, slug=course_slug)
+    
+    # Fetch all uploads related to this course
+    pdf_files = Upload.objects.filter(course=course)
+
+    return render(request, 'question.html', {
+        'course': course,
+        'pdf_files': pdf_files,
+    })
 
 def program_detail(request, pk):
     program = Program.objects.get(pk=pk)

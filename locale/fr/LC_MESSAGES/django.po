@@ -540,7 +540,7 @@ msgstr ""
 #: templates/upload/upload_file_form.html:3
 #: templates/upload/upload_video_form.html:3
 #: templates/upload/video_single.html:3
-msgid "Learning management system"
+msgid "Qbeeez"
 msgstr ""
 
 #: templates/accounts/add_staff.html:11 templates/accounts/add_student.html:12
@@ -1770,7 +1770,7 @@ msgid "No completed exams for you"
 msgstr ""
 
 #: templates/registration/login.html:3
-msgid "Dj Learning Management System - Login"
+msgid "Qbeeez- Login"
 msgstr ""
 
 #: templates/registration/login.html:11
@@ -1798,7 +1798,7 @@ msgid "Forgot password ?"
 msgstr ""
 
 #: templates/registration/password_reset.html:3
-msgid "Password Reset | Learning management system"
+msgid "Password Reset | Qbeeez"
 msgstr ""
 
 #: templates/registration/password_reset.html:7
@@ -1810,7 +1810,7 @@ msgid "Request Password Reset"
 msgstr ""
 
 #: templates/registration/password_reset_complete.html:3
-msgid "Password Reset Complete | Learning management system"
+msgid "Password Reset Complete | Qbeeez"
 msgstr ""
 
 #: templates/registration/password_reset_complete.html:8
@@ -1834,7 +1834,7 @@ msgid "Reset Password"
 msgstr ""
 
 #: templates/registration/password_reset_done.html:3
-msgid "Email Sent | Learning management system"
+msgid "Email Sent | Qbeeez"
 msgstr ""
 
 #: templates/registration/password_reset_done.html:8
@@ -1846,7 +1846,7 @@ msgid "Back To Login"
 msgstr ""
 
 #: templates/registration/register.html:3
-msgid "Register | Learning management system"
+msgid "Register | Qbeeez"
 msgstr ""
 
 #: templates/registration/register.html:12
