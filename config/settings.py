@@ -265,7 +265,6 @@ EMAIL_HOST_PASSWORD = 'wfwi famb zqsp jbbj'  # Use your app password here
 EMAIL_FROM_ADDRESS = 'contact.qbeeez@gmail.com'
 
 
-
 # crispy config
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"

@@ -7,7 +7,10 @@ from accounts.models import User, Student
 from .forms import SessionForm, SemesterForm, NewsAndEventsForm
 from .models import NewsAndEvents, ActivityLog, Session, Semester
 from course.models import Course,Program
-
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.conf import settings
+from .forms import SupportForm
 from django.shortcuts import render
 
 def index_view(request):
@@ -322,19 +325,7 @@ def semester_delete_view(request, pk):
         messages.success(request, "Semester successfully deleted")
     return redirect("semester_list")
 
-from django.shortcuts import render, redirect
-from django.core.mail import send_mail
-from django.conf import settings
-from .forms import SupportForm
-from django.shortcuts import render, redirect
-from django.core.mail import send_mail
-from django.conf import settings
-from .forms import SupportForm
 
-from django.shortcuts import render, redirect
-from django.core.mail import send_mail
-from django.conf import settings
-from .forms import SupportForm
 
 def support_view(request):
     if request.method == 'POST':

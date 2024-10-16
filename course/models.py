@@ -182,8 +182,6 @@ class CourseAllocation(models.Model):
 from django.db import models
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
-from django.utils.translation import gettext_lazy as _
-from django.core.validators import FileExtensionValidator
 from django.urls import reverse
 
 class Upload(models.Model):
@@ -260,8 +258,7 @@ def log_delete(sender, instance, **kwargs):
 
 
 from django.db import models
-from django.utils.translation import gettext_lazy as _
-from django.core.validators import FileExtensionValidator
+
 
 class UploadVideo(models.Model):
     title = models.CharField(max_length=100)

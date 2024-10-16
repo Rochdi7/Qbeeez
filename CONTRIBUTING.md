@@ -59,7 +59,7 @@ Maintaining consistent coding style is important for the project's readability. 
 
 ## License
 
-By contributing to django-lms, you agree that your contributions will be licensed under the [django-lms's license](https://github.com/adilmohak/django-lms/blob/main/LICENSE).
+By contributing to django-lms, you agree that your contributions will be licensed under the [Qbeeez license](https://github.com/Rochdi7/Qbeeez/blob/main/LICENSE).
 
 ---
 
