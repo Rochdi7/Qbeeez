@@ -164,7 +164,7 @@ ASGI_APPLICATION = "config.asgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'qbeeez',          # Replace with your database name
+        'NAME': 'qbeeeztest3',          # Replace with your database name
         'USER': 'root',                # Default MySQL user for XAMPP
         'PASSWORD': '',                # Default password is empty for XAMPP
         'HOST': 'localhost',

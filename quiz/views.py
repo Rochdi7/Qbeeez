@@ -253,12 +253,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from .models import Question, Comment
 from .forms import CommentForm
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Question, Comment
-from .forms import CommentForm
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Question, Comment
-from .forms import CommentForm
+
+from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required
 
 def question_detail(request, question_id):
     question = get_object_or_404(Question, id=question_id)
@@ -290,6 +288,46 @@ def question_detail(request, question_id):
         'form': form,
         'comments': comments
     })
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    
+    # Ensure only the comment owner or anonymous commenter can delete it
+    if comment.user == request.user or comment.is_anonymous:
+        comment.delete()
+        return redirect('question_detail', question_id=comment.question.id)
+    else:
+        return HttpResponseForbidden("You are not allowed to delete this comment.")
+    
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin  # Add this line
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseForbidden
+from .models import Comment  # Adjust based on your actual models
+from .forms import CommentForm  # Ensure you have the CommentForm imported
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
+@login_required
+def edit_comment(request):
+    if request.method == 'POST':
+        comment_id = request.POST.get('comment_id')
+        content = request.POST.get('content')
+
+        # Ensure the user is allowed to edit the comment
+        comment = get_object_or_404(Comment, id=comment_id)
+        if request.user == comment.user:
+            comment.content = content
+            comment.save()
+            return redirect('question_detail', question_id=comment.question.id)
+        else:
+            return HttpResponse("Unauthorized", status=403)
+
+    return redirect('question_detail', question_id=comment.question.id)
+
+
 
 from course.models import Course, Upload  # Ensure Upload is imported
 
@@ -389,7 +427,6 @@ from django.utils.decorators import method_decorator
 from collections import defaultdict
 from django.db.models.functions import TruncDate, TruncWeek, TruncMonth
 from django.db.models import Count, Q
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from accounts.decorators import student_required, lecturer_required
 from django.utils.decorators import method_decorator

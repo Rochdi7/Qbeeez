@@ -4,21 +4,31 @@
   .table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 16px; /* Added margin for better spacing */
+    font-family: 'Arial', sans-serif; /* Set a nicer font */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
   }
 
   .table th, .table td {
-    padding: 8px;
-    border: 1px solid #ddd; /* Add thin borders for separation */
-    text-align: left;
+    padding: 12px; /* Increased padding for better readability */
+    border: 1px solid #ddd; /* Fine borders for separation */
+    text-align: left; /* Default alignment */
+    transition: background-color 0.3s; /* Transition for hover effect */
   }
 
   .table th {
-    background-color: #f2f2f2;
+    background-color: #f2f2f2; /* Header background */
+    color: #333; /* Header text color */
+  }
+
+  .table tr:hover {
+    background-color: #f9f9f9; /* Hover effect for rows */
   }
 
   .title-1 {
     font-size: 24px;
     margin-bottom: 16px;
+    color: #008080; /* Change title color */
   }
 
   .text-danger {
@@ -26,39 +36,75 @@
   }
 
   a {
-    color: black;
+    color: #008080; /* Change link color */
     text-decoration: none;
   }
 
+  a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+
+  /* Center alignment class */
+  .center {
+    margin-left: 40px;
+    text-align: center; /* Center text */
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .table, .table thead, .table tbody, .table th, .table td, .table tr {
+      display: block; /* Stack table for small screens */
+    }
+    .table tr {
+      margin-bottom: 15px; /* Space between stacked rows */
+    }
+    .table th {
+      display: none; /* Hide headers in small view */
+    }
+    .table td {
+      text-align: right; /* Align text to the right */
+      position: relative; /* Positioning for labels */
+      padding-left: 50%; /* Space for labels */
+    }
+    .table td:before {
+      content: attr(data-label); /* Show header in small view */
+      position: absolute;
+      left: 10px;
+      width: calc(50% - 20px);
+      padding-left: 5px; /* Padding for labels */
+      font-weight: bold; /* Label boldness */
+      text-align: left; /* Left align label */
+    }
+  }
 </style>
 
-<p class="title-1">{% trans 'Students' %}</p>
+<p class="title-1">{% trans "Étudiants" %}</p>
 
 <div>
   <table class="table">
     <thead>
       <tr>
-        <th>{% trans 'ID No.' %}</th>
-        <th>{% trans 'Full Name' %}</th>
-        <th>{% trans 'Email' %}</th>
-        <th>{% trans 'Mob No.' %}</th>
-        <th>{% trans 'Program' %}</th>
+        <th>{% trans "N° ID" %}</th>
+        <th>{% trans "User ID" %}</th>  <!-- Changed header -->
+        <th>{% trans "Nom Complet" %}</th> <!-- Changed header -->
+        <th>{% trans "Email" %}</th>
+        <th>{% trans "Semestre" %}</th>
       </tr>
     </thead>
     <tbody>
       {% for student in students %}
       <tr>
-        <td> {{ forloop.counter }}.</td>
-        <td>{{ student.student.username }}</td>
-        <td><a href="{% url 'profile_single' student.id %}">{{ student.student.get_full_name }}</a></td>
-        <td>{{ student.student.email }}</td>
-        <td>{{ student.program }}</td>
+        <td data-label="{% trans 'N° ID' %}">{{ forloop.counter }}.</td>
+        <td class="center" data-label="{% trans 'User ID' %}">{{ student.student.username }}</td>  <!-- User ID centered -->
+        <td data-label="{% trans 'Nom Complet' %}">{{ student.student.get_full_name }}</td> <!-- Full Name -->
+        <td data-label="{% trans 'Email' %}">{{ student.student.email }}</td>
+        <td data-label="{% trans 'Semestre' %}">{{ student.program }}</td>
       </tr>
       {% empty %}
       <tr>
-        <td>
+        <td colspan="5">
           <span class="text-danger">
-            {% trans 'No Lecturer(s).' %}
+            {% trans "Aucun étudiant trouvé." %}
           </span>
         </td>
       </tr>

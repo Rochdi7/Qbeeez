@@ -370,3 +370,120 @@
            transform: translateY(0);
        }
    }
+   .chat-bubble {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: #e2e8f0; /* Light gray */
+}
+
+.comment-content {
+    display: flex;
+    justify-content: space-between; /* This will space out the content and buttons */
+    align-items: center; /* Align items vertically in the center */
+    width: 100%;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 0.5rem; /* Space between the buttons */
+}
+
+.action-button {
+    background-color: #008080; /* Main color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 0.25rem 0.5rem; /* Button padding */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s; /* Transition effect */
+}
+
+    /* General Styles */
+    body {
+        background-color: #f9f9f9;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .avatar {
+        border: 2px solid #008080;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+    }
+
+    .actions-btn {
+        background: none; /* Removed background */
+        border: none; /* Removed border */
+        border-radius: 50%;
+        width: 30px; /* Smaller width */
+        height: 30px; /* Smaller height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #008080; /* Set icon color */
+        cursor: pointer;
+        transition: color 0.3s; /* Transition effect */
+    }
+
+    .actions-btn:hover {
+        color: #e2e8f0; /* Change icon color on hover */
+    }
+
+    .actions-menu {
+        display: none; /* Initially hidden */
+        position: absolute;
+        right: 0;
+        margin-top: 4px;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        z-index: 10;
+    }
+
+    .actions-menu.visible {
+        display: block; /* Show when the class 'visible' is added */
+    }
+
+    .actions-menu button {
+        background: none;
+        border: none;
+        color: #008080; /* Adjust color as needed */
+        cursor: pointer;
+        padding: 5px 10px;
+        text-align: left;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+   
+.action-button:hover {
+    background-color: grey; /* Lighter shade on hover */
+}
+
+    .delete-btn {
+        background-color: #ff4d4d;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .edit-btn {
+        color: #007bff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .commentcontent {
+        color: gray;
+        margin-top: 5px;
+    }
+
+    .username-display {
+        font-weight: bold;
+    }

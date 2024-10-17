@@ -8,7 +8,7 @@
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">{% trans 'Accueil' %}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{% trans 'Mes Cours' %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans 'Mes Modules' %}</li>
     </ol>
 </nav>
 
@@ -96,14 +96,14 @@
 
 {% if request.user.is_student %}
 <div class="table-responsive p-3 mt-3">
-    <h6 class="fw-bold text-primary"><u>{% trans 'Cours Suivis:' %}</u></h6>
+    <h6 class="fw-bold text-primary"><u>{% trans 'Module Suivis:' %}</u></h6>
     <div class="table-shadow">
         <table class="table table-light">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th> {% trans 'Nom du Cours' %} </th>
-                    <th> {% trans 'Code du Cours' %} </th>
+                    <th> {% trans 'Nom du Module' %} </th>
+                    <th> {% trans 'Code du Module' %} </th>
                     <th> {% trans 'Année' %} </th>
                 </tr>
             </thead>
@@ -124,14 +124,14 @@
 {% endif %}
 
 <div class="table-responsive p-3">
-    <h6 class="fw-bold text-primary"><u>{% trans 'Tous les Cours:' %}</u></h6>
+    <h6 class="fw-bold text-primary"><u>{% trans 'Tous les Modules:' %}</u></h6>
     <div class="table-shadow">
         <table class="table table-light">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th> {% trans 'Nom du Cours' %} </th>
-                    <th> {% trans 'Code du Cours' %} </th>
+                    <th> {% trans 'Nom du Module' %} </th>
+                    <th> {% trans 'Code du Module' %} </th>
                     <th> {% trans 'Année' %} </th>
                 </tr>
             </thead>

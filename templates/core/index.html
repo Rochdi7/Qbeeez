@@ -319,8 +319,13 @@
                 <img class="objective-icon" src="{% static 'img/book-svgrepo-com.svg' %}" alt="Program Icon">
                 <div class="objective-details flex-grow pl-3">
                     <div class="mb-2.5">
-                        <span id="paye" class="px-2 py-1 rounded text-[.8rem] bg-primary text-white"  >{% trans 'Payé' %}</span>
+                        <span id="paye" class="px-2 py-1 rounded text-[.8rem]  text-white"  >{% trans 'Payé' %}</span>
                     </div>
+                    <style>
+                        #paye{
+                            background-color: #008080;
+                        }
+                    </style>
                     <div class="objective-count">
                         <span>{% trans 'explorer vos programmes.' %}</span>
                     </div>

@@ -112,7 +112,7 @@
 
 			{% if request.user.is_lecturer or request.user.is_student %}
 			<li class="{% if request.path == ucl %}active{% endif %}">
-				<a href="{% url 'user_course_list' %}"><i class="fas fa-book"></i>{% trans 'My Courses' %}</a>
+				<a href="{% url 'user_course_list' %}"><i class="fas fa-book"></i>{% trans 'Mes Modules' %}</a>
 			</li>
 			{% endif %}
 
@@ -125,13 +125,13 @@
 
 			{% if request.user.is_superuser or request.user.is_lecturer %}
 			<li class="{% if request.path == qce %}active{% endif %}">
-				<a href="{% url 'quiz_marking' %}"><i class="fas fa-check-double"></i>{% trans 'Complete Exams' %}</a>
+				<a href="{% url 'quiz_marking' %}"><i class="fas fa-chart-bar"></i>{% trans 'Statistic' %}</a>
 			</li>
 			{% endif %}
 
 			{% if request.user.is_superuser %}
 			<li class="{% if request.path == qpr %}active{% endif %}">
-				<a href="{% url 'quiz_progress' %}"><i class="fas fa-record-vinyl"></i>{% trans 'Quiz Progress Rec' %}</a>
+				<a href="{% url 'quiz_progress' %}"><i class="fas fa-record-vinyl"></i>{% trans 'Quiz Progression Rec' %}</a>
 			</li>
 
 			{% endif %}

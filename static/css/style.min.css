@@ -1,14 +1,14 @@
 @font-face {
-    font-family: "Roboto";
+    font-family: "Poppins";
     font-style: normal;
     font-weight: 400; /* Regular weight */
-    src: url("../fonts/roboto-3/Roboto-Regular.ttf") format("truetype"); /* Ensure this path is correct */
+    src: url("../fonts/poppins/Poppins-Regular.ttf") format("truetype"); /* Ensure this path is correct */
 }
 
 /* Apply the font to all elements */
 *,
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 body {

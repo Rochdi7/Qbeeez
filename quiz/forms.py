@@ -56,16 +56,16 @@ from .models import Comment
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['content']  # Only include content field, question is set in __init__
-    
+        fields = ['content']  # Only include content field
+
     def __init__(self, *args, **kwargs):
+        # Pop the question argument if it exists
         question = kwargs.pop('question', None)
         super().__init__(*args, **kwargs)
         
         if question:
-            # Automatically assign the question, remove it from the form fields
+            # Automatically assign the question to the comment instance
             self.instance.question = question
-
 
 class QuizAddForm(forms.ModelForm):
     class Meta:
@@ -125,20 +125,20 @@ class MCQuestionFormSet(forms.BaseInlineFormSet):
 
         valid_choices = ['choice' in form.cleaned_data.keys() for form in valid_forms]
         if(not all(valid_choices)):
-            raise forms.ValidationError("You must add a valid choice name.")
+            raise forms.ValidationError("Vous devez ajouter un nom de choix valide.")
 
         # If all forms are deleted, raise a validation error
         if len(valid_forms) < 2:
-            raise forms.ValidationError("You must provide at least two choices.")
+            raise forms.ValidationError("Vous devez fournir au moins deux choix.")
 
         # Check if at least one of the valid forms is marked as correct
         correct_choices = [form.cleaned_data.get('correct', False) for form in valid_forms]
 
         if not any(correct_choices):
-            raise forms.ValidationError("One choice must be marked as correct.")
+            raise forms.ValidationError("Un choix doit être marqué comme correct.")
         
         if correct_choices.count(True)>1:
-            raise forms.ValidationError("Only one choice must be marked as correct.")
+            raise forms.ValidationError("Un seul choix doit être marqué comme correct.")
 
 
 MCQuestionFormSet = inlineformset_factory(

@@ -1,5 +1,4 @@
-{% extends "base.html" %} 
-
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -14,14 +13,11 @@
 </nav>
 
 <!-- Question Content -->
-<div class="question-content-container">
+<div class="question-content-container my-4">
     <h2 class="question-title">{{ question.content }}</h2>
 </div>
 
 <hr class="my-4">
-
-
-
 
 <!-- Floating Trigger Button (Ellipsis Icon) -->
 <div class="fixed bottom-4 right-4 md:bottom-6 md:right-6">
@@ -38,80 +34,133 @@
             <i id="close-panel" class="fa-solid fa-times text-2xl cursor-pointer hover:text-red-600"></i>
         </div>
 
-        <!-- Comment List -->
-        {% for comment in comments %}
-        <div class="flex items-start space-x-2">
-            {% if not comment.is_anonymous %}
-                <img src="{{ comment.user.picture.url }}" alt="{{ comment.user.username }}'s avatar" class="avatar">
-                <div class="flex flex-col">
-                    <div class="username-display">{{ comment.user.username }}</div>
-                    <div class="chat-bubble {% if comment.user == user %}self{% endif %} p-3 rounded-lg shadow-sm max-w-xs break-words">
-                        <p class="text-gray-700 dark:text-gray-200 mt-1">{{ comment.content }}</p>
-                        <div class="commentcontent">
-                            Publié le {{ comment.created_at }}
+        <div class="flex-grow overflow-y-auto">
+            {% for comment in comments %}
+            <div id="comment-{{ comment.id }}" class="relative flex items-start space-x-2 p-3 bg-gray-100 rounded-lg shadow-md mb-4 transition duration-300 hover:bg-gray-200">
+                {% if not comment.is_anonymous %}
+                    <img src="{{ comment.user.picture.url }}" alt="{{ comment.user.username }}'s avatar" class="avatar">
+                    <div class="flex flex-col w-full">
+                        <div class="flex justify-between items-center">
+                            <div class="username-display">{{ comment.user.username }}</div>
+                            <div class="relative inline-block">
+                                <!-- Actions Button -->
+                                <button type="button" class="actions-btn" onclick="toggleActions('{{ comment.id }}')">
+                                    <i class="fa-solid fa-ellipsis-v"></i>
+                                </button>
+                                <!-- Actions Menu -->
+                                <div id="actions-menu-{{ comment.id }}" class="actions-menu hidden absolute right-0 mt-2 bg-white rounded-lg shadow-md p-2 z-10">
+                                    <form method="POST" action="{% url 'delete_comment' comment.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="delete-btn" title="Supprimer le commentaire">
+                                            <i class="fa-solid fa-trash"></i> Supprimer
+                                        </button>
+                                    </form>
+                                    <button type="button" class="edit-btn" title="Modifier le commentaire" onclick="editComment('{{ comment.id }}')">
+                                        <i class="fa-solid fa-pen"></i> Modifier
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            {% else %}
-                <div class="flex items-start space-x-2">
-                    <img src="{% static 'img/Qbeeez/logo2-5-removebg-preview.png' %}" alt="Avatar anonyme" class="avatar">
-                    <div class="flex flex-col">
-                        <div class="username-display">Anonyme</div>
                         <div class="chat-bubble p-3 rounded-lg shadow-sm max-w-xs break-words">
-                            <p class="text-gray-700 dark:text-gray-200 mt-1">{{ comment.content }}</p>
-                            <div class="commentcontent">
-                                Publié le {{ comment.created_at }}
+                            <p id="comment-content-{{ comment.id }}" class="text-gray-700 dark:text-gray-200 mt-1">{{ comment.content }}</p>
+                            <div class="commentcontent text-sm text-gray-500">
+                                Publié le {{ comment.created_at|date:"d M Y à H:i" }}
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endif %}
-        </div>
+                {% else %}
+                    <img src="{% static 'img/Qbeeez/logo2-5-removebg-preview.png' %}" alt="Avatar anonyme" class="avatar">
+                    <div class="flex flex-col w-full">
+                        <div class="flex justify-between items-center">
+                            <div class="username-display">Anonyme</div>
+                            <div class="relative inline-block">
+                                <!-- Actions Button for Anonymous Comments -->
+                                <button type="button" class="actions-btn" onclick="toggleActions('{{ comment.id }}')">
+                                    <i class="fa-solid fa-ellipsis-v"></i>
+                                </button>
+                                <!-- Actions Menu -->
+                                <div id="actions-menu-{{ comment.id }}" class="actions-menu hidden absolute right-0 mt-2 bg-white rounded-lg shadow-md p-2 z-10">
+                                    <form method="POST" action="{% url 'delete_comment' comment.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="delete-btn" title="Supprimer le commentaire">
+                                            <i class="fa-solid fa-trash"></i> Supprimer
+                                        </button>
+                                    </form>
+                                    <button type="button" class="edit-btn" title="Modifier le commentaire" onclick="editComment('{{ comment.id }}')">
+                                        <i class="fa-solid fa-pen"></i> Modifier
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-bubble p-3 rounded-lg shadow-sm max-w-xs break-words">
+                            <p id="comment-content-{{ comment.id }}" class="text-gray-700 dark:text-gray-200 mt-1">{{ comment.content }}</p>
+                            <div class="commentcontent text-sm text-gray-500">
+                                Publié le {{ comment.created_at|date:"d M Y à H:i" }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
         {% empty %}
-        <div class="chat-bubble bg-gray-200 p-3 rounded-lg shadow-sm max-w-xs">
-            <p>Aucun commentaire pour l'instant. Commencez la conversation !</p>
-        </div>
+            <div class="chat-bubble bg-gray-200 p-3 rounded-lg shadow-sm max-w-xs">
+                <p>Aucun commentaire pour l'instant. Commencez la conversation !</p>
+            </div>
         {% endfor %}
+        
+        </div>
+
+        <!-- Form to Add or Edit Comment -->
+        <form id="comment-form" method="POST" action="{% url 'question_detail' question_id=question.id %}" class="mt-4">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <input type="hidden" id="comment-id" name="comment_id">
+            <div class="form-group">
+                <label for="comment-content">Votre commentaire</label>
+                <textarea id="comment-content" name="content" rows="4" class="form-control">{{ form.content.value|default:"" }}</textarea>
+                {{ form.content.errors }}
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="anonymous-check" name="is_anonymous">
+                <label for="anonymous-check" class="form-check-label">Publier comme anonyme</label>
+            </div>
+            <button type="submit" id="submit-btn" class="btn btn-primary mt-2">Envoyer le commentaire</button>
+        </form>
     </div>
 </div>
 
-<form method="POST" action="{% url 'question_detail' question_id=question.id %}">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    
-    <div class="form-group">
-        <label for="comment-content">Votre commentaire</label>
-        <textarea id="comment-content" name="content" rows="4" class="form-control">{{ form.content.value|default:"" }}</textarea>
-        {{ form.content.errors }}
-    </div>
-
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="anonymous-check" name="is_anonymous">
-        <label for="anonymous-check" class="form-check-label">Publier comme anonyme</label>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Envoyer le commentaire</button>
-</form>
-
 <link rel="stylesheet" href="{% static 'css/comments.css' %}">
 
-<style>
-    .avatar {
-        border: 2px solid #008080;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-    }
-</style>
 
 <script>
-    document.getElementById('btn-trigger').addEventListener('click', function() {
-        document.getElementById('slide-panel').classList.toggle('translate-x-full');
+    function toggleActions(commentId) {
+        const menu = document.getElementById(`actions-menu-${commentId}`);
+        menu.classList.toggle('visible'); // Toggle visibility
+    }
+
+    function editComment(commentId) {
+        // Add your edit comment logic here
+        const commentContent = document.getElementById(`comment-content-${commentId}`).textContent;
+        document.getElementById('comment-content').value = commentContent; // Set content to textarea
+        document.getElementById('comment-id').value = commentId; // Set hidden comment id
+        toggleActions(commentId); // Hide menu after editing
+    }
+
+    // Close the action menu when clicking outside of it
+    document.addEventListener('click', function (event) {
+        const actionsMenus = document.querySelectorAll('.actions-menu');
+        actionsMenus.forEach(menu => {
+            if (!menu.contains(event.target) && !event.target.classList.contains('actions-btn')) {
+                menu.classList.remove('visible'); // Hide if clicked outside
+            }
+        });
     });
 
     document.getElementById('close-panel').addEventListener('click', function() {
-        document.getElementById('slide-panel').classList.add('translate-x-full');
+        document.getElementById('slide-panel').classList.toggle('translate-x-full'); // Slide out
+    });
+
+    document.getElementById('btn-trigger').addEventListener('click', function() {
+        document.getElementById('slide-panel').classList.toggle('translate-x-full'); // Slide in/out
     });
 </script>
 {% endblock %}

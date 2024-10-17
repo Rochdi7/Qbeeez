@@ -212,12 +212,12 @@
       }
 
       .btn-primary {
-        background-color: #4caf50;
+        background-color: #008080;
         color: #fff !important;
       }
 
       .btn-primary:hover {
-        background-color: #45a049;
+        background-color: #4fb2b2;
       }
 
       .btn-warning {
@@ -241,63 +241,61 @@
   </head>
 
   <body
-    style="
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      color: #46528f;
-      background-color: #ebf0fb;
-      padding: 20px;
-      line-height: 1.4;
-    "
-  >
-    <div class="container">
-      <div class="card">
-        <div class="header">
-          <h2 class="text-muted lh-1">Qbeeez</h2>
-          <p class="small text-muted fw-400 lh-1 m-0">
-            Your Qbeeez
-          </p>
-        </div>
-        <div class="card-body">
-          <h1 class="mb-5">🚀 Confirm your account</h1>
-          <h4>Dear <b>{{ user.get_full_name }}</b>,</h4>
-          <p>
-            A new student account with ID of <b>{{ user.username }}</b> has been
-            created for you. <br />
-            You're receiving this e-mail because the Qbeeezadmin has given your
-            e-mail address to register an account on Qbeeez.com. <br />
-          </p>
-          <h5>Login credentials for your Qbeeez account:</h5>
-          <ul>
-            <li>ID: {{ user.username }}</li>
-            <li>Your password: {{ password }}</li>
-          </ul>
-          <p>To secure your account be sure to change your password.</p>
-          <p>
-            <a
-              href="http://localhost:3000/auth/confirm-email?key={{ key }}"
-              class="btn btn-primary"
-              >Confirm Email and Login</a
-            >
-          </p>
-          <p class="text-muted small">
-            <mark
-              >⚠ If you think this email shouldn't be coming to you, you can
-              simply ignore it.</mark
-            >
-          </p>
-        </div>
-        <div class="footer">
-          <p>Sincerely, Qbeeez team!</p>
-          <p>
-            For any inquiries or assistance, please contact our support team:
-          </p>
-          <p>Email: <a href="mailto:support@Qbeeez.com">support@Qbeeez.com</a></p>
-          <p>Phone: <a href="tel:251900000000">+(212) 689981022</a></p>
-          <p>
-            &copy; 2023 <a href="Qbeeez.com">Qbeeez.com</a> | All rights reserved.
-          </p>
-        </div>
+  style="
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #46528f;
+    background-color: #ebf0fb;
+    padding: 20px;
+    line-height: 1.4;
+  "
+>
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <h2 class="text-muted lh-1">Qbeeez</h2>
+        <p class="small text-muted fw-400 lh-1 m-0">
+          Votre Qbeeez
+        </p>
+      </div>
+      <div class="card-body">
+        <h1 class="mb-5">🚀 Confirmez votre compte</h1>
+        <h4>Cher(ère) <b>{{ user.get_full_name }}</b>,</h4>
+        <p>
+          Un nouveau compte étudiant avec l'ID <b>{{ user.username }}</b> a été créé pour vous. <br />
+          Vous recevez cet e-mail car l'administrateur de Qbeeez a utilisé votre adresse e-mail pour créer un compte sur Qbeeez.com. <br />
+        </p>
+        <h5>Identifiants de connexion pour votre compte Qbeeez :</h5>
+        <ul>
+          <li>ID : {{ user.username }}</li>
+          <li>Votre mot de passe : {{ password }}</li>
+        </ul>
+        <p>Pour sécuriser votre compte, assurez-vous de changer votre mot de passe.</p>
+        <p>
+          <a
+            href="http://localhost:3000/auth/confirm-email?key={{ key }}"
+            class="btn btn-primary"
+            >Confirmer l'email et se connecter</a
+          >
+        </p>
+        <p class="text-muted small">
+          <mark
+            >⚠ Si vous pensez que cet e-mail ne vous est pas destiné, vous pouvez simplement l'ignorer.</mark
+          >
+        </p>
+      </div>
+      <div class="footer">
+        <p>Cordialement, l'équipe Qbeeez !</p>
+        <p>
+          Pour toute question ou assistance, veuillez contacter notre équipe de support :
+        </p>
+        <p>Email : <a href="mailto:support@Qbeeez.com">support@Qbeeez.com</a></p>
+        <p>Téléphone : <a href="tel:251900000000">+(212) 660160464</a></p>
+        <p>
+          &copy; 2023 <a href="Qbeeez.com">Qbeeez.com</a> | Tous droits réservés.
+        </p>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

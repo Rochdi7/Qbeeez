@@ -126,7 +126,7 @@ class StudentAddForm(UserCreationForm):
         widget=forms.TextInput(
             attrs={"type": "text", "class": "form-control", "id": "username_id"}
         ),
-        label="Username",
+        label="Nom d'utilisateur",
         required=False,
     )
     address = forms.CharField(
@@ -148,7 +148,7 @@ class StudentAddForm(UserCreationForm):
                 "class": "form-control",
             }
         ),
-        label="Mobile No.",
+        label="Numéro de portable.",
     )
 
     first_name = forms.CharField(
@@ -159,7 +159,7 @@ class StudentAddForm(UserCreationForm):
                 "class": "form-control",
             }
         ),
-        label="First name",
+        label="Prénom",
     )
 
     last_name = forms.CharField(
@@ -170,7 +170,7 @@ class StudentAddForm(UserCreationForm):
                 "class": "form-control",
             }
         ),
-        label="Last name",
+        label="Nom de famille",
     )
 
     gender = forms.CharField(
@@ -197,7 +197,7 @@ class StudentAddForm(UserCreationForm):
         widget=forms.Select(
             attrs={"class": "browser-default custom-select form-control"}
         ),
-        label="Program",
+        label="Semestre",
     )
 
     email = forms.EmailField(
@@ -207,7 +207,7 @@ class StudentAddForm(UserCreationForm):
                 "class": "form-control",
             }
         ),
-        label="Email Address",
+        label="Adresse email",
     )
 
     password1 = forms.CharField(
@@ -218,7 +218,7 @@ class StudentAddForm(UserCreationForm):
                 "class": "form-control",
             }
         ),
-        label="Password",
+        label="Mot de passe",
         required=False,
     )
 
@@ -230,7 +230,7 @@ class StudentAddForm(UserCreationForm):
                 "class": "form-control",
             }
         ),
-        label="Password Confirmation",
+        label="Confirmation du mot de passe",
         required=False,
     )
 
@@ -273,7 +273,7 @@ class ProfileUpdateForm(UserChangeForm):
                 "class": "form-control",
             }
         ),
-        label="Email Address",
+        label="Adresse email",
     )
 
     first_name = forms.CharField(
@@ -283,7 +283,7 @@ class ProfileUpdateForm(UserChangeForm):
                 "class": "form-control",
             }
         ),
-        label="First Name",
+        label="Prénom",
     )
 
     last_name = forms.CharField(
@@ -293,7 +293,7 @@ class ProfileUpdateForm(UserChangeForm):
                 "class": "form-control",
             }
         ),
-        label="Last Name",
+        label="Nom de famille",
     )
 
     gender = forms.CharField(
@@ -312,7 +312,7 @@ class ProfileUpdateForm(UserChangeForm):
                 "class": "form-control",
             }
         ),
-        label="Phone No.",
+        label="Numéro de téléphone.",
     )
 
     address = forms.CharField(
@@ -322,7 +322,7 @@ class ProfileUpdateForm(UserChangeForm):
                 "class": "form-control",
             }
         ),
-        label="Address / city",
+        label="Adresse / ville",
     )
 
     class Meta:
@@ -356,7 +356,7 @@ class EmailValidationOnForgotPassword(PasswordResetForm):
     def clean_email(self):
         email = self.cleaned_data["email"]
         if not User.objects.filter(email__iexact=email, is_active=True).exists():
-            msg = "There is no user registered with the specified E-mail address. "
+            msg = "Il n'y a aucun utilisateur enregistré avec l'adresse e-mail spécifiée. "
             self.add_error("email", msg)
             return email
 
@@ -423,7 +423,7 @@ class ParentAddForm(UserCreationForm):
                 "class": "form-control",
             }
         ),
-        label="Email Address",
+        label="Adresse email",
     )
 
     student = forms.ModelChoiceField(
@@ -451,7 +451,7 @@ class ParentAddForm(UserCreationForm):
                 "class": "form-control",
             }
         ),
-        label="Password",
+        label="Mot de passe",
     )
 
     password2 = forms.CharField(
@@ -462,7 +462,7 @@ class ParentAddForm(UserCreationForm):
                 "class": "form-control",
             }
         ),
-        label="Password Confirmation",
+        label="Confirmation du mot de passe",
     )
 
     # def validate_email(self):
