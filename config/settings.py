@@ -27,7 +27,7 @@ SECRET_KEY = config(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", "209.38.35.115"]
 
 # change the default user models to our custom model
 AUTH_USER_MODEL = "accounts.User"
@@ -164,7 +164,7 @@ ASGI_APPLICATION = "config.asgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'qbeeeztest3',          # Replace with your database name
+        'NAME': 'qbeeez',          # Replace with your database name
         'USER': 'root',                # Default MySQL user for XAMPP
         'PASSWORD': '',                # Default password is empty for XAMPP
         'HOST': 'localhost',
