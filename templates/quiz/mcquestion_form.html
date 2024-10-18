@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
@@ -30,7 +30,8 @@
 <div class="container">
     <div class="info-text bg-orange mb-3">{{ quizQuestions }} {% trans 'question ajoutée' %}</div>
 
-    <form action="#" method="POST">{% csrf_token %}
+    <!-- Add enctype attribute here to allow file uploads -->
+    <form action="#" method="POST" enctype="multipart/form-data">{% csrf_token %}
         {% if form.errors %}<p class="alert alert-danger">{% trans 'Corrigez l\'erreur (ou les erreurs) ci-dessous.' %}</p>{% endif %}
         <div class="row">
             <div class="col mx-3 py-4 border bg-white">
@@ -38,12 +39,11 @@
                     {{ form.quiz }}
                 </div>
                 {{ form.content|as_crispy_field }}
-                {{ form.figure|as_crispy_field }}
+                {{ form.figure|as_crispy_field }} <!-- This is the file input field -->
                 {{ form.explanation|as_crispy_field }}
                 {{ form.year.label_tag }} {{ form.year|as_crispy_field }}
                 {{ form.question_type.label_tag }} {{ form.question_type|as_crispy_field }}
                 {{ form.correction_type.label_tag }} {{ form.correction_type|as_crispy_field }}
-                
             </div>
             <div class="col mx-3 py-4 border bg-white">
                 {{ form.choice_order|as_crispy_field }}

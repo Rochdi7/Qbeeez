@@ -107,6 +107,16 @@ def quiz_delete(request, slug, pk):
 
 
 from django.urls import reverse
+from django.db import transaction
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.views.generic import CreateView
+from .forms import MCQuestionForm, MCQuestionFormSet
+from .models import MCQuestion, Quiz, Course, Question
+
 @method_decorator([login_required, lecturer_required], name="dispatch")
 class MCQuestionCreate(CreateView):
     model = MCQuestion
@@ -119,7 +129,8 @@ class MCQuestionCreate(CreateView):
         context["quizQuestions"] = Question.objects.filter(quiz=self.kwargs["quiz_id"]).count()
         
         if self.request.POST:
-            context["form"] = MCQuestionForm(self.request.POST)
+            # Include self.request.FILES to handle file uploads (such as figure field)
+            context["form"] = MCQuestionForm(self.request.POST, self.request.FILES)
             context["formset"] = MCQuestionFormSet(self.request.POST)
         else:
             context["form"] = MCQuestionForm(initial={"quiz": self.kwargs["quiz_id"]})
@@ -136,11 +147,12 @@ class MCQuestionCreate(CreateView):
             with transaction.atomic():
                 mc_question = form.save(commit=False)  # Don't commit yet
                 
-                # Use cleaned_data to get the fields
+                # Use cleaned_data to get the fields, including figure
                 mc_question.year = form.cleaned_data.get('year')
                 mc_question.question_type = form.cleaned_data.get('question_type')  # Use cleaned data
                 mc_question.correction_type = form.cleaned_data.get('correction_type')
-                mc_question.save()  # Save to database
+                mc_question.figure = form.cleaned_data.get('figure')  # Save the figure
+                mc_question.save()  # Save to the database
 
                 mc_question.quiz.add(quiz_instance)  # Associate with the quiz
                 
@@ -149,7 +161,7 @@ class MCQuestionCreate(CreateView):
 
                 messages.success(self.request, "Question saved successfully!")
 
-                # Redirect based on button clicked
+                # Redirect based on the button clicked
                 if "another" in self.request.POST:
                     return redirect("mc_create", slug=self.kwargs["slug"], quiz_id=self.kwargs["quiz_id"])
                 else:

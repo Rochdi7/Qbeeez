@@ -134,77 +134,121 @@
             </header>
             
             <!-- end of header -->
-
-<!-- Introduction Section -->
-<section class="intro-section" id="about">
-    <div class="container">
-        <div class="intro-content text-center">
-            <h2 class="intro-title">Bienvenue sur Qbeeez</h2>
-            <p class="intro-text">
-                Qbeeez est une plateforme de gestion de quiz qui transforme votre façon d'apprendre. Profitez d’une gamme d'outils de préparation interactifs, créez des annotations personnalisées, révisez vos cours PDF, et suivez vos progrès en temps réel. De plus, avec nos cours vidéo exclusifs, vous aurez tout ce dont vous avez besoin pour réussir vos examens.
-            </p>
-            <a href="#Fonctionnalités" class="btn btn-primary">Découvrez nos fonctionnalités</a>
-        </div>
-
-        <div class="flex-container">
-            <!-- Computer Image -->
-            <div class="computer-image">
-                <img class="rounded cursor-pointer" src="/static/img/video-banner.png" alt="Computer" onclick="openVideo()">
-            </div>
-
-            <!-- Features Grid -->
-            <div class="features-grid grid grid-cols-2 gap-5 md:gap-x-5 md:gap-y-7">
-                <div class="feature-item max-w-[16.66rem] mx-auto py-2">
-                    <div class="relative">
-                        <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
-                            <img class="max-w-full" src="/static/img/tests-personnalisables.svg" alt="Tests personnalisables">
+            <section class="intro-section" id="about">
+                <div class="container">
+                    <div class="intro-content text-center">
+                        <h2 class="intro-title">Bienvenue sur Qbeeez</h2>
+                        <p class="intro-text">
+                            Qbeeez est une plateforme de gestion de quiz qui transforme votre façon d'apprendre. Profitez d’une gamme d'outils de préparation interactifs, créez des annotations personnalisées, révisez vos cours PDF, et suivez vos progrès en temps réel. De plus, avec nos cours vidéo exclusifs, vous aurez tout ce dont vous avez besoin pour réussir vos examens.
+                        </p>
+                        <a href="#Fonctionnalités" class="btn btn-primary">Découvrez nos fonctionnalités</a>
+                    </div>
+            
+                    <div class="flex-container">
+                        <!-- Computer Image -->
+                        <div class="computer-image">
+                            <img class="rounded cursor-pointer" src="/static/img/video-banner.png" alt="Computer" onclick="openVideo()">
+                        </div>
+            
+                        <!-- Features Grid -->
+                        <div class="features-grid grid grid-cols-2 gap-5 md:gap-x-5 md:gap-y-7">
+                            <div class="feature-item max-w-[16.66rem] mx-auto py-2">
+                                <div class="relative">
+                                    <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
+                                        <img class="max-w-full" src="/static/img/tests-personnalisables.svg" alt="Tests personnalisables">
+                                    </div>
+                                </div>
+                                <div class="text-center md:text-left">
+                                    <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Tests personnalisables</h3>
+                                    <p class="text-sm lg:text-[1rem] text-[#637381]">Entraînez-vous avec les QCM par cours ou par session.</p>
+                                </div>
+                            </div>
+            
+                            <div class="feature-item max-w-[16.66rem] mx-auto py-2">
+                                <div class="relative">
+                                    <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
+                                        <img class="max-w-full" src="/static/img/bibliotheque.svg" alt="Bibliothèque">
+                                    </div>
+                                </div>
+                                <div class="text-center md:text-left">
+                                    <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Bibliothèque</h3>
+                                    <p class="text-sm lg:text-[1rem] text-[#637381]">Des cours au format PDF disponibles à côté des QCM.</p>
+                                </div>
+                            </div>
+            
+                            <div class="feature-item max-w-[16.66rem] mx-auto py-2">
+                                <div class="relative">
+                                    <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
+                                        <img class="max-w-full" src="/static/img/Notes.svg" alt="Notes">
+                                    </div>
+                                </div>
+                                <div class="text-center md:text-left">
+                                    <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Notes</h3>
+                                    <p class="text-sm lg:text-[1rem] text-[#637381]">Prenez des notes pour mieux comprendre.</p>
+                                </div>
+                            </div>
+            
+                            <div class="feature-item max-w-[16.66rem] mx-auto py-2">
+                                <div class="relative">
+                                    <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
+                                        <img class="max-w-full" src="/static/img/analyses-detail.svg" alt="Analyses détaillées">
+                                    </div>
+                                </div>
+                                <div class="text-center md:text-left">
+                                    <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Analyses détaillées</h3>
+                                    <p class="text-sm lg:text-[1rem] text-[#637381]">Suivez et comparez votre performance avec les autres.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="text-center md:text-left">
-                        <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Tests personnalisables</h3>
-                        <p class="text-sm lg:text-[1rem] text-[#637381]">Entraînez-vous avec les QCM par cours ou par session.</p>
-                    </div>
                 </div>
+            </section>
+<style>
+/* General grid styles */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns by default */
+    gap: 1rem;
+}
 
-                <div class="feature-item max-w-[16.66rem] mx-auto py-2">
-                    <div class="relative">
-                        <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
-                            <img class="max-w-full" src="/static/img/bibliotheque.svg" alt="Bibliothèque">
-                        </div>
-                    </div>
-                    <div class="text-center md:text-left">
-                        <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Bibliothèque</h3>
-                        <p class="text-sm lg:text-[1rem] text-[#637381]">Des cours au format PDF disponibles à côté des QCM.</p>
-                    </div>
-                </div>
+/* Responsive design for small screens */
+@media (max-width: 768px) {  /* For tablets and smaller devices */
+    .features-grid {
+        grid-template-columns: 1fr; /* Switch to one column */
+    }
 
-                <div class="feature-item max-w-[16.66rem] mx-auto py-2">
-                    <div class="relative">
-                        <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
-                            <img class="max-w-full" src="/static/img/Notes.svg" alt="Notes">
-                        </div>
-                    </div>
-                    <div class="text-center md:text-left">
-                        <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Notes</h3>
-                        <p class="text-sm lg:text-[1rem] text-[#637381]">Prenez des notes pour mieux comprendre.</p>
-                    </div>
-                </div>
+    .feature-item {
+        max-width: 100%; /* Full width on small screens */
+        text-align: center; /* Center content for mobile */
+        padding: 1rem; /* Add padding for spacing */
+    }
 
-                <div class="feature-item max-w-[16.66rem] mx-auto py-2">
-                    <div class="relative">
-                        <div class="mb-5 w-[4rem] h-[4rem] rounded mx-auto md:mx-0">
-                            <img class="max-w-full" src="/static/img/analyses-detail.svg" alt="Analyses détaillées">
-                        </div>
-                    </div>
-                    <div class="text-center md:text-left">
-                        <h3 class="text-md lg:text-[1.33rem] font-semibold mb-2">Analyses détaillées</h3>
-                        <p class="text-sm lg:text-[1rem] text-[#637381]">Suivez et comparez votre performance avec les autres.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    /* Ensure images are properly centered */
+    .feature-item img {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    /* Ensure text is centered on smaller screens */
+    .feature-item h3, 
+    .feature-item p {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {  /* For very small screens (mobile phones) */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem; /* Reduce the gap between items */
+    }
+
+    .feature-item {
+        padding: 0.5rem; /* Slightly reduce padding on very small screens */
+    }
+}
+
+</style>            
 <!-- end of introduction section -->
 <!-- Video Modal -->
 <div id="videoModal" class="modal">
