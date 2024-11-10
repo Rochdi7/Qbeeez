@@ -54,18 +54,75 @@
 
 ---
 
-## 🚀 Installation
+# 🚀 Installation
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/Rochdi7/QBeeez-QCM-Revision-Management-System.git
-   ```
-2. **Open in Your Java IDE**: Open the project in your preferred Java development environment.
-3. **Set Up MySQL Database**:
-   - Import the provided SQL file (`database.sql`) to create the required database tables.
-4. **Configure Database Connection**:
-   - Update the `DBConnection.java` file with your MySQL connection details.
-5. **Build and Run** the project to start the application.
+# ══════════════════════════════════════════════════════════════════════════════
+# Clone the Repository
+# ══════════════════════════════════════════════════════════════════════════════
+
+echo "Cloning the repository..."
+git clone https://github.com/Rochdi7/QBeeez-QCM-Revision-Management-System.git
+cd QBeeez-QCM-Revision-Management-System || exit
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Set Up a Virtual Environment (recommended)
+# ══════════════════════════════════════════════════════════════════════════════
+
+echo "Setting up a virtual environment..."
+python3 -m venv venv
+# Activate virtual environment
+echo "Activating virtual environment..."
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Install Dependencies
+# ══════════════════════════════════════════════════════════════════════════════
+
+echo "Installing project dependencies from requirements.txt..."
+pip install -r requirements.txt
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Set Up the Database
+# ══════════════════════════════════════════════════════════════════════════════
+
+
+cat <<EOT >> settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'your_database_name',
+        'USER': 'your_database_user',
+        'PASSWORD': 'your_database_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+EOT
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Run Database Migrations
+# ══════════════════════════════════════════════════════════════════════════════
+
+python manage.py migrate
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Create a Superuser
+# ══════════════════════════════════════════════════════════════════════════════
+
+python manage.py createsuperuser
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Start the Development Server
+# ══════════════════════════════════════════════════════════════════════════════
+python manage.py runserver
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Access Information
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Open your web browser and navigate to http://127.0.0.1:8000/ to access the application.
+
 
 ---
 
@@ -88,7 +145,7 @@
 
 - **Python Django**: For a rich and interactive user interface.
 - **MySQL**: Database backend for managing users, quiz data, and analytics.
-- **HTML CSS JAVASCRIPT** 
+- **HTML CSS JAVASCRIPT BOOTSTRAP** 
 ---
 
 ## 👥 Contributors
