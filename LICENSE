@@ -2,6 +2,8 @@ MIT License
 
 Copyright (c) 2024 Qbeeez
 
+This project is based on the original **django-lms** framework. The current version has been enhanced with advanced functions, and some outdated functions have been removed. It is a completely updated version.
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
