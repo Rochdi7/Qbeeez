@@ -162,16 +162,28 @@ ASGI_APPLICATION = "config.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'qbeeez',         
+#         'USER': 'root',               
+#         'PASSWORD': '',                
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'qbeeez',          # Replace with your database name
-        'USER': 'root',                # Default MySQL user for XAMPP
-        'PASSWORD': '',                # Default password is empty for XAMPP
+        'NAME': 'qbeeez',
+        'USER': 'mustapha',
+        'PASSWORD': 'Qbeeez@ym288',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
 
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
