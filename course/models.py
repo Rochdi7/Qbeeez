@@ -53,9 +53,8 @@ class ProgramManager(models.Manager):
 class Program(models.Model):
     title = models.CharField(max_length=150, unique=True)
     summary = models.TextField(null=True, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  # New price field
-    image = models.ImageField(upload_to='program_images/', null=True, blank=True)  # New image field
-
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    image = models.ImageField(upload_to='program_images/', null=True, blank=True)
 
     objects = ProgramManager()
 
@@ -64,9 +63,16 @@ class Program(models.Model):
 
     def get_absolute_url(self):
         return reverse("program_detail", kwargs={"pk": self.pk})
+    
+    @property
+    def is_free(self):
+        # The program is free if no price is entered or if the price is less than or equal to zero.
+        return self.price is None or self.price <= 0
+
     class Meta:
         verbose_name = 'Semestre'
         verbose_name_plural = 'Semestre'
+
 
 @receiver(post_save, sender=Program)
 def log_save(sender, instance, created, **kwargs):

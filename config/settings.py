@@ -103,6 +103,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    
 ]
 
 SESSION_COOKIE_AGE = 3600  # Session lasts 1 hour
